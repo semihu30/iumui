@@ -76,7 +76,7 @@
         order by bno desc) x, 
         (select b.bno bno, count(r.bno) good_count from iboard b, recommend r 
         where b.bno=r.bno(+) group by b.bno) y,
-        (select b.bno bno, count(q.bno) req_count from iboard b, request q 
+        (select b.bno bno, count(q.bno) req_count from iboard b, (select * from request where state=1) q 
         where b.bno=q.bno(+) group by b.bno) z
     where x.bno=y.bno and x.bno=z.bno and x.bno=#{value}
   </select>
@@ -131,7 +131,7 @@
   
   <insert id="request" parameterType="map">
     insert into request
-    values (#{boardNo},#{memberNo},1,sysdate)
+    values (#{boardNo},#{memberNo},0,sysdate)
   </insert>
   
 <!-- 

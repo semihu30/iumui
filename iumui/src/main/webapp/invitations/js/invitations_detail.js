@@ -35,36 +35,6 @@ $(function(){
 	
 });
 
-/*
-function loadBoardList(categoryNo) {
-  
-	$.getJSON('../json/board/list.do?no=' + categoryNo, 
-    function(data){
- 
-     
-      //console.log(data.category);
-     
-      //console.log(data.board);
-      
-      for (var i in data.board) {
-      	data.board[i].startDate = yyyyMMdd(data.board[i].startDate);
-      	data.board[i].endDate = yyyyMMdd(data.board[i].endDate);
-      }
-      
-     
-      require(['text!templates/category-button.html'], function(html){
-        var template = Handlebars.compile(html);
-        $('#category_tab').html( template(data) );
-      });
-      
-      require(['text!templates/board-table.html'], function(html){
-        var template = Handlebars.compile(html);
-        $('#board_list').html( template(data) );
-      });
-      
-    });
-}
-*/
 function loadBoard(boardNo) {
   $.getJSON('../json/board/view.do?no=' + boardNo, 
     function(data){
@@ -97,6 +67,7 @@ $('#btncomment').click(function(){
 	$('#commentInput').css('display', '');
 });
 
+
 $('#btncCancel').click(function(){
 	$('#ccontent').val('');
 	$('#commentInput').css('display', 'none');
@@ -122,6 +93,11 @@ $('#btnBmod').click(function(){
   if (!validateModBoard()) return;
   
   updateBoard();
+});
+
+$('#btnBoard').click(function(){
+	console.log(board.no);
+	location.href = "invitations.html?no=" + board.categoryNo;
 });
 
 function updateBoard() {
