@@ -1,0 +1,17 @@
+@CHARSET "UTF-8";
+
+#grp_intro { resize: none; }
+#uploadbtn { margin: 30px auto 0 auto; width: 210px; }
+.upload-btn { margin: 0 10px; }
+.btn-cancel { color: #fff; background-color: #d9534f; border-color: #d43f3a; }
+.create_group { margin: auto;	padding: 0px 50px; width: 1000px;}
+.create_group table { border-radius:15px; margin: 2px auto; }
+.create_group .td_title { background-color: #ddd; padding: 10px 35px 10px 15px; font-size: large; }
+.create_group table td{ padding: 10px 33px; }
+.td_cont { width:400px; }
+#addr_select { padding: 6px; border: 1px solid #ccc; border-radius: 4px; }
+
+
+.btn-submit { color: #fff; background-color: #5cb85c; border-color: #4cae4c; }
+.btn-submit:hover, .btn-submit:focus, .btn-submit.focus, .btn-submit:active, .btn-submit.active, .open > .dropdown-toggle.btn-submit { color: #fff; background-color: #449d44; border-color: #398439; }
+.btn-submit:active, .btn-submit.active, .open > .dropdown-toggle.btn-success { background-image: none; }

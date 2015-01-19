@@ -1,0 +1,24 @@
+@CHARSET "UTF-8";
+
+#emailCheck { height:10px; font-size: xx-small; padding:0px; margin:0px;}
+
+#inputPhoneNo { width : 181px; display:inline; }
+
+#signInForm { margin: auto; width: 400px; border-radius: 10px; background-color: white; padding: 25px; }
+
+#signInForm table { margin: auto; }
+
+#signInForm td { padding: 3px 11px; vertical-align: middle; }
+
+#signInForm h1 { margin: 0 0 10px 0; }
+
+#signUploadBtn { margin-left: 226px; }
+
+#signFormBody { height: 390px; }
+
+.signform { width: 220px; }
+
+.signLabel { font-weight: bold; }
+
+.ableEmail { border:2px solid green; }
+.disableEmail { border:2px solid red; }

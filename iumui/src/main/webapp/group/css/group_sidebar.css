@@ -1,0 +1,13 @@
+@CHARSET "UTF-8";
+
+ol, ul, li { list-style: none; }
+  
+li a { display: list-item; }
+    
+.group_sidebar { border-radius : 5px; background-color: lavender; margin : 12px 0; width:298px; height:600px; float:left; }
+  
+.menu_wrap .menu_list li a { padding: 0 24px 0 31px; color: inherit; font-size: 20px; text-decoration:none; margin: 15px 0; }
+  
+.grp_expire { margin-bottom: 40px; color: red; padding: 0 24px 0 31px; }
+  
+.grp_name { margin: 60px 0; text-align: center; }

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="java63.iumui.dao.MemberDao">
+
+  <resultMap type="Member" id="memberMap">
+    <id column="email" property="email"/>
+    <result column="mno" property="memberNo"/>
+    <result column="pwd" property="password"/>
+    <result column="uname" property="userName"/>
+    <result column="birth" property="birthDate"/>
+    <result column="nick" property="nickName"/>
+    <result column="phone" property="phone"/>
+    <result column="sex" property="sex"/>
+    <result column="myphoto" property="myPhoto"/>
+    <result column="intro" property="introWord"/>
+    <result column="lcode" property="selectLocal"/>
+  </resultMap>
+  
+  <sql id="memberSelect">
+  	SELECT mno,email,pwd,uname,birth,nick,phone,sex,myphoto,intro,lcode
+  	FROM members
+  </sql>
+  
+  <select id="existUser" parameterType="map" resultMap="memberMap">
+    <include refid="memberSelect"/>
+    WHERE email=#{email} AND pwd=#{password}
+  </select>
+  
+  <select id="checkAv" parameterType="map" resultType="String">
+   SELECT email FROM MEMBERS
+   WHERE email=#{email}
+  </select>
+  
+  <select id="totalSize" resultType="int">
+  	SELECT count(MNO) FROM MEMBERS
+  </select>
+  
+  <insert id="insert" parameterType="Member">
+    INSERT INTO MEMBERS(mno,email,pwd,uname,sex,birth,phone,lcode) 
+    VALUES (mno.nextval,#{email}, #{password}, #{userName}, #{sex}, #{birthDate}, #{phone}, #{selectLocal})
+  </insert>
+  
+  <!--회원정보 수정  -->
+  <select id="userInfo" parameterType="int" resultMap="memberMap">
+   SELECT T1.mno,T1.email,T1.pwd,T1.uname,T1.birth,T1.nick,T1.phone,T1.sex,T1.myphoto,T1.intro,T2.lcode,T2.lname
+   FROM MEMBERS T1, SLOCAL T2
+   WHERE mno = #{memberNo} AND T1.lcode=T2.lcode;  
+  </select> 
+  
+  
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

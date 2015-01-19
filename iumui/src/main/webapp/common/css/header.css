@@ -1,0 +1,25 @@
+@CHARSET "UTF-8";
+
+#logo_div a { font-size: 35px; color : white; }
+#logo_div { float: left; margin : 0.413em 2.75em; text-decoration: none; }
+#header { border-radius: 0 0 8px 8px; height: 8.787ex; background-color: #44619D }
+#login { float:right; width: 398px; }
+#loginSubmit { width: 60px; height: 24px; font-size: small; }
+#logoutSubmit { margin-top : 0.75em; float: left; height: 1.8em; font-size: 0.3em; }
+#my_loginBox { float: right; width: 18.75em; }
+.input_login { width: 320px; float: left; font-size: small; padding-right:  8px; }
+.input_login #inputId, #inputPwd { width: 152px; height: 24px; font-size: x-small; }
+.loginDown { text-align:center; text-decoration:none; font-size: 0.1em; width: 26.4em; color: #F7F7F9; }
+.header-control { display:inline; padding: 0.6em 1.2em; line-height: 1.42857143; color: #555; background-color: #fff; background-image: none; border: 1px solid #ccc; border-radius: 4px; }
+.btn-login { padding: 0px 5px; color: #F7F7F9; background-color: #354AD2; }
+.loginContent { margin-top: 0.625em; height: 30px; }
+.userContent { margin-top: 0.5em; }
+.myphoto { border: 1px solid red; float: left; font-size: small; width: 8ex; height: 8ex; } 
+.myloginDisplay { float: left; font-size: small; padding-right:  8px; }
+.myName { padding: 0.6154em; float: left; font-size: small; width: 6.308em; height: 2.231em; } 
+.myinfo { padding: 6.7px 0; float: left; width: 4.3em; text-decoration:none; font-size: 0.4em; color: darkblue; }
+.myMenu { padding-top: 0.4em; padding-left: 0.8em; float: left; text-decoration:none; font-size: 0.1em; color: #f3f4f5; }
+.informCount { color: red; }
+.alertWindow { position: fixed; left: 960px; top: 80px; padding-right: 22px; }
+.msgBox { padding-top: 20px; width: 200px; height: 220px; border: 1px gray solid; background-color: #eee8aa; font-size: 90%; } 
+.pbutton { text-align:right; }

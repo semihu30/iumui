@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="java63.iumui.dao.BoardDao">
+
+  <resultMap type="map" id="boardAllListMap">
+    <id column="bno" property="no"/>
+    <result column="bmno" property="category"/>
+    <result column="bintro" property="content"/>
+  </resultMap>
+
+  <select id="selectAllList"
+        resultMap="boardAllListMap">
+    SELECT 
+      bno, 
+      bmno, 
+      bintro 
+    FROM iboard
+    ORDER BY bno
+  </select>
+
+  <resultMap type="Board" id="boardListMap">
+    <id column="bno" property="no"/>
+    <result column="bname" property="title"/>
+    <result column="btarget_num" property="targetNumber"/>
+    <result column="start_date" property="startDate"/>
+    <result column="end_date" property="endDate"/>
+    <result column="uname" property="writer"/>
+    <result column="good_count" property="goodCount"/>
+  </resultMap>
+  
+  <select id="selectList" parameterType="map" 
+      resultMap="boardListMap">
+    select bno, bname, btarget_num, start_date, end_date,uname, good_count
+      from (
+			  select rownum rnum, x.bno bno, x.bname bname, x.btarget_num btarget_num, x.start_date start_date, 
+			          x.end_date end_date, x.uname uname, y.good_count good_count
+			      from (select b.bno bno, b.bname bname, b.btarget_num btarget_num, 
+			                 b.start_date start_date, b.end_date end_date, m.uname uname
+			          from iboard b, members m
+			          where b.mno=m.mno and b.bmno=#{categoryNo}
+			          order by bno desc) x, 
+			          (select b.bno bno, count(r.bno) good_count from iboard b, recommend r 
+			          where b.bno=r.bno(+) group by b.bno) y
+			      where x.bno=y.bno and (#{pageNo}*#{pageSize}) >= rownum
+        )
+    where rnum >= (#{pageNo}-1)*#{pageSize}+1
+  </select>
+  
+  <resultMap type="Board" id="boardMap">
+    <id column="bno" property="no"/>
+    <result column="bmno" property="categoryNo"/>
+    <result column="bname" property="title"/>
+    <result column="bintro" property="content"/>
+    <result column="btarget_num" property="targetNumber"/>
+    <result column="start_date" property="startDate"/>
+    <result column="end_date" property="endDate"/>
+    <result column="reg_date" property="regDate"/>
+    <result column="click_count" property="clickCount"/>
+    <result column="lcode" property="goodCount"/>
+    <result column="uname" property="writer"/>
+    <result column="good_count" property="goodCount"/>
+    <result column="req_count" property="reqCount"/>
+  </resultMap>
+  
+  <select id="selectOne" parameterType="int" 
+      resultMap="boardMap">
+    select x.bno bno, x.bmno bmno, x.bname bname, x.bintro bintro, x.btarget_num btarget_num, x.start_date start_date, 
+        x.end_date end_date, x.reg_date reg_date, x.click_count click_count, x.lcode lcode, x.uname uname, y.good_count good_count, z.req_count req_count
+    from (select b.bno bno, b.bmno bmno, b.bname bname, b.bintro bintro, b.btarget_num btarget_num, 
+               b.start_date start_date, b.end_date end_date, b.reg_date reg_date, b.click_count click_count, b.lcode lcode, m.uname uname
+        from iboard b, members m
+        where b.mno=m.mno
+        order by bno desc) x, 
+        (select b.bno bno, count(r.bno) good_count from iboard b, recommend r 
+        where b.bno=r.bno(+) group by b.bno) y,
+        (select b.bno bno, count(q.bno) req_count from iboard b, request q 
+        where b.bno=q.bno(+) group by b.bno) z
+    where x.bno=y.bno and x.bno=z.bno and x.bno=#{value}
+  </select>
+ 
+  <insert id="insert" parameterType="Board">
+    INSERT INTO iboard 
+    VALUES (bno.nextval, #{categoryNo},#{writerNo},#{title},#{content},
+            #{targetNumber},#{startDate},#{endDate},sysdate,
+            0,#{selectLocal})
+  </insert>
+  
+  <resultMap type="BoardComment" id="boardCommentMap">
+    <id column="bcno" property="no"/>
+    <result column="bno" property="boardNo"/>
+    <result column="uname" property="userName"/>
+    <result column="content" property="comment"/>
+    <result column="reg_date" property="commentRegDate"/>
+  </resultMap>
+
+  <select id="selectComments" parameterType="int" 
+      resultMap="boardCommentMap">
+	  select c.bcno bcno, b.bno bno, m.uname uname, c.content content, c.redate reg_date from iboard b, bcomment c, members m
+	  where c.bno=b.bno and c.mno=m.mno and c.bno=#{value}
+	  order by bcno desc
+  </select>
+  
+  <insert id="insertComment" parameterType="BoardComment">
+    INSERT INTO bcomment 
+    VALUES (bcno.nextval, #{boardNo},#{memberNo},#{comment},sysdate)
+  </insert>
+  
+  <update id="update" parameterType="Board">
+    update iboard set bintro=#{content} where bno=#{no}
+  </update>
+  
+  <delete id="delete" parameterType="int">
+    delete from iboard where bno=#{no}
+  </delete>
+  
+  <delete id="deleteComments" parameterType="int">
+    delete from bcomment where bno=#{no}
+  </delete>
+  
+  <select id="totalSize" parameterType="int" resultType="int">
+    select count(bno) from iboard where bmno=#{value}
+  </select>
+   <!-- update board set readcount = nvl(readcount,0) + 1 where seq = ? -->
+  <insert id="recommend" parameterType="map">
+    insert into recommend
+    values (#{boardNo},#{memberNo},sysdate)
+  </insert>
+  
+  <insert id="request" parameterType="map">
+    insert into request
+    values (#{boardNo},#{memberNo},1,sysdate)
+  </insert>
+  
+<!-- 
+  
+  <resultMap type="Board" id="boardMap">
+    
+    <id column="PNO" property="no"/>
+    <result column="PNAME" property="name"/>
+    <result column="QTY" property="quantity"/>
+    <result column="MKNO" property="makerNo"/>
+    <result column="MADE_DATE" property="madeDate"/>
+  </resultMap>
+  
+  <resultMap type="BoardListItem" id="boardListItemMap">
+  
+    <id column="PNO" property="no"/>
+    <result column="PNAME" property="name"/>
+    <result column="QTY" property="quantity"/>
+    <result column="MKNO" property="makerNo"/>
+    <result column="MKNAME" property="maker"/>
+  </resultMap>
+  
+  <resultMap type="map" id="boardListItem2Map">
+    <id column="PNO" property="no"/>
+    <result column="PNAME" property="name"/>
+    <result column="QTY" property="quantity"/>
+    <result column="MKNO" property="makerNo"/>
+    <result column="MKNAME" property="maker"/>
+  </resultMap>
+  
+  <resultMap type="BoardPhoto" id="boardPhotoMap">
+    <id column="PPNO" property="no"/>
+    <result column="PNO" property="boardNo"/>
+    <result column="URL" property="url"/>
+  </resultMap>
+  
+  <sql id="boardSelect">
+    SELECT PNO, PNAME, QTY, MKNO, MADE_DATE 
+    FROM PRODUCTS
+  </sql>
+  
+  <select id="selectAllList" parameterType="map" 
+        resultMap="boardListItem2Map">
+    SELECT 
+      T1.PNO, 
+      T1.PNAME, 
+      T1.QTY, 
+      T2.MKNO,
+      T2.MKNAME
+    FROM PRODUCTS T1 LEFT OUTER JOIN MAKERS T2 
+    USING(MKNO)
+    ORDER BY T1.PNO
+    <if test="pageSize > 0">
+      limit #{startIndex}, #{pageSize}
+    </if>
+  </select>
+  
+  <select id="selectOne" parameterType="int" resultMap="boardMap">
+    <include refid="boardSelect"/> 
+    WHERE PNO=#{value}
+  </select>
+  
+  <select id="totalSize" resultType="int">
+    SELECT count(PNO) FROM PRODUCTS
+  </select>
+  
+  <insert id="insert" parameterType="Board"
+    useGeneratedKeys="true" keyColumn="PNO" keyProperty="no">
+    INSERT INTO PRODUCTS(PNAME,QTY,MKNO,MADE_DATE) 
+    VALUES (#{name},#{quantity},#{makerNo},#{madeDate})
+  </insert>
+  
+  <update id="update" parameterType="Board">
+    UPDATE PRODUCTS SET 
+      PNAME=#{name},
+      QTY=#{quantity},
+      MKNO=#{makerNo},
+      MADE_DATE=#{madeDate} 
+    WHERE PNO=#{no}
+  </update>
+  
+  <delete id="delete" parameterType="int">
+    DELETE FROM PRODUCTS WHERE PNO=#{value}
+  </delete>
+  
+  <insert id="insertPhoto" parameterType="Board">
+    INSERT INTO PROD_PHOTS(PNO,URL) 
+    VALUES (#{no}, #{photo})
+  </insert>
+  
+  <select id="selectPhoto" parameterType="int" 
+      resultMap="boardPhotoMap">
+    SELECT PPNO, PNO, URL
+    FROM PROD_PHOTS
+    <if test="value > 0">
+    WHERE PNO = #{value}
+    </if>
+  </select>
+  
+  <delete id="deletePhoto" parameterType="int">
+    DELETE FROM PROD_PHOTS
+    WHERE PNO=#{value}
+  </delete>
+   -->
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

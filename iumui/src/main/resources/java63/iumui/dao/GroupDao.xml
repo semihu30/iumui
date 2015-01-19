@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="java63.iumui.dao.GroupDao">
+
+  <resultMap type="Group" id="groupMap">
+    <id column="gno" property="gno"/>
+    <result column="gname" property="name"/>
+    <result column="gintro" property="intro"/>
+    <result column="gend_date" property="expireDay"/>
+  </resultMap>
+  
+  <resultMap type="map" id="userGroups">
+    <id column="mno" property="mno"/>
+    <result column="gname" property="gname"/>
+    <result column="gintro" property="intro"/>
+    <result column="gend_date" property="expireDay"/>
+    <result column="gno" property="gno"/>
+    <result column="manager_status" property="userState"/>
+    <result column="color" property="formColor"/>
+  </resultMap>
+  
+  <resultMap type="map" id="allGroups">
+    <id column="mno" property="mno"/>
+    <result column="gname" property="gname"/>
+    <result column="gintro" property="intro"/>
+    <result column="gend_date" property="expireDay"/>
+    <result column="gno" property="gno"/>
+    <result column="manager_status" property="userState"/>
+    <result column="color" property="formColor"/>
+  </resultMap>
+  
+  <resultMap type="map" id="userSchedules">
+    <id column="cdate" property="dday"/>
+    <result column="cschedule" property="schedule"/>
+  </resultMap>
+  
+  
+  <select id="totalSize" parameterType="int" resultType="int">
+  	SELECT count(T2.GNO)
+			FROM MEMBERS T1, GMEMBERS T2, GGROUP T3
+			WHERE #{mno}=T1.MNO AND T1.MNO=T2.MNO AND T2.GNO= T3.GNO
+  </select>
+  
+  <select id="selectGroup" parameterType="int" resultMap="groupMap">
+    SELECT gno,gname,gintro,gend_date
+    FROM GGROUP
+    WHERE gno=#{no}
+  </select>
+  
+  <select id="selectAllGroups" parameterType="int" resultMap="allGroups">
+  	SELECT T3.GNAME gname, 
+  				 T3.GINTRO gintro, 
+  				 T3.GEND_DATE gend_date, 
+  				 T2.GNO gno, 
+  				 T2.MANAGER_STATUS manager_status, 
+  				 T2.COLOR color
+  	FROM MEMBERS T1, GMEMBERS T2, GGROUP T3 
+  	WHERE #{mno}=T1.MNO AND T2.MNO=T1.MNO AND T2.GNO=T3.GNO 
+  </select>
+  
+  <select id="selectUserGroups" parameterType="map" resultMap="userGroups">
+  	SELECT * 
+  		FROM (
+  			SELECT ROWNUM RNUM, T3.GNAME gname, T3.GINTRO gintro, T3.GEND_DATE gend_date, T2.GNO gno, T2.MANAGER_STATUS manager_status, T2.COLOR color
+  				FROM MEMBERS T1, GMEMBERS T2, GGROUP T3 WHERE #{mno}=T1.MNO AND T2.MNO=T1.MNO AND T2.GNO=T3.GNO 
+   				 )
+ 		  WHERE RNUM BETWEEN #{startIndex} AND #{startIndex}+5
+ 		  ORDER BY RNUM ASC
+  </select>
+  
+  <select id="selectUserSchedules" parameterType="map" resultMap="userSchedules">
+		 SELECT ROWNUM rnum, cdate, cschedule
+  			FROM   
+    			(SELECT *
+  						FROM 
+  							(SELECT T2.CDATE cdate, T2.CSCHEDULE cschedule
+					  				FROM GMEMBERS T1, GSCHEDULE T2 
+					  				WHERE T1.MNO=#{mno} AND T1.GNO=T2.GNO)
+			 		  	ORDER BY cdate ASC)
+  			 WHERE ROWNUM ^= #{dataSize}+1
+  </select>
+  
+</mapper>
+

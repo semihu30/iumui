@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>아이디 찾기</title>
+<style>
+#id_header{
+margin:0 auto;
+padding: 40px 40px 20px;
+border: 1px solid #e5e5e5;
+width: 500px;
+height: 500px;
+
+}
+
+#name_1{
+    width: 100px;
+    border-left-width: 3px;
+    margin-left: 28px;
+}
+
+hr { border-top:1px solid #9C9C9C; border-bottom:1px solid #F6F6F6; }
+
+
+
+#id_header1{
+margin-top: 20px;
+margin-bottom: 10px;
+border: 1px solid blue;
+width: 500px;
+height: 100px;
+left: 10px;
+
+}
+
+#id_header2{
+border: 1px solid red;
+width: 500px;
+height:350px;
+
+}
+
+#1{
+font-size: 10px;
+}
+
+#req_id {
+  font-size: 32px;
+}
+
+
+
+</style>
+
+<script language="javascript" type="text/javascript" >
+
+    // 1. 숫자만 입력받게 하는 방법
+    function onlyNumber() {
+        if ((event.keyCode < 48) || (event.keyCode > 57))
+            event.returnValue = false;
+    }
+
+    function CheckForm() {
+        if (document.getElementById("txtMobile1").value == "") {
+            window.alert("휴대폰 번호를 선택하세요.");
+            return false;
+        }
+        if (document.getElementById("txtMobile2").value.length != 4) {
+            window.alert("가운데 번호는 4자리로 입력하세요");
+        }
+    }
+
+</script>
+
+</head>
+<body>
+<!--아이디찾기 header  -->
+<div id="id_header">
+<div id="id_header1">
+<table>
+<tr><th>
+<div id='id_img'>
+	<img alt="아이디" src="123.jpg" style="width: 70px;height: 70px;">
+	<span id='req_id'>아이디요청</span>
+</div>
+</th>
+</tr>
+
+
+</table>
+
+
+</div>
+
+<div id="id_header2">
+ <table id="id_header3">
+  <tr>
+  <td></td>  
+  </tr>
+  <tr>
+  <tr>
+  <td></td>  
+  </tr>
+  <th align="left">회원정보에 등록한 휴대전화로 인증</th>
+  </tr>
+  <tr>
+  <td id="1">
+  <hr>
+  <p>회원정보에 등록한 휴대전화 번호와 입력한 휴대전화 번호가 같아야, <br>인증번호를 받을 수 있습니다.</p>
+  </td>  
+  </tr>
+  <tr>
+  <td>
+  <form style="width: 500px;
+                  height:220px;">
+  <hr>
+이 름:<input id="name_1" type="text" name="firstname" 
+>
+<br>
+휴대전화:<select id="txtMobile1">
+    <option value="">::선택::</option>
+    <option value="011">011</option>
+    <option value="016">016</option>
+    <option value="017">017</option>
+    <option value="019">019</option>
+    <option value="010">010</option>
+</select>
+<input type="text" id="txtMobile2" size="4" onkeypress="onlyNumber();" />
+<input type="text" id="txtMobile3" size="4" />
+
+<input type="button" value="인증번호 받기" onclick="CheckForm();" /><br>
+<input type="text" placeholder="인증번호 입력" id="txtMobile3" size="4" style="
+    width: 100px;
+    height: 20px;
+    margin-left: 67px;">
+<input id="next_" type="button" value="다음" style="
+    width: 76px;
+    height: 31px;
+    margin-left: 0px;">
+
+</form>
+  
+  </td>
+  
+  </tr>
+  <tr>
+  <td>
+  
+  </td>
+  </tr>
+ 
+ </table>
+
+
+</div>
+
+
+</div>                         
+                             
+</body>
+
+
+</html>

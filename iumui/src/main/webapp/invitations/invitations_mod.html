@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>모임 등록</title>
+<style>
+html { overflow-y:auto; } 
+#group_making_ {
+	border: 1px solid red;
+	width: 604px;
+	margin: auto;
+	font-family: 'Nanum Gothic Coding', monospace;
+}
+
+#group_making_bar {
+	margin: auto;
+	font-size: 50px;
+	text-align: left;
+}
+
+
+#group_edit_form{
+  width: 600px;
+  border: 1px solid blue;
+
+}
+#group_button{
+position: fixed;
+margin-left: 510px;
+ 
+}
+
+
+#group_make{
+
+
+}
+
+#group_cancel{
+}
+</style>
+</head>
+<body>
+	<div id="group_making_">
+		<p id="group_making_bar">내용수정</p>
+		<hr color="grey" size="1">
+
+		<!--세부항목  -->
+		<table id="group_edit_form" cellspacing=0 cellpadding=5>
+			<form name=writeform method=post action="">
+			<tr>
+				<td><b>모임 제목</b></td>
+				<td><input type=text name=subject size=50 maxlength=50></td>
+			</tr>
+			<tr>
+				<td><b>모임 내용</b></td>
+				<td><textarea name=memo cols=50 rows=10></textarea></td>
+			</tr>
+			</form>
+			
+		</table>
+		
+			<hr color="grey" size="1">
+		<div id="group_button">
+			<input type=button id="group_make"   value="등록" OnClick="javascript:writeCheck();">
+			<input type=button id="group_cancel"   value="취소" OnClick="javascript:writeCheck();">
+
+</div>
+
+
+
+
+
+	</div>
+
+
+</body>
+<script src="js/jquery-1.11.1.js"></script>
+
+</html>

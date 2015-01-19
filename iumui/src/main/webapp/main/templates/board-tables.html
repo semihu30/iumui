@@ -1,0 +1,31 @@
+ 
+{{#each mainDisplay}}
+<table id='table{{categoryNumber}}' class='main_tables table table-bordered'>
+	<thead>
+  <tr><th class='tableHead'><a href='../invitations/invitations.html?no={{categoryNumber}}' 
+    category-no='{{categoryNumber}}'> {{categoryName}} </a></th></tr>
+	</thead>
+  <tr><td id='t{{categoryNumber}}t1' class='board_title'>
+    <a href='../invitations/invitations_detail.html?no={{boardNo1}}' data-no='{{boardNo1}}'> {{content1}} </a> 
+  </td></tr>
+  <tr><td id='t{{categoryNumber}}t2' class='board_title'>
+    <a href='../invitations/invitations_detail.html?no={{boardNo2}}' data-no='{{boardNo2}}'> {{content2}} </a> 
+  </td></tr>
+  <tr><td id='t{{categoryNumber}}t3' class='board_title'>
+    <a href='../invitations/invitations_detail.html?no={{boardNo3}}' data-no='{{boardNo3}}'> {{content3}} </a> 
+  </td></tr>
+  <tr><td id='t{{categoryNumber}}t4' class='board_title'>
+    <a href='../invitations/invitations_detail.html?no={{boardNo4}}' data-no='{{boardNo4}}'> {{content4}} </a> 
+  </td></tr>
+  <tr><td id='t{{categoryNumber}}t5' class='board_title'>
+    <a href='../invitations/invitations_detail.html?no={{boardNo5}}' data-no='{{boardNo5}}'> {{content5}} </a> 
+  </td></tr>
+  <tr><td id='t{{categoryNumber}}t6' class='board_title'>
+    <a href='../invitations/invitations_detail.html?no={{boardNo6}}' data-no='{{boardNo6}}'> {{content6}} </a> 
+  </td></tr>
+  <tr><td id='t{{categoryNumber}}t7' class='board_title'>
+    <a href='../invitations/invitations_detail.html?no={{boardNo7}}' data-no='{{boardNo7}}'> {{content7}} </a> 
+  </td></tr>
+
+</table>
+{{/each}}

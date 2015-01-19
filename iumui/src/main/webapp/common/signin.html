@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>IUMUI_회원가입</title>
+<link rel='stylesheet' href='../css/bootstrap.css'>
+<link rel='stylesheet' href='../css/bootstrap-theme.min.css'>
+<link rel='stylesheet' href='../common/css/common.css'>
+</head>
+<style>
+
+label {
+	position:absolute;
+	width: 80px;
+	text-align: center;
+	border: 1px solid #999;
+	background-color: white;
+	padding: 4px 25px;
+	display: inline;
+	cursor: pointer;
+}
+
+.label_on {
+	color : #2E6DA4;
+	border-color: #2E6DA4;
+}
+
+
+#conTitle {
+	margin-left: 300px;
+}
+
+#manLb {
+	margin-left: 278px;
+}
+
+#womanLb {
+	margin-left: 360px;
+}
+
+#sign_form .radiobtn {
+ display: none;
+ margin:0px;
+ height:0px;
+ width: 0px;
+ font-size: small;
+}
+
+#clear {
+	margin: 2px 0;
+	height: 15px;
+}
+
+#sign_form input {
+	margin-left: 5px;
+	border: 0px;
+	font-size: x-large;
+	height : 50px;
+	width: 420px;
+}
+
+#sexDiv {
+	padding: 10px 5px;
+	color: #A9A9A9;
+}
+.row_group {
+	margin: 0px auto;
+	width: 500px;
+	border : 1px solid gray;
+	border-radius: 3px;
+}
+
+.row_group a {
+	margin-top: 10px;
+	position: absolute;
+	text-decoration: none;
+	padding: 5px 15px;
+	border: 1px solid #999;
+}
+
+.row_title {
+	font-size: x-large;
+}
+
+.sign_row {
+	width : 500px;
+	height: 51px;
+	margin : 0 auto;
+}
+
+.sign_form {
+	margin : 15px auto;
+}
+
+.sign_form hr {
+	margin:0;
+}
+
+.error {
+	display: block;
+}
+
+#signInBtn {
+	width: 498px;
+	height: 50px;
+	font-size: x-large;
+	background-color: #999;
+}
+
+</style>
+<body>
+	<div id='content_container'>
+		<div class='header'></div>
+		
+			<!-- contents start -->
+				<div id='conTitle'>
+					<h2>회원가입</h2>
+				</div>
+				<hr>
+				<div class='sign_form'>
+					<form id='sign_form' action="">
+					
+						<div class='row_group'>
+							<div id='emailDiv' class="sign_row">
+								<span class="insert_box">
+									<input type="text" id="email" placeholder="이메일 (아이디로 사용합니다.)">
+								</span>
+								<div id='emailMsg' class='error'></div>
+							</div>
+							<hr>
+							<div id='passwdDiv' class="sign_row">
+								<span class="insert_box">
+									<input type="password" id="passwd" placeholder="비밀번호">
+								</span>
+								<div id='passwdMsg' class='error'></div>
+							</div>
+							<hr>
+							<div id='passwdChkDiv' class="sign_row">
+								<span class="insert_box">
+									<input type="password" id="passwdChk" placeholder="비밀번호 재확인">
+								</span>
+								<div id='passwdChkMsg' class='error'></div>
+							</div>
+						</div>
+						<div id="clear"></div>
+						<div class='row_group'>
+							<div id='nameDiv' class="sign_row">
+								<span class="insert_box">
+									<input type="text" id="name" placeholder="이름">
+								</span>
+								<div id='idMsg' class='error'></div>
+							</div>
+							<hr>
+							<div id='sexDiv' class="sign_row">
+								<span class="insert_box">
+									<span class="row_title">성별</span>
+							 		<span class="sex">
+							 		 <span class='jender'>
+							 		 	<input class="radiobtn" type="radio" id="man" name="sex" value="남자">
+							 		 	<label id="manLb" for="man" > 남자 </label>
+							 		 </span>
+							 		 <span class='jender'>
+							 		 	<input class="radiobtn" type="radio" id="woman" name="sex" value="여자">
+							 		 	<label id="womanLb" for="woman" > 여자 </label>
+							 		 </span>
+									</span>
+								</span>
+							</div>
+							<hr>
+							<div id='birthDiv' class="sign_row">
+								<span class="insert_box">
+									<input type="date" id="birth">
+								</span>
+								<div id='passwdChkMsg' class='error'></div>
+							</div>
+						</div>
+						<div id="clear"></div>
+						<div class='row_group certPhone'>
+							<div id='phoneNoDiv' class="sign_row">
+								<span class="insert_box">
+									<input type="text" id="phoneNo" placeholder="휴대전화번호">
+									<a href='#' id='confirmPhoneNo'>인 증</a>
+								</span>
+								<div id='phoneNoMsg' class='error'></div>
+							</div>
+							<hr>
+							<div id='confirmNoDiv' class="sign_row">
+								<span class="insert_box">
+									<input type="text" id="confirmNo" placeholder="인증번호">
+									<a href='#' id='confirm'>확 인</a>
+								</span>
+								<div id='confirmNoMsg' class='error'></div>
+							</div>
+						</div>
+						<div id="clear"></div>
+						<div class='row_group'>
+							<button id="signInBtn" type="button" >가입하기</button>
+						</div>
+					</form>
+				</div>
+			<!-- contents  end  -->
+			
+		<div class='footer'></div>
+	</div>
+</body>
+<script src='/iumui/js/jquery-1.11.1.js'></script>
+<script src='/iumui/js/bootstrap.js'></script>
+<script src='/iumui/common/js/signin.js'></script>
+<script src='/iumui/common/js/checkfield.js'></script>
+<script>
+ $('.jender label').click(function(event){
+	 $('.jender label').attr('class','');
+	 $(this).attr('class','label_on');
+ });
+
+</script>
+</html>

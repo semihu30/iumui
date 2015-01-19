@@ -1,0 +1,77 @@
+@CHARSET "UTF-8";
+
+body {
+	background-color: #607c8c;
+}
+
+.container {
+	width: 500px;
+}
+
+.content {
+  background-color: white;	
+  padding: 10px;
+  margin: 5px 0px;
+  border-radius: 5px;
+}
+
+.form {
+  background-color: white;  
+  padding: 10px;
+  margin: 5px 0px;
+  border-radius: 5px;
+}
+
+.copyright {
+	text-align: center;
+	color: blue;
+}
+
+.header {
+	background-color: #f4ed7c;
+	height: 35px;
+	padding: 2px 10px 0px 10px;
+	border-bottom-right-radius: 5px;
+	border-bottom-left-radius: 5px;
+}
+
+.userinfo {
+	/* border: 1px red solid; */
+	float: left;
+}
+
+.userinfo img {
+	width: 30px;
+	height: 30px;
+}
+
+.logout {
+	/* border: 1px red solid; */
+	float: right;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

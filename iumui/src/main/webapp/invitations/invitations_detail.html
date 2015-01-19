@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>게시판 보기</title>
+<link rel='stylesheet' href='../common/css/common.css'>
+<link rel='stylesheet' href='css/invitations_detail.css'>
+<link rel='stylesheet' href='../common/css/search_bar.css'>
+<link rel='stylesheet' href='../css/bootstrap-theme.min.css'>
+<link rel='stylesheet' href='../css/bootstrap.css'>
+<style>
+<!-- 스타일 -->
+</style>
+</head>
+<body>
+<div id='content_container'>
+
+<!-- header start -->
+	<div class='header'></div>
+<!-- header end -->
+
+<!-- bulletin start -->
+	<div id="board_main" class='row'>
+		
+			<!-- 
+			<div id="categories">
+			 <table id="category_tab" class='table-hover'></table>
+     </div>
+      -->
+			<div id="board_set">
+			
+	
+		   <div id="board_summary">
+		   
+	       <div class='writer_photo'><div class='photo'></div></div>
+	       
+	       <div class='board_info'>
+	         <div class='top_style'>
+		         <div id='title' class='title'></div>
+		         <div id='regDate' class='regDate'></div>
+	         </div>
+	         <div class='btnBModDel'>
+             <button type="button" id="btnBoardMod" class="btn btn-primary btn-sm">
+               수정
+             </button>
+             <button type="button" id="btnBoardDel" class="btn btn-primary btn-sm">
+                삭제
+              </button>
+           </div>
+	         
+	         <div class='binfo'><div id='writer'></div><div id='targetNumber'></div></div>
+	         <div class='binfo'><div id='startDate'></div><div id='endDate'></div></div>
+	         
+	         
+	        
+	       </div>
+		   </div>
+		   <div class="board_content">
+		   <div id='board_content'></div>
+		   
+		    <div id='modify_content' style='text-align:center;display:none;'>
+          <textarea id='bcontent' class="form-control form-group-sm"></textarea>
+	        <div style='padding:10px;'>
+	            <button type="button" id="btnBmod" class="btn btn-primary btn-sm">수정</button>
+	            <button type="button" id="btnbCancel" class="btn btn-primary btn-sm">취소</button>
+	        </div>
+        </div>
+        
+		   </div>
+		   
+		   <div id='board_button' class='board_content'>
+		   
+         <button type="button" id="btncomment" class="btn btn-primary btn-sm">
+           &nbsp;&nbsp;&nbsp;댓글&nbsp;&nbsp;&nbsp;
+         </button><span>&nbsp;&nbsp;&nbsp;</span>
+		      <button type="button" id="btnRecommend" class="btn btn-primary btn-sm">
+           
+         </button><span>&nbsp;&nbsp;&nbsp;</span>
+         <button type="button" id="btnRequest" class="btn btn-primary btn-sm">
+           
+         </button>
+		   
+		   </div>
+		   
+		   <div id='commentInput' class='board_comment' style='display:none;'>
+        
+         <div style='text-align:center; padding:10px;'>
+           <div id='c' ><textarea id='ccontent' class="form-control form-group-sm"></textarea></div>
+           <div>
+            <button type="button" id="btnCReg" class="btn btn-primary btn-sm">등록</button>
+            <button type="button" id="btncCancel" class="btn btn-primary btn-sm">취소</button>
+           </div>
+          </div>
+        </div>
+		   
+		  <div id='commentSet'></div>
+		  
+			<!-- 
+			 <div id='comment1' class='board_comment'>
+			   <div class='writer_photo'><div class='photo'></div></div>
+           
+        <div class='board_info'>
+          <div class='top_style'>
+            <div id='commenter1' class='commenter'>김광철</div>
+            <div id='regDate1' class='regDate'>등록일 : 2015-01-10</div>
+          </div>
+          <div id='comment1' class='comment_content'>가고 싶은데 너무 멀군요... 추천만 드리고 갑니다.
+          가고 싶은데 너무 멀군요... 추천만 드리고 갑니다.
+          가고 싶은데 너무 멀군요... 추천만 드리고 갑니다.
+          가고 싶은데 너무 멀군요... 추천만 드리고 갑니다.
+          가고 싶은데 너무 멀군요... 추천만 드리고 갑니다.
+          가고 싶은데 너무 멀군요... 추천만 드리고 갑니다.
+          가고 싶은데 너무 멀군요... 추천만 드리고 갑니다.
+          가고 싶은데 너무 멀군요... 추천만 드리고 갑니다.
+         </div>
+			 </div>
+    </div>
+
+			 <div id='comment2' class='board_comment'>
+         <div class='writer_photo'><div class='photo'></div></div>
+           
+        <div class='board_info'>
+          <div class='top_style'>
+            <div id='commenter2' class='commenter'>조현아</div>
+            <div id='regDate2' class='regDate'>등록일 : 2015-01-12</div>
+          </div>
+          <div id='comment2' class='comment_content'>땅콩은 내가 책임진다.</div>
+       </div>
+			</div>
+		 -->
+		</div>
+			
+			
+				
+		<!-- 검색바 start -->
+		<!-- <div class="search_bar"></div> -->
+		<!-- 검색바 end -->
+		
+		</div>
+<!-- bulletin end -->
+	
+<!-- create_group start -->
+<div class='create_group'></div>
+<!-- create_group end -->
+	
+<!-- footer start -->	
+<div class='footer'></div>
+<!-- footer end -->
+</div>
+
+</body>
+<script src='../js/jquery-1.11.1.js'></script>
+<script src='../js/bootstrap.js'></script>
+<script type="text/javascript" src='/iumui/js/handlebars-v2.0.0.js'></script>
+<script type="text/javascript" src='/iumui/js/require.js'></script>
+<script src='/iumui/invitations/js/invitations_detail.js'></script>
+<script>
+</script>
+</html>

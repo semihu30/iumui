@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>모임 만들기</title>
+<link rel='stylesheet' href='../common/css/common.css'>
+<link rel='stylesheet' href='css/invitations_create_group.css'>
+<link rel='stylesheet' href='../css/bootstrap-theme.min.css'>
+<link rel='stylesheet' href='../css/bootstrap.css'>
+</head>
+<body>
+<div id='content_container'>
+
+<!-- header start -->
+	<div class='header'></div>
+<!-- header end -->
+
+<!-- create group start -->
+	<div class='create_group'>
+		<div style='text-align:center;'>
+		 <h1>모임 만들기</h1>
+		</div>
+		<hr>
+		<form id='makeGroup' action="POST">
+					<table>
+						<tr>
+							<td class='td_title'>모임이름</td>
+							<td class="td_cont">
+								<input id='title' type="text" class='textInput form-control form-group-sm' name="title" placeholder="5자 이상, 특수문자 제외">
+							</td>
+						</tr>
+						
+						<tr>
+              <td class='td_title'>모임소개</td>
+              <td>
+                <textarea id='content' rows="5" cols="30" class="form-control form-group-sm" name="content"></textarea>
+              </td>
+            </tr>
+            
+            <tr>
+              <td class='td_title'>참여인원</td>
+              <td>
+                <input id='targetNumber' type="text" name="targetNumber" class="form-control form-group-sm" placeholder="숫자만 입력하세요">
+              </td>
+            </tr>
+            <tr>
+              <td class='td_title'>모집일자</td>
+              <td><input id="startDate" type="date"
+                class="form-control form-group-sm" name="startDate"></td>
+            </tr>
+            <tr>
+              <td class='td_title'>종료일자</td>
+              <td><input id="endDate" type="date"
+                class="form-control form-group-sm" name="endDate"></td>
+            </tr>
+						<tr id='category_picker'>
+							<td class='td_title'>활동지역</td>
+							<td>
+								<select id='grp_state' name="state"><option value=''>상위 지역</option></select>&nbsp;&nbsp;
+							  <select id='selectLocal' name="dist"><option value=''>하위 지역</option></select>
+							</td>
+						</tr>
+					<tr>
+					</tr>
+				</table>
+					<div id='uploadbtn'>
+						<button id="btnAdd" type="button" class="upload-btn btn btn-submit">등&nbsp;&nbsp;&nbsp;&nbsp;록</button>
+						<button id="btnCancel" type="reset" class="upload-btn btn btn-cancel">취&nbsp;&nbsp;&nbsp;&nbsp;소</button>
+					</div>
+					</form>
+				</div>
+<!-- create group end -->	
+	
+<!-- footer start -->	
+<div class='footer'></div>
+<!-- footer end -->
+			</div>
+</body>
+<script src='../js/jquery-1.11.1.js'></script>
+<script src='../js/bootstrap.js'></script>
+<script type="text/javascript" src='/iumui/js/handlebars-v2.0.0.js'></script>
+<script type="text/javascript" src='/iumui/js/require.js'></script>
+<script src='js/invitations_create_group.js'></script>
+</html>

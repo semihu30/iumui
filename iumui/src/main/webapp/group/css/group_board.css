@@ -1,0 +1,23 @@
+@CHARSET "UTF-8";
+
+.grp_contents { margin:25px 45px; width:701px; float:left; }
+ 
+#show_reply { margin:15px 15px 0 0; float:right; font-size:5px; }
+ 
+#board_uploaded { margin:20px auto; }
+
+#board_uploaded, #board_upload { border:3px solid black; border-radius:5px; }
+
+#upload_content { margin-top:12px;	width:665px; }
+ 
+#upload_content { margin-left:12px; border:0px; resize:none; }
+ 
+#uploadbtn { margin-left:450px; }
+
+#user table { float:left; }
+ 
+#userstc, #uploaded_date { font-size:x-small; }
+
+#username {	padding-right:5px; font-size:medium; font-weight:bold; }
+ 
+#usercontent { width:655px; padding:5px; margin:70px 20px 15px 20px; font-size:small; }

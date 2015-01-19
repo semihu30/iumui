@@ -1,0 +1,24 @@
+<table class="boardTable">
+          <tbody>
+            <tr class="title-row">
+              <th class='boardTd leftTd board_center'>번호</th>
+              <th class='boardTd board_center board_title'>제목</th>
+              <th class='boardTd board_center'>인원</th>
+              <th class='boardTd board_center'>모집일</th>
+              <th class='boardTd board_center'>종료일</th>
+              <th class='boardTd board_center'>작성자</th>
+              <th class='boardTd rightTd board_center'>추천수</th>
+            </tr>
+{{#each board}}
+            <tr class='data-row'>
+              <td class='boardTd leftTd board_center'>{{no}}</td>
+              <td class='boardTd board_title'><a href='invitations_detail.html?no={{no}}' class='title' data-no='{{no}}'>{{title}}</a></td>
+              <td class='boardTd board_center'>{{targetNumber}}</td>
+              <td class='boardTd board_center'>{{startDate}}</td>
+              <td class='boardTd board_center'>{{endDate}}</td>
+              <td class='boardTd board_center'>{{writer}}</td>
+              <td class='boardTd rightTd board_center'>{{goodCount}}</td>
+            </tr>           
+{{/each}}
+          </tbody>
+        </table>

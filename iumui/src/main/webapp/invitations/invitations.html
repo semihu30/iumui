@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>게시판 보기</title>
+<link rel='stylesheet' href='../common/css/common.css'>
+<link rel='stylesheet' href='css/invitations.css'>
+<link rel='stylesheet' href='../common/css/search_bar.css'>
+<link rel='stylesheet' href='../css/bootstrap-theme.min.css'>
+<link rel='stylesheet' href='../css/bootstrap.css'>
+</head>
+<body>
+<div id='content_container'>
+
+<!-- header start -->
+	<div class='header'></div>
+<!-- header end -->
+
+<!-- bulletin start -->
+	<div id="board_main" class='row'>
+		
+			
+			<div id="categories">
+			<table id="category_tab" class='table-hover'></table>
+			<button id="button_create" type="button" class="btn btn-primary btn-sm">
+        모임만들기
+     </button>
+     </div>
+       
+     <!-- 게시판 내용 start -->
+			<div id="board_list"></div>
+			<!-- 게시판 내용 end -->
+<!-- 
+			<div id='pagingBar'>
+			 <ul class="pager">
+			   <li><a id='prevBtn' href="#" class="btn-sm">이전</a></li>
+			   <li id='pageNo'> &nbsp; 1 &nbsp; </li>
+			   <li><a id='nextBtn' href="#" class="btn-sm">다음</a></li>
+			  </ul>
+     </div>
+      -->
+      
+			<div id="pagingBar">
+				
+				    <div class="mw_basic_page">
+				      <!-- 
+					    <a id='firstBtn' href="#">처음</a> 
+					    &nbsp;<a id='prevBtn' href="#">이전</a> 
+					    
+					    &nbsp;<b id='pageNo'>1</b>
+					    &nbsp;<b id='pageNo'><span>1</span></b>
+					    &nbsp;<a id='p2' href="#"><span>2</span></a>
+					    
+					    &nbsp;<a id='nextBtn' href="#">다음</a>
+					    &nbsp;<a id='lastBtn' href="#">맨끝</a>
+					     -->
+				    </div>
+			</div>
+     
+     <!-- 
+     <div id='pagingBar'>
+       <ul class="pager">
+         <li><a id='prevBtn' href="#" class="btn-sm">이전</a></li>
+         <li id='pageNo'> &nbsp; 1 &nbsp; </li>
+         <li><a id='nextBtn' href="#" class="btn-sm">다음</a></li>
+        </ul>
+     </div>
+      -->
+     <!-- 
+     <div id='pagingBar' style='text-align:center;'>
+        <button id='prevBtn' type='button' class='btn btn-default'>이전</button>
+        <span id='pageNo'>1</span>
+        <button id='nextBtn' type='button' class='btn btn-default'>다음</button>
+     </div>
+      -->
+<!-- 
+				<div class="prev-next">
+					<table summary="page_navi" class="Nnavi">
+						<tbody>
+							<tr>
+								<td><a href="#" class="selected">1</a></td>
+								<td><a href="#">2</a></td>
+								<td><a href="#">3</a></td>
+								<td><a href="#">...</a></td>
+								<td><a href="#">4</a></td>
+								<td><a href="#">5</a></td>
+								<td><a href="#">6</a></td>
+								<td><a href="#">
+								<span>다음</span>
+								<span>▶</span></a></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				 -->
+		<!-- 검색바 start -->
+		<div class="search_bar"></div>
+		<!-- 검색바 end -->
+		
+		</div>
+<!-- bulletin end -->
+	
+<!-- create_group start -->
+<div class='create_group'></div>
+<!-- create_group end -->
+	
+<!-- footer start -->	
+<div class='footer'></div>
+<!-- footer end -->
+	</div>
+</body>
+<script src='../js/jquery-1.11.1.js'></script>
+<script src='../js/bootstrap.js'></script>
+<script type="text/javascript" src='/iumui/js/handlebars-v2.0.0.js'></script>
+<script type="text/javascript" src='/iumui/js/require.js'></script>
+<script src='/iumui/invitations/js/invitations.js'></script>
+</html>

@@ -1,0 +1,10 @@
+@CHARSET "UTF-8";
+
+/*main CSS start*/
+.tableHead {background-color:#F3F3F3; color:#4D67AC;}
+.main_tables {float:left; width: 16.8em; height:21em; margin:0.1875em; background-color:#FAFAFA; }
+.main_tables th {background-color:#DDE1EA;}
+.board_title {height:2.05em; font-size:0.8em; }
+#tables {float:left; width:52.25em; }
+#mainTable {margin-top:0.625em; padding-top:0.6em; } 
+/*main CSS start*/

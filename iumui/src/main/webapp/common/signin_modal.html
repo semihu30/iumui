@@ -1,0 +1,73 @@
+<!-- 회원가입 모달 레이어 시작 -->
+<<!-- link rel='stylesheet' href='/iumui/common/css/signInForm.css'> -->
+<div class="modal fade" id="signIn" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+
+		<!-- 회원가입 폼 시작 -->
+		<form id='signInForm' action="POST">
+			<div>
+				<button type="button" class="close" data-dismiss="modal">
+					<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+				</button>
+				<h1>회원가입</h1>
+				<hr size="1">
+				<div id='signFormBody'>
+					<table>
+						<tbody>
+							<tr>
+								<td></td>
+								<td id='emailCheck'></td>
+							</tr>
+							<tr>
+								<td class='signLabel'>이메일</td>
+								<td><input type="email" class="signform form-control"	name='email' id="inputEmail" placeholder="이메일"></td>
+							</tr>
+
+							<tr>
+								<td class='signLabel'>이름</td>
+								<td><input type="text" class="signform form-control" name='uname' id="inputName" placeholder="이름"></td>
+							</tr>
+
+							<tr>
+								<td class='signLabel'>핸드폰</td>
+								<td><input type="tel" class="signform form-control" name='phone_no' id="inputPhoneNo" placeholder="핸드폰 번호">
+									<button type="button" class='btn btn-warning btn-xs'>인증</button>
+								</td>
+							</tr>
+							<tr>
+								<td class='signLabel'>비밀번호</td>
+								<td>
+									<input type="password" class="signform form-control" id="inputPassword" placeholder="비밀번호를 입력하세요"> 
+									<input type="password" class="signform form-control" name='chked_passwd' id="checkPassword" placeholder="비밀번호를 다시 입력하세요">
+								</td>
+							</tr>
+							<tr>
+								<td class='signLabel'>별명</td>
+								<td><input type="text" class="signform form-control" name='nick' id="inputNickname" placeholder="별명"></td>
+							</tr>
+							<tr>
+								<td class='signLabel'>생년월일</td>
+								<td><input type="date" class="signform form-control" name='birth' id="inputBirth"></td>
+							</tr>
+							<tr>
+								<td class='signLabel'>성별</td>
+								<td>
+									<input type="radio" class="radioBtn" name="sex" value="male"> 남자 &nbsp;&nbsp; 
+									<input type="radio" class="radioBtn" name="sex" value="female"> 여자
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<hr>
+					<div id='signUploadBtn' class='signUploadBtn'>
+						<button id="submitbtn" type="button" class="btn btn-success btn-sm">등록</button>
+						<button id="resetbtn" type="reset" class="btn btn-danger btn-sm" data-dismiss="modal">취소</button>
+					</div>
+				</div>
+			</div>
+		</form>
+		<!-- 회원가입 폼 끝 -->
+	</div>
+</div>
+<script src='/iumui/common/js/sign_in_form.js'></script>
+<!-- 회원가입 모달 레이어 끝 -->

@@ -1,0 +1,55 @@
+@CHARSET "UTF-8";
+
+div {
+	
+  /* border: 1px solid black; */
+}   
+
+#board_main { margin: auto; padding: 50px 50px 0 50px; width: 1000px;}
+#board_set { width: 600px;}
+#board_summary { height: 90px; padding: 5px; background-color: white; border: 1px solid rgba(68, 97, 157, 0.15);}
+.board_comment { padding: 5px; background-color: white; border-bottom: 1px solid rgba(68, 97, 157, 0.15);border-left: 1px solid rgba(68, 97, 157, 0.15);border-right: 1px solid rgba(68, 97, 157, 0.15);}
+
+.writer_photo { float: left; font-size: small; width: 80px; height: 80px; } 
+
+.photo { border: 1px solid red; width: 60px; height: 60px;} 
+
+.board_info { padding-left:10px;}
+
+.binfo { float: left; width: 180px; font-size: 12px; padding:5px;}
+
+.btnBModDel {float: right;}
+
+/* #board_join { padding: 10px; border: 1px solid black;} */
+
+.board_content { padding: 10px; background-color: white; border-bottom: 1px solid rgba(68, 97, 157, 0.15);border-left: 1px solid rgba(68, 97, 157, 0.15);border-right: 1px solid rgba(68, 97, 157, 0.15);}
+
+#board_button {text-align:center;}
+
+.comment_content { padding: 10px 10px 10px 70px; font-size: 12px;}
+
+.top_style{padding: 5px; height:34px}
+
+.title, .commenter { float:left;}
+.regDate { float:right; font-size:12px;}
+
+#ccontent { display:inline; resize:none;}
+
+/* 게시판 테이블 start */
+
+#button_create { float: right; margin-top: 5px; }
+
+/* #category_tab { border-collapse: collapse; border-radius: 5px; float: left; } */
+
+/* #category_tab td { border: 1px solid #5bc0de; padding: 8px 30px; } */
+
+#categories { width: 800px;	height: 39px;	font-size: 16px; }
+
+/* 게시판 테이블 end */
+
+/* 게시판 페이지 번호 start */
+.prev-next table { margin: auto; }
+
+.prev-next table td { width: 55px; }
+
+/* 게시판 페이지 번호 start */

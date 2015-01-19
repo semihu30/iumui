@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="java63.iumui.dao.LocalDao">
+
+  <resultMap type="map" id="localBigListMap">
+    <id column="lcode" property="localNo"/>
+    <result column="lname" property="localName"/>
+  </resultMap>
+
+  <select id="selectBigList"
+        resultMap="localBigListMap">
+    select lcode, lname 
+    from slocal 
+    where length(LCODE)=2
+  </select>
+
+  <resultMap type="map" id="localSmallListMap">
+    <id column="lcode" property="localNo"/>
+    <result column="lname" property="localName"/>
+  </resultMap>
+
+  <select id="selectSmallList" parameterType="int" 
+        resultMap="localSmallListMap">
+    select lcode, lname 
+    from slocal 
+    where length(LCODE)>2 and substr(lcode, 1, 2)=#{value}
+  </select>
+
+<!-- 
+  
+  <resultMap type="Local" id="localMap">
+    
+    <id column="PNO" property="no"/>
+    <result column="PNAME" property="name"/>
+    <result column="QTY" property="quantity"/>
+    <result column="MKNO" property="makerNo"/>
+    <result column="MADE_DATE" property="madeDate"/>
+  </resultMap>
+  
+  <resultMap type="LocalListItem" id="localListItemMap">
+  
+    <id column="PNO" property="no"/>
+    <result column="PNAME" property="name"/>
+    <result column="QTY" property="quantity"/>
+    <result column="MKNO" property="makerNo"/>
+    <result column="MKNAME" property="maker"/>
+  </resultMap>
+  
+  <resultMap type="map" id="localListItem2Map">
+    <id column="PNO" property="no"/>
+    <result column="PNAME" property="name"/>
+    <result column="QTY" property="quantity"/>
+    <result column="MKNO" property="makerNo"/>
+    <result column="MKNAME" property="maker"/>
+  </resultMap>
+  
+  <resultMap type="LocalPhoto" id="localPhotoMap">
+    <id column="PPNO" property="no"/>
+    <result column="PNO" property="localNo"/>
+    <result column="URL" property="url"/>
+  </resultMap>
+  
+  <sql id="localSelect">
+    SELECT PNO, PNAME, QTY, MKNO, MADE_DATE 
+    FROM PRODUCTS
+  </sql>
+  
+  <select id="selectAllList" parameterType="map" 
+        resultMap="localListItem2Map">
+    SELECT 
+		  T1.PNO, 
+		  T1.PNAME, 
+		  T1.QTY, 
+		  T2.MKNO,
+		  T2.MKNAME
+		FROM PRODUCTS T1 LEFT OUTER JOIN MAKERS T2 
+		USING(MKNO)
+		ORDER BY T1.PNO
+    <if test="pageSize > 0">
+      limit #{startIndex}, #{pageSize}
+    </if>
+  </select>
+  
+  <select id="selectOne" parameterType="int" resultMap="localMap">
+    <include refid="localSelect"/> 
+    WHERE PNO=#{value}
+  </select>
+  
+  <select id="totalSize" resultType="int">
+    SELECT count(PNO) FROM PRODUCTS
+  </select>
+  
+  <insert id="insert" parameterType="Local"
+    useGeneratedKeys="true" keyColumn="PNO" keyProperty="no">
+    INSERT INTO PRODUCTS(PNAME,QTY,MKNO,MADE_DATE) 
+    VALUES (#{name},#{quantity},#{makerNo},#{madeDate})
+  </insert>
+  
+  <update id="update" parameterType="Local">
+    UPDATE PRODUCTS SET 
+      PNAME=#{name},
+      QTY=#{quantity},
+      MKNO=#{makerNo},
+      MADE_DATE=#{madeDate} 
+    WHERE PNO=#{no}
+  </update>
+  
+  <delete id="delete" parameterType="int">
+    DELETE FROM PRODUCTS WHERE PNO=#{value}
+  </delete>
+  
+  <insert id="insertPhoto" parameterType="Local">
+    INSERT INTO PROD_PHOTS(PNO,URL) 
+    VALUES (#{no}, #{photo})
+  </insert>
+  
+  <select id="selectPhoto" parameterType="int" 
+      resultMap="localPhotoMap">
+    SELECT PPNO, PNO, URL
+    FROM PROD_PHOTS
+    <if test="value > 0">
+    WHERE PNO = #{value}
+    </if>
+  </select>
+  
+  <delete id="deletePhoto" parameterType="int">
+    DELETE FROM PROD_PHOTS
+    WHERE PNO=#{value}
+  </delete>
+   -->
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

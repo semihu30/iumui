@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+<head>
+<link rel='stylesheet' href='/iumui/css/bootstrap.css'>
+<link rel='stylesheet' href='/iumui/common/css/common.css'>
+<link rel='stylesheet' href='/iumui/css/bootstrap-theme.min.css'>
+<link rel='stylesheet' href='css/group_board.css'>
+ <meta charset="utf-8">
+ 	<title>'찬양대회 준비팀'_게시판</title>
+</head>
+<body>
+  <div id="content_container">
+
+		<!-- 헤더 start -->
+		<div class='header'></div>
+		<!-- 헤더 end -->
+		
+		<!--  grp_menu start -->
+    <div class="group_sidebar"></div>
+    <!--  grp_menu end -->
+    
+    <!-- 컨텐츠 시작 -->
+    <div class="grp_contents">
+      <div id='board_upload' class='board_upload'>
+      	<textarea id="upload_content" rows="6" cols="120" placeholder="소식을 남겨주세요~"></textarea>
+      	<hr>
+      	<div class='uploadtools'>
+      		<img src="../icon/32x32/row 1/5.png">
+      		<img src="../icon/32x32/row 13/12.png">
+      		<img src="../icon/32x32/row 11/2.png">
+      		<button id='uploadbtn' class='uploadbtn'>올리기</button>
+      	</div>
+      </div>
+      
+      <div id='board_uploaded' class='board_uploaded'>
+      		<div id='user'>
+      			<table>
+      				<tr>
+      					<td rowspan="2"><img src="../icon/64x64/row 9/1.png"></td>
+      					<td id='username'>조현정</td>
+      					<td id='userstc'>오늘도 좋은 하루가 되기를 바라며 모두모두 행복하세용~</td>
+      				</tr>
+      				<tr>
+      				<td id='uploaded_date'>3 분전</td>
+      				</tr>
+      			</table>
+      			<a id='show_reply' class='btn btn-danger btn-xs' href='#'>댓글</a>
+      			</div>
+      			<br>
+      			
+      			<div id='usercontent'>
+      				해당 구역에 들어갈 유저가 업로드한 글 내용입니다. 해당 구역에 들어갈 유저가 업로드한 글 내용입니다. 해당 구역에 들어갈 유저가 업로드한 글 내용입니다. 해당 구역에 들어갈 유저가 업로드한 글 내용입니다. 해당 구역에 들어갈 유저가 업로드한 글 내용입니다. 해당 구역에 들어갈 유저가 업로드한 글 내용입니다.
+      			</div>
+      			
+      			<!-- 댓글 start -->
+      			<div class='gboard_reply' id='reply' style="display:none"></div>
+      			<!-- 댓글 end -->
+      			
+      </div>
+
+
+		</div>
+		<!-- 컨텐츠 끝 -->
+		
+		<!-- footer start -->
+		<div class='footer'></div>
+		<!-- footer end -->
+  </div>
+</body>
+<script src="../js/jquery-1.11.1.js"></script>
+<script src='../js/bootstrap.js'></script>
+<script src='/iumui/group/js/group_board.js'></script>
+</html>

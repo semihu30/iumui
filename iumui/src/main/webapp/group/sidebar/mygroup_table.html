@@ -1,0 +1,23 @@
+{{#each groups}}
+<div class="groups">
+	<table class="my_groups" style="background-color:{{formColor}}">
+		<thead>
+			<tr>
+				<th colspan="2" class="g_name"><a href="#grp_list_title">{{gname}}</a></th>
+			</tr>
+			<tr>
+				<td colspan="2" class="user_state">권한test: {{userState}}</td>
+			</tr>
+			<tr>
+				<td colspan="2" class="g_intro">{{intro}}</td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td class="head_count">현재 인원</td>
+				<td class="expire_day">종료일 : {{expireDay}}</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+{{/each}}

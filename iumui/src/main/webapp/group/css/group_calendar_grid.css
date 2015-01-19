@@ -1,0 +1,10 @@
+@CHARSET "UTF-8";
+
+#grp_calendar { width: 776px; height: 790px; margin : 12px 12px 0 12px; float:left; }
+#grp_calendar font { text-decoration:none; }
+#grp_calendar a:link, a:active, a:visited  {text-decoration:none; color: black;}
+#grp_calendar a:hover {text-decoration:none; color:'ff9900'}
+#grp_calendar #day {border:1px solid black; text-align:left; vertical-align:top; height: 100px; } 
+#grp_calendar th {text-align:center; width:110px; } 
+.empty_day { background-color:#efefef; border: 1px solid black; }
+

@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>IUMUI_회원가입</title>
+<link rel='stylesheet' href='../css/bootstrap.css'>
+<link rel='stylesheet' href='../css/bootstrap-theme.min.css'>
+<link rel='stylesheet' href='../common/css/common.css'>
+</head>
+<style>
+
+label {
+  position:absolute;
+  width: 80px;
+  text-align: center;
+  border: 1px solid #999;
+  background-color: white;
+  padding: 4px 25px;
+  display: inline;
+  cursor: pointer;
+}
+
+.label_on {
+  color : #2E6DA4;
+  border-color: #2E6DA4;
+}
+
+
+#conTitle {
+  margin-left: 300px;
+}
+
+#manLb {
+  margin-left: 278px;
+}
+
+#womanLb {
+  margin-left: 360px;
+}
+
+#sign_form .radiobtn {
+ display: none;
+ margin:0px;
+ height:0px;
+ width: 0px;
+ font-size: small;
+}
+
+#clear {
+  margin: 2px 0;
+  height: 15px;
+}
+
+#sign_form input {
+  margin-left: 5px;
+  border: 0px;
+  font-size: x-large;
+  height : 50px;
+  width: 420px;
+}
+
+#sexDiv {
+  padding: 10px 5px;
+  color: #A9A9A9;
+}
+.row_group {
+  margin: 0px auto;
+  width: 500px;
+  border : 1px solid gray;
+  border-radius: 3px;
+}
+
+.row_group a {
+  margin-top: 10px;
+  position: absolute;
+  text-decoration: none;
+  padding: 5px 15px;
+  border: 1px solid #999;
+}
+
+.row_title {
+  font-size: x-large;
+}
+
+.sign_row {
+  width : 500px;
+  height: 51px;
+  margin : 0 auto;
+}
+
+.sign_form {
+  margin : 15px auto;
+}
+
+.sign_form hr {
+  margin:0;
+}
+
+.error {
+  display: block;
+}
+
+#signInBtn {
+  width: 498px;
+  height: 50px;
+  font-size: x-large;
+  background-color: #999;
+}
+
+</style>
+<body>
+  <div id='content_container'>
+    <div class='header'></div>
+    
+      <!-- contents start -->
+        <div id='conTitle'>
+          <h2>정보 수정</h2>
+        </div>
+        <hr>
+        <div class='sign_form'>
+          <form id='sign_form' action="">
+          
+            <div class='row_group'>
+              <div id='emailDiv' class="sign_row">
+             <span>이메일</span> 
+              <span class="insert_box">
+                  <input type="text" id="email" placeholder="이메일 (아이디로 사용합니다.)">
+                  <span class="email_confirm"></span>
+                </span>
+              </div>
+              <hr>
+              <div id='emailDiv' class="sign_row">
+              <span>이름</span>
+                <span class="insert_box">
+                  <input type="text" id="name" placeholder="이름">
+                  <span class="email_confirm"></span>
+                </span>
+              </div>              
+              <hr>
+              <div id='emailDiv' class="sign_row">
+              <span>닉네임</span>
+                <span class="insert_box">
+                  <input type="text" id="nick" placeholder="닉네임">
+                  <span class="email_confirm"></span>
+                </span>
+              </div>              
+              <hr>
+              <div id='emailDiv' class="sign_row">
+             <span>연락처</span>
+                <span class="insert_box">
+                  <input type="text" id="pnoneNo" placeholder="핸드폰번호">
+                  <span class="email_confirm"></span>
+                </span>
+              </div>              
+              <hr>
+              <div id='emailDiv' class="sign_row">
+              <span>자기소개</span>
+                <span class="insert_box">
+                  <input type="text" id="myself" placeholder="인사말을 입력해주세요">
+                  <span class="email_confirm"></span>
+                </span>
+              </div>              
+              <hr>
+              <div id='emailDiv' class="sign_row">
+              <span>생년월일</span> 
+                <span class="insert_box">
+                  <input type="text" id="birth" placeholder="생년월일">
+                  <span class="email_confirm"></span>
+                </span>
+              </div>              
+              <hr>
+              <div id='emailDiv' class="sign_row">
+              <span>성별</span>
+                <span class="insert_box">
+                  <input type="text" id="sex" placeholder="성별">
+                  <span class="email_confirm"></span>
+                </span>
+              </div>              
+              <hr>
+              <div id='emailDiv' class="sign_row">
+              <span>사는 지역</span>
+                <span class="insert_box">
+                  <input type="text" id="zone" placeholder="지역">
+                  <span class="email_confirm"></span>
+                </span>
+              </div>              
+              <hr>
+              <div id='emailDiv' class="sign_row">
+              <span>내사진</span>
+                <span class="insert_box">
+                  <input type="text" id="myphoto" placeholder="내사진">
+                  <span class="email_confirm"></span>
+                </span>
+              </div>              
+              <hr>
+              
+            </div>
+            
+            
+            <!--지역 입력  -->
+            
+              
+              <div id="clear"></div>
+            
+            <div class='row_group'>
+              <button id="signInBtn" type="button" >수정하기</button>
+            </div>
+          </form>
+        </div>
+      <!-- contents end  -->
+      
+       
+    <div class='footer'></div>
+  </div>
+</body>
+<script src='/iumui/js/jquery-1.11.1.js'></script>
+<script src='/iumui/js/bootstrap.js'></script>
+<script type="text/javascript" src='/iumui/js/handlebars-v2.0.0.js'></script>
+<script type="text/javascript" src='/iumui/js/require.js'></script>
+<script src='/iumui/common/js/mypage_modify.js'></script>
+<script>
+
+</script>
+</html>

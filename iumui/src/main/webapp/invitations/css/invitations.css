@@ -1,0 +1,109 @@
+@CHARSET "UTF-8";
+
+/* 게시판 테이블 start */
+.board_list { margin: 13px 0 0 0; width: 600px;/*  height: 395px; */ }
+
+#board_main { margin: auto;	padding: 50px 50px 0 50px; width: 860px; }
+
+#button_create { float: right; margin-top: 5px; }
+
+#category_tab { border-collapse: collapse; border-radius: 5px; float: left;}
+
+#category_tab td {  padding: 8px 30px; border-top: 1px solid rgba(68, 97, 157, 0.15); border-left: 1px solid rgba(68, 97, 157, 0.15); border-right: 1px solid rgba(68, 97, 157, 0.15);}
+
+#categories { width: 754px;	height: 39px;	font-size: 16px; }
+
+/* 게시판 테이블 end */
+
+/* 게시판 페이지 번호 start */
+.prev-next table { margin: auto; }
+
+.prev-next table td { width: 55px; }
+
+/* 게시판 페이지 번호 start */
+
+/*#board_list {border: 1px solid black; } */
+
+.boardTable {width: 756px; font-size:12px;}
+
+.title-row {border-top: 1px solid rgba(68, 97, 157, 0.15); border-bottom: 2px solid rgba(68, 97, 157, 0.15);}
+
+.data-row {border-bottom: 1px solid rgba(68, 97, 157, 0.15);}
+
+.boardTd{ padding:10px; background-color:white;}
+
+.board_center { text-align:center;}
+
+.board_title { width: 200px;}
+
+.leftTd {border-left: 1px solid rgba(68, 97, 157, 0.15);}
+
+.rightTd {border-right: 1px solid rgba(68, 97, 157, 0.15);}
+
+.selected {background-color:white; }
+
+#pagingBar {height:54px; padding:auto;}
+
+/* 페이지 번호 */
+/*
+#mw_basic .mw_basic_page {
+    height:30px;
+    text-align:center;
+}
+*/
+
+/* 페이지 번호 링크 */
+/*
+#mw_basic .mw_basic_page a {
+    font-weight:bold;
+    font-size:11px;
+    color:#797979;
+    text-decoration:none;
+}
+*/
+
+/* 페이지 번호 현재 */
+/*
+#mw_basic .mw_basic_page b {
+    font-weight:bold;
+    font-size:11px;
+    color:#ffa500;
+    text-decoration:none;
+}
+*/
+
+/* 페이지 번호 */
+#pagingBar .mw_basic_page {
+    padding:20px 0 20px 0;
+    text-align:center;
+}
+
+/* 페이지 번호 링크 */
+#pagingBar .mw_basic_page a {
+    font-family:dotum;
+    font-weight:bold;
+    font-size:11px;
+    color:#797979;
+    text-decoration:none;
+    border:1px solid #d4d4d4;
+    background-color:#f4f4f4;
+    padding:3px 5px 2px 5px;
+    /*padding:5px 7px 4px 7px;*/
+}
+
+#pagingBar .mw_basic_page a:hover {
+    background-color:#F1753E;
+    color:#fff;
+}
+
+/* 페이지 번호 현재 */
+#pagingBar .mw_basic_page b {
+    font-weight:bold;
+    font-size:11px;
+    color:#fff;
+    text-decoration:none;
+    border:1px solid #5078B9;
+    background-color:#5078B9;
+    padding:3px 5px 2px 5px;
+    /*padding:5px 7px 4px 7px;*/
+}

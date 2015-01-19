@@ -1,0 +1,23 @@
+@CHARSET "UTF-8";
+
+.sidebar_table .tableHead {background-color:#DDE1EA; height:4ex;}
+
+.sidebar_table td {text-decoration:none;}
+
+#sidebar_table3 font {text-decoration:none;}
+
+#sidebar_table3 a:link, #sidebar_table3 a:active, #sidebar_table3 a:visited  {text-decoration:none; color:black;}
+
+#sidebar_table3 a:hover {text-decoration:none; color:#ff9900;}
+
+#sidebar_table3 th {text-align:center;} 
+
+.sidebar_table {float:right; width:21.9%; margin:0.364%; background-color:#FAFAFA; }
+
+.sidebar_contents {width:238px; font-size:small; }
+
+.sidebar_title {width:238px; height: 30px; font-size:12px; }
+
+#sidebar_table2_content p {white-space:nowrap; width:216px; height:14px; overflow: hidden; text-overflow:ellipsis;}
+
+.tableHead #rcat2Text td {height: 30px; padding:4px; }

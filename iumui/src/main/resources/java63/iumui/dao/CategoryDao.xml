@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 
+bno INTEGER NOT NULL,  게시글번호 
+    bmno INTEGER NOT NULL,  게시판구분번호 
+    mno INTEGER NOT NULL,  회원번호 
+    bname VARCHAR2(50) NOT NULL,  모임이름 
+    bintro VARCHAR2(1000) NOT NULL,  모임소개 
+    btarget_num INTEGER NOT NULL,  모임인원 
+    start_date DATE NOT NULL,  모집일자 
+    end_date DATE NOT NULL,  종료일자 
+    open_state INTEGER NOT NULL,  공개여부 
+    click_count INTEGER DEFAULT 0 NOT NULL,  조회수 
+    good_count INTEGER DEFAULT 0 NOT NULL,  추천수 
+    lcode VARCHAR2(50) NOT NULL  지역분류코드 
+ -->
+ <!-- 
+  protected int no;
+  protected String category;
+  protected String writer;
+  protected String title;
+  protected String content;
+  protected String targetNumber;
+  protected Date startDate;
+  protected Date endDate;
+  protected int openStatus;
+  protected int clickCount;
+  protected int goodCount;
+  protected String selectLocal;
+  
+  BMNO BCATEGORY  
+  -->
+<mapper namespace="java63.iumui.dao.CategoryDao">
+
+  <resultMap type="map" id="categoryListMap">
+    <id column="bmno" property="categoryNo"/>
+    <result column="bcategory" property="categoryName"/>
+  </resultMap>
+
+  <select id="selectCategory"
+        resultMap="categoryListMap">
+    SELECT
+      bmno, 
+      bcategory 
+    FROM bmaster
+    ORDER BY bmno
+  </select>
+
+  <resultMap type="map" id="mainDisplayMap">
+    <id column="num" property="categoryNumber"/>
+    <result column="item" property="categoryName"/>
+    <result column="t1" property="content1"/>
+    <result column="t2" property="content2"/>
+    <result column="t3" property="content3"/>
+    <result column="t4" property="content4"/>
+    <result column="t5" property="content5"/>
+    <result column="t6" property="content6"/>
+    <result column="t7" property="content7"/>
+    <result column="n1" property="boardNo1"/>
+    <result column="n2" property="boardNo2"/>
+    <result column="n3" property="boardNo3"/>
+    <result column="n4" property="boardNo4"/>
+    <result column="n5" property="boardNo5"/>
+    <result column="n6" property="boardNo6"/>
+    <result column="n7" property="boardNo7"/>
+  </resultMap>
+
+  <select id="selectMainDisplay"
+        resultMap="mainDisplayMap">
+		WITH p AS (
+           select m.bcategory item, m.bmno num, b.bname property, b.bno bn from iboard b, bmaster m where b.bmno=m.bmno
+          )
+    SELECT num, item
+          ,max(decode(rn,1,property,'')) t1, max(decode(rn,1,bn,'')) n1
+          ,max(decode(rn,2,property,'')) t2, max(decode(rn,2,bn,'')) n2
+          ,max(decode(rn,3,property,'')) t3, max(decode(rn,3,bn,'')) n3
+          ,max(decode(rn,4,property,'')) t4, max(decode(rn,4,bn,'')) n4
+          ,max(decode(rn,5,property,'')) t5, max(decode(rn,5,bn,'')) n5
+          ,max(decode(rn,6,property,'')) t6, max(decode(rn,6,bn,'')) n6
+          ,max(decode(rn,7,property,'')) t7, max(decode(rn,7,bn,'')) n7
+    FROM  (SELECT num,item, bn ,property,ROW_NUMBER() OVER(PARTITION BY num, item ORDER BY num, item, bn desc) rn FROM p) t
+    GROUP BY num, item
+  </select>
+
+
+<!-- 
+  
+  <resultMap type="Board" id="boardMap">
+    
+    <id column="PNO" property="no"/>
+    <result column="PNAME" property="name"/>
+    <result column="QTY" property="quantity"/>
+    <result column="MKNO" property="makerNo"/>
+    <result column="MADE_DATE" property="madeDate"/>
+  </resultMap>
+  
+  <resultMap type="BoardListItem" id="boardListItemMap">
+  
+    <id column="PNO" property="no"/>
+    <result column="PNAME" property="name"/>
+    <result column="QTY" property="quantity"/>
+    <result column="MKNO" property="makerNo"/>
+    <result column="MKNAME" property="maker"/>
+  </resultMap>
+  
+  <resultMap type="map" id="boardListItem2Map">
+    <id column="PNO" property="no"/>
+    <result column="PNAME" property="name"/>
+    <result column="QTY" property="quantity"/>
+    <result column="MKNO" property="makerNo"/>
+    <result column="MKNAME" property="maker"/>
+  </resultMap>
+  
+  <resultMap type="BoardPhoto" id="boardPhotoMap">
+    <id column="PPNO" property="no"/>
+    <result column="PNO" property="boardNo"/>
+    <result column="URL" property="url"/>
+  </resultMap>
+  
+  <sql id="boardSelect">
+    SELECT PNO, PNAME, QTY, MKNO, MADE_DATE 
+    FROM PRODUCTS
+  </sql>
+  
+  <select id="selectAllList" parameterType="map" 
+        resultMap="boardListItem2Map">
+    SELECT 
+		  T1.PNO, 
+		  T1.PNAME, 
+		  T1.QTY, 
+		  T2.MKNO,
+		  T2.MKNAME
+		FROM PRODUCTS T1 LEFT OUTER JOIN MAKERS T2 
+		USING(MKNO)
+		ORDER BY T1.PNO
+    <if test="pageSize > 0">
+      limit #{startIndex}, #{pageSize}
+    </if>
+  </select>
+  
+  <select id="selectOne" parameterType="int" resultMap="boardMap">
+    <include refid="boardSelect"/> 
+    WHERE PNO=#{value}
+  </select>
+  
+  <select id="totalSize" resultType="int">
+    SELECT count(PNO) FROM PRODUCTS
+  </select>
+  
+  <insert id="insert" parameterType="Board"
+    useGeneratedKeys="true" keyColumn="PNO" keyProperty="no">
+    INSERT INTO PRODUCTS(PNAME,QTY,MKNO,MADE_DATE) 
+    VALUES (#{name},#{quantity},#{makerNo},#{madeDate})
+  </insert>
+  
+  <update id="update" parameterType="Board">
+    UPDATE PRODUCTS SET 
+      PNAME=#{name},
+      QTY=#{quantity},
+      MKNO=#{makerNo},
+      MADE_DATE=#{madeDate} 
+    WHERE PNO=#{no}
+  </update>
+  
+  <delete id="delete" parameterType="int">
+    DELETE FROM PRODUCTS WHERE PNO=#{value}
+  </delete>
+  
+  <insert id="insertPhoto" parameterType="Board">
+    INSERT INTO PROD_PHOTS(PNO,URL) 
+    VALUES (#{no}, #{photo})
+  </insert>
+  
+  <select id="selectPhoto" parameterType="int" 
+      resultMap="boardPhotoMap">
+    SELECT PPNO, PNO, URL
+    FROM PROD_PHOTS
+    <if test="value > 0">
+    WHERE PNO = #{value}
+    </if>
+  </select>
+  
+  <delete id="deletePhoto" parameterType="int">
+    DELETE FROM PROD_PHOTS
+    WHERE PNO=#{value}
+  </delete>
+   -->
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,17 @@
+@CHARSET "UTF-8";
+
+
+td .g_intro {padding:10px 10px;}
+.expire_day, .head_count {border-right: 1px solid rgba(68, 97, 157, 0.15); }
+.expire_day, .head_count, .private {font-size:small; color: #4D67AC;}
+.groups {width: 78.564%; margin:5px auto;	border:3px solid #44619D; border-radius: 5px; z-index:200; }
+.groups thead td{border-top: 1px solid rgba(68, 97, 157, 0.15); border-bottom: 1px solid rgba(68, 97, 157, 0.15); }
+.g_name {text-decoration:none; font-size:large;}
+.my_group_list {float:left; width:100%; margin:1.365% auto; }
+.my_groups {background-color:#FFFFFF; margin:0 auto; width:100%;}
+.my_groups, .my_groups th, .my_groups td {padding:3px 12px;} 
+.user_state {font-size: x-small;}
+#grp_list_title {padding:0 4px; margin:0 10.84% 30px 10.84%;}
+#grp_list_title h3 {margin-top: 0.9091em; margin-bottom: 0.9091em; font-size: 22px; font-family: inherit; font-weight: 500; line-height: 1.1; color: inherit; }
+#grp_list_title hr {margin-top: 13px; margin-bottom: 13px; border: 0; border-top: 1px solid #dddddd; }
+#my_group_list {float:left; width:75.91%; height: 75.303ex; color: #4e5665; }
