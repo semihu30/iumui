@@ -25,6 +25,7 @@ public interface BoardDao {
   void insert(Board board);
   Board selectOne(int no);
   List<?> selectComments(int boardNo);
+  List<?> selectRequests(int boardNo);
   
   void insertComment(BoardComment boardComment);
   void update(Board board);
@@ -33,5 +34,7 @@ public interface BoardDao {
   int totalSize(int no);
   void recommend(Map<String,Object>paramMap);
   void request(Map<String,Object>paramMap);
+  void requestAccept(Map<String,Object>paramMap);
+  void requestReject(Map<String,Object>paramMap);
   
 }

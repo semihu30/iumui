@@ -2,8 +2,8 @@
  * 게시판 JS 소스입니다.
  */
 
-
 var board;
+var member;
 var boardComment;
 
 $(function(){
@@ -11,17 +11,6 @@ $(function(){
 	$('.footer').load('/iumui/common/footer.html');
 	$('.search_bar').load('/iumui/common/search_bar.html');
 	
-	/*
-	$(document).on('click', '.table-hover a', function(){
-		category_number = $(this).attr('cat-no');
-		loadBoardList(category_number);
-  });
-	*/
-	/*
-	$(document).on('click', '.data-row a', function(){
-    loadProduct($(this).attr('data-no'));
-  });
-	*/
 	var address = unescape(location.href);
 	var param = "";
 	if(address.indexOf("no", 0) != -1) {
@@ -39,22 +28,58 @@ function loadBoard(boardNo) {
   $.getJSON('../json/board/view.do?no=' + boardNo, 
     function(data){
   		board = data.board;
+  		loginUser = data.loginUser;
   		console.log(data.board);
+  		console.log(data.loginUser);
   		console.log(data.boardComments);
+  		console.log(data.boardRequests);
   		$('#title').html(data.board.title);
   		$('#regDate').html(yyyyMMdd(data.board.regDate));
   		$('#writer').html('작 성 자 : ' + data.board.writer);
   		$('#targetNumber').html('모집인원 : ' + data.board.reqCount + '/' + data.board.targetNumber);
   		$('#startDate').html('모 집 일 : ' + yyyyMMdd(data.board.startDate));
-  		
   		$('#endDate').html('종 료 일 : ' + yyyyMMdd(data.board.endDate));
+  		
   		$('#board_content').html(data.board.content);
+  		
   		$('#btnRecommend').html('추천 : ' + data.board.goodCount);
   		$('#btnRequest').html('참여 : ' + data.board.reqCount);
   		
   		for (var i in data.boardComments) {
       	data.boardComments[i].commentRegDate = yyyyMMdd(data.boardComments[i].commentRegDate);
       }
+  		
+  		for (var i in data.boardRequests) {
+      	data.boardRequests[i].requestDate = yyyyMMdd(data.boardRequests[i].requestDate);
+      	
+      	if (data.boardRequests[i].statusNo == 0) {
+      		data.boardRequests[i].statusContent = "님이 참여 요청 하였습니다."; 
+      	} else if (data.boardRequests[i].statusNo == 1) {
+      		data.boardRequests[i].statusContent = "님이 참여 확정 되었습니다.";
+      	} else if (data.boardRequests[i].statusNo == 2) {
+      		data.boardRequests[i].statusContent = "님이 참여 거부 되었습니다.";
+      	}
+      	
+      }
+  		
+  		if ( loginUser && loginUser.memberNo==board.writerNo) 
+  			$('.btnBModDel').css('display', '');
+  		else
+  			$('.btnBModDel').css('display', 'none');
+  		
+  		require(['text!templates/request-table.html'], function(html){
+        var template = Handlebars.compile(html);
+        $('#requestSet').html( template(data) );
+
+        if ( loginUser && loginUser.memberNo==board.writerNo) {
+        		$('.request_button').css('display', '');
+        		$('.statusNo1').css('display', 'none');
+        		$('.statusNo2').css('display', 'none');
+	        }
+	    		else{
+	    			$('.request_button').css('display', 'none');	    			
+	    		}
+      });
   		
   		require(['text!templates/comment-table.html'], function(html){
         var template = Handlebars.compile(html);
@@ -66,7 +91,6 @@ function loadBoard(boardNo) {
 $('#btncomment').click(function(){
 	$('#commentInput').css('display', '');
 });
-
 
 $('#btncCancel').click(function(){
 	$('#ccontent').val('');
@@ -127,16 +151,45 @@ $('#btnBoardDel').click(function(){
 });
 
 $('#btnRecommend').click(function(){
-	console.log("Recommend");
+	
+	if ( !loginUser ) {
+		alert("로그인 하세요.");
+		return;
+	}
+	if ( loginUser.memberNo==board.writerNo) {
+		alert("본인의 글에는 추천할수 없습니다.");
+		return;
+	}
 	if (confirm("추천 하시겠습니까?")) {
 		recommendBoard();		
 	} else return;
 });
 
 $('#btnRequest').click(function(){
-	console.log("Request");
+	
+	if ( !loginUser ) {
+		alert("로그인 하세요.");
+		return;
+	}
+	if ( loginUser.memberNo==board.writerNo) {
+		alert("본인은 자동 참여됩니다.");
+		return;
+	}
+	
 	if (confirm("정말로 참여 요청 하시겠습니까?")) {
 		requestBoard();		
+	} else return;
+});
+
+$(document).on('click', '.btnRAccept' ,function(){
+	if (confirm("참여 요청을 수락 하시겠습니까?")) {
+		requestAccept($(this).attr("reqVal"));
+	} else return;
+});
+
+$(document).on('click', '.btnRReject',function(){
+	if (confirm("참여 요청을 거부 하시겠습니까?")) {
+		requestReject($(this).attr("reqVal"));	
 	} else return;
 });
 
@@ -151,6 +204,24 @@ function recommendBoard() {
 
 function requestBoard() {
 	$.getJSON('../json/board/request.do?no=' + board.no, 
+	    function(data){
+	      if (data.status == 'success') {
+	      	loadBoard(board.no);
+	      }
+	    });
+}
+
+function requestAccept(reqVal) {
+	$.getJSON('../json/board/req_accept.do?' + reqVal, 
+	    function(data){
+	      if (data.status == 'success') {
+	      	loadBoard(board.no);
+	      }
+	    });
+}
+
+function requestReject(reqVal) {
+	$.getJSON('../json/board/req_reject.do?' + reqVal, 
 	    function(data){
 	      if (data.status == 'success') {
 	      	loadBoard(board.no);
@@ -196,8 +267,6 @@ $('#btnCReg').click(function(){
    });
  
 });
-
-
 
 function validateComment() {
   if ( $('#ccontent').val().length == 0) {

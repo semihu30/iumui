@@ -9,6 +9,7 @@ div {
 #board_set { width: 600px;}
 #board_summary { height: 90px; padding: 5px; background-color: white; border: 1px solid rgba(68, 97, 157, 0.15);}
 .board_comment { padding: 5px; background-color: white; border-bottom: 1px solid rgba(68, 97, 157, 0.15);border-left: 1px solid rgba(68, 97, 157, 0.15);border-right: 1px solid rgba(68, 97, 157, 0.15);}
+.board_request{ height: 80px; padding: 5px; background-color: white; border-bottom: 1px solid rgba(68, 97, 157, 0.15);border-left: 1px solid rgba(68, 97, 157, 0.15);border-right: 1px solid rgba(68, 97, 157, 0.15);}
 
 .writer_photo { float: left; font-size: small; width: 80px; height: 80px; } 
 
@@ -24,13 +25,13 @@ div {
 
 .board_content { padding: 10px; background-color: white; border-bottom: 1px solid rgba(68, 97, 157, 0.15);border-left: 1px solid rgba(68, 97, 157, 0.15);border-right: 1px solid rgba(68, 97, 157, 0.15);}
 
-#board_button {text-align:center;}
+.board_button{text-align:center;}
 
-.comment_content { padding: 10px 10px 10px 70px; font-size: 12px;}
+.comment_content, .request_button { padding: 10px 10px 10px 70px; font-size: 12px;}
 
 .top_style{padding: 5px; height:34px}
 
-.title, .commenter { float:left;}
+.title, .commenter, .requester { float:left;}
 .regDate { float:right; font-size:12px;}
 
 #ccontent { display:inline; resize:none;}

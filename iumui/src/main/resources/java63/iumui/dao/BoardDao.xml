@@ -60,6 +60,7 @@
     <result column="reg_date" property="regDate"/>
     <result column="click_count" property="clickCount"/>
     <result column="lcode" property="goodCount"/>
+    <result column="mno" property="writerNo"/>
     <result column="uname" property="writer"/>
     <result column="good_count" property="goodCount"/>
     <result column="req_count" property="reqCount"/>
@@ -68,9 +69,9 @@
   <select id="selectOne" parameterType="int" 
       resultMap="boardMap">
     select x.bno bno, x.bmno bmno, x.bname bname, x.bintro bintro, x.btarget_num btarget_num, x.start_date start_date, 
-        x.end_date end_date, x.reg_date reg_date, x.click_count click_count, x.lcode lcode, x.uname uname, y.good_count good_count, z.req_count req_count
+        x.end_date end_date, x.reg_date reg_date, x.click_count click_count, x.lcode lcode, x.mno mno, x.uname uname, y.good_count good_count, z.req_count req_count
     from (select b.bno bno, b.bmno bmno, b.bname bname, b.bintro bintro, b.btarget_num btarget_num, 
-               b.start_date start_date, b.end_date end_date, b.reg_date reg_date, b.click_count click_count, b.lcode lcode, m.uname uname
+               b.start_date start_date, b.end_date end_date, b.reg_date reg_date, b.click_count click_count, b.lcode lcode, b.mno mno, m.uname uname
         from iboard b, members m
         where b.mno=m.mno
         order by bno desc) x, 
@@ -101,6 +102,20 @@
 	  select c.bcno bcno, b.bno bno, m.uname uname, c.content content, c.redate reg_date from iboard b, bcomment c, members m
 	  where c.bno=b.bno and c.mno=m.mno and c.bno=#{value}
 	  order by bcno desc
+  </select>
+  
+  <resultMap type="BoardRequest" id="boardRequestMap">
+    <result column="bno" property="boardNo"/>
+    <result column="mno" property="memberNo"/>
+    <result column="uname" property="userName"/>
+    <result column="status" property="statusNo"/>
+    <result column="req_date" property="requestDate"/>
+  </resultMap>
+
+  <select id="selectRequests" parameterType="int" 
+      resultMap="boardRequestMap">
+    select b.bno bno, r.mno mno, m.uname uname, r.state status, r.call req_date from iboard b, request r, members m
+    where r.bno=b.bno and r.mno=m.mno and r.bno=#{value}
   </select>
   
   <insert id="insertComment" parameterType="BoardComment">
@@ -134,7 +149,15 @@
     values (#{boardNo},#{memberNo},0,sysdate)
   </insert>
   
-<!-- 
+  <update id="requestAccept" parameterType="map">
+    update request set state=1 where bno=#{boardNo} and mno=#{memberNo}
+  </update>
+  
+  <update id="requestReject" parameterType="map">
+    update request set state=2 where bno=#{boardNo} and mno=#{memberNo}
+  </update>
+  
+<!--
   
   <resultMap type="Board" id="boardMap">
     

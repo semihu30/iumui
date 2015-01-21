@@ -1,0 +1,18 @@
+{{#each boardRequests}}
+<div id='request_{{boardNo}}_{{memberNo}}' class='board_request'>
+         <div class='writer_photo'><div class='photo'></div></div>
+           
+        <div class='board_info'>
+          <div class='top_style'>
+            <div id='requestStatus{{statusNo}}' class='requester'>{{userName}} {{statusContent}}</div>
+            <div class='regDate cregDate'>{{requestDate}}</div>
+          </div>
+          <div class='request_button statusNo{{statusNo}}'>
+            <button type="button" class="btn btn-default btn-xs btnRAccept" 
+              reqVal='bno={{boardNo}}&mno={{memberNo}}'>수락</button> &nbsp; 
+            <button type="button" class="btn btn-default btn-xs btnRReject" 
+              reqVal='bno={{boardNo}}&mno={{memberNo}}'>거절</button>
+          </div>
+       </div>
+    </div>
+{{/each}}

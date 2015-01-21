@@ -79,6 +79,11 @@ public class BoardService {
     return boardDao.selectComments(boardNo);
   }
   
+public List<?> getRequests(int boardNo) {
+    
+    return boardDao.selectRequests(boardNo);
+  }
+  
   @Transactional(
       rollbackFor=Exception.class, 
       propagation=Propagation.REQUIRED)
@@ -118,6 +123,28 @@ public class BoardService {
     paramMap.put("memberNo", memberNo);
     
     boardDao.request(paramMap);
+  }
+  
+  @Transactional(
+      rollbackFor=Exception.class, 
+      propagation=Propagation.REQUIRED)
+  public void requestAccept(int boardNo, int memberNo) {
+    HashMap<String,Object> paramMap = new HashMap<>();
+    paramMap.put("boardNo", boardNo);
+    paramMap.put("memberNo", memberNo);
+    
+    boardDao.requestAccept(paramMap);
+  }
+  
+  @Transactional(
+      rollbackFor=Exception.class, 
+      propagation=Propagation.REQUIRED)
+  public void requestReject(int boardNo, int memberNo) {
+    HashMap<String,Object> paramMap = new HashMap<>();
+    paramMap.put("boardNo", boardNo);
+    paramMap.put("memberNo", memberNo);
+    
+    boardDao.requestReject(paramMap);
   }
 }
 
