@@ -36,5 +36,5 @@ public interface BoardDao {
   void request(Map<String,Object>paramMap);
   void requestAccept(Map<String,Object>paramMap);
   void requestReject(Map<String,Object>paramMap);
-  
+  void updateClick(int no);
 }

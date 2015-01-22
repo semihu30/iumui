@@ -66,9 +66,12 @@ public class BoardService {
     boardDao.insert(board); 
   }
   
+  @Transactional(
+      rollbackFor=Exception.class, 
+      propagation=Propagation.REQUIRED)
   public Board get(int boardNo) {
     Board board = boardDao.selectOne(boardNo);
-    
+    boardDao.updateClick(boardNo);
     //board.setPhotoList( boardDao.selectPhoto(boardNo));
     
     return board;

@@ -25,26 +25,34 @@
     <id column="bno" property="no"/>
     <result column="bname" property="title"/>
     <result column="btarget_num" property="targetNumber"/>
+    <result column="req_count" property="reqCount"/>
+    
     <result column="start_date" property="startDate"/>
     <result column="end_date" property="endDate"/>
     <result column="uname" property="writer"/>
+    
     <result column="good_count" property="goodCount"/>
+    <result column="click_count" property="clickCount"/>
   </resultMap>
   
   <select id="selectList" parameterType="map" 
       resultMap="boardListMap">
-    select bno, bname, btarget_num, start_date, end_date,uname, good_count
+    select bno, bname, btarget_num, req_count, start_date, end_date,uname, good_count, click_count
       from (
-			  select rownum rnum, x.bno bno, x.bname bname, x.btarget_num btarget_num, x.start_date start_date, 
-			          x.end_date end_date, x.uname uname, y.good_count good_count
+			  select rownum rnum, x.bno bno, x.bname bname, 
+			          x.btarget_num btarget_num, z.req_count req_count, 
+			          x.start_date start_date, x.end_date end_date, x.uname uname, 
+			          y.good_count good_count, x.click_count click_count
 			      from (select b.bno bno, b.bname bname, b.btarget_num btarget_num, 
-			                 b.start_date start_date, b.end_date end_date, m.uname uname
+			                 b.start_date start_date, b.end_date end_date, m.uname uname, b.click_count click_count
 			          from iboard b, members m
 			          where b.mno=m.mno and b.bmno=#{categoryNo}
 			          order by bno desc) x, 
 			          (select b.bno bno, count(r.bno) good_count from iboard b, recommend r 
-			          where b.bno=r.bno(+) group by b.bno) y
-			      where x.bno=y.bno and (#{pageNo}*#{pageSize}) >= rownum
+			          where b.bno=r.bno(+) group by b.bno) y, 
+			          (select b.bno bno, count(q.bno) req_count from iboard b, (select * from request where state=1) q 
+			          where b.bno=q.bno(+) group by b.bno) z
+			      where x.bno=y.bno and x.bno=z.bno and (#{pageNo}*#{pageSize}) >= rownum
         )
     where rnum >= (#{pageNo}-1)*#{pageSize}+1
   </select>
@@ -157,6 +165,9 @@
     update request set state=2 where bno=#{boardNo} and mno=#{memberNo}
   </update>
   
+  <update id="updateClick" parameterType="int">
+    update iboard set click_count=click_count+1 where bno=#{boardNo}
+  </update>
 <!--
   
   <resultMap type="Board" id="boardMap">
