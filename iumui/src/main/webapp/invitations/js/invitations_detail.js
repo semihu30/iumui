@@ -33,6 +33,7 @@ function loadBoard(boardNo) {
   		console.log(data.loginUser);
   		console.log(data.boardComments);
   		console.log(data.boardRequests);
+  		data.board.reqCount++;
   		$('#title').html(data.board.title);
   		$('#regDate').html(yyyyMMdd(data.board.regDate));
   		$('#writer').html('작 성 자 : ' + data.board.writer);

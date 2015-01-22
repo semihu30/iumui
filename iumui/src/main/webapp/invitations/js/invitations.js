@@ -106,6 +106,7 @@ function loadBoardList(pageNo) {
 			for (var i in data.board) {
       	data.board[i].startDate = yyyyMMdd(data.board[i].startDate);
       	data.board[i].endDate = yyyyMMdd(data.board[i].endDate);
+      	data.board[i].reqCount++;
       }
       
      
