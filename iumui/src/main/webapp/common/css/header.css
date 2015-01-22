@@ -17,7 +17,7 @@
 .myphoto { border: 1px solid red; float: left; font-size: small; width: 8ex; height: 8ex; } 
 .myloginDisplay { float: left; font-size: small; padding-right:  8px; }
 .myName { padding: 0.6154em; float: left; font-size: small; width: 6.308em; height: 2.231em; } 
-.myinfo { padding: 6.7px 0; float: left; width: 4.3em; text-decoration:none; font-size: 0.4em; color: darkblue; }
+.myinfo { padding: 0.77em 0; float: left; width: 4.3em; text-decoration:none; font-size: 0.4em; color: darkblue; }
 .myMenu { padding-top: 0.4em; padding-left: 0.8em; float: left; text-decoration:none; font-size: 0.1em; color: #f3f4f5; }
 .informCount { color: red; }
 .alertWindow { position: fixed; left: 960px; top: 80px; padding-right: 22px; }
