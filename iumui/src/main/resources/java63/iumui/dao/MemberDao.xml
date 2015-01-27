@@ -14,7 +14,7 @@
     <result column="nick" property="nickName"/>
     <result column="phone" property="phone"/>
     <result column="sex" property="sex"/>
-    <result column="myphoto" property="myPhoto"/>
+    <result column="myphoto" property="userPhoto"/>
     <result column="intro" property="introWord"/>
     <result column="lcode" property="selectLocal"/>
     <result column="lname" property="localName"/>

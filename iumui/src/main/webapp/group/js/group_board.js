@@ -110,13 +110,13 @@ $("#show_reply").click(function(){
 */
 
 $('#upload_content').click(function(){
-	$('#upload_content').css('height', '100px');
+	$('#upload_content').css('height', '60px');
 });
-
+/*
 $('#upload_content').blur(function(){
 	$('#upload_content').css('height', '');
 });
-
+*/
 $('.ccontent').click(function(){
 	$('.ccontent').css('height', '60px');
 });

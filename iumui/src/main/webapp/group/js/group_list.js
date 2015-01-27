@@ -27,7 +27,7 @@ function loadMySchedule() {
 		/** 확인용 로그*/
 
 		for (var i in data.schedules) {
-			data.schedules[i].dday = parseDate4t(data.schedules[i].dday);
+			data.schedules[i].startday = parseDate4t(data.schedules[i].startday);
 		}
 		
 		
