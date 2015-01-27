@@ -37,17 +37,17 @@ public class AuthControl {
       String email, 
       String pwd, 
       boolean save,
-      String requestUrl, /* 세션에 저장된 값을 달라고 하려면?*/
+      String requestUrl,
       HttpServletResponse response,
       HttpSession session) throws Exception {
 
-    if (save) { // 쿠키로 아이디 저장
+    if (save) {
       Cookie cookie = new Cookie("email", email);
       cookie.setMaxAge(60 * 60 * 24 * 15);
       response.addCookie(cookie);
     } else {
       Cookie cookie = new Cookie("email", "");
-      cookie.setMaxAge(0); // 무효화시킴
+      cookie.setMaxAge(0);
       response.addCookie(cookie);
     }
     
@@ -67,7 +67,7 @@ public class AuthControl {
   }
   
   @RequestMapping("/logout")
-  public Object execute(HttpSession session) throws Exception {
+  public Object logOut(HttpSession session) throws Exception {
     session.invalidate();
     HashMap<String,Object> resultMap = new HashMap<>();
     resultMap.put("status", "success");
@@ -83,7 +83,6 @@ public class AuthControl {
     resultMap.put("check", memberService.available(email));
     
     System.out.println(memberService.available(email));
-    
     
     return resultMap;
   }
@@ -101,15 +100,3 @@ public class AuthControl {
   }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-

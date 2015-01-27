@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="java63.iumui.dao.GroupBoardDao">
+
+  <resultMap type="GroupBoard" id="groupBoardMap">
+    <id column="gbno" property="no"/>
+    <result column="grouping_no" property="groupMemberNo"/>
+    <result column="gno" property="groupNo"/>
+    <result column="gname" property="groupName"/>
+    <result column="mno" property="memberNo"/>
+    <result column="uname" property="userName"/>
+    <result column="intro" property="intro"/>
+    <result column="gbcontent" property="content"/>
+    <result column="reg_date" property="regDate"/>
+  </resultMap>
+  
+  <select id="selectList" parameterType="int" 
+      resultMap="groupBoardMap">
+    select b.gbno gbno, b.grouping_no grouping_no, g.gno gno, g.gname gname, 
+      gm.mno mno, m.uname uname, m.intro intro, b.gbcontent gbcontent, b.reg_date reg_date
+    from members m, ggroup g, gmembers gm, gboard b 
+    where g.gno=gm.gno and b.grouping_no=gm.grouping_no and m.mno=gm.mno and gm.gno=#{value}
+  </select>
+ 
+  <resultMap type="GroupBoardComment" id="boardCommentMap">
+    <id column="gbcno" property="no"/>
+    <result column="gbno" property="groupBoardNo"/>
+    <result column="grouping_no" property="groupMemberNo"/>
+    <result column="gno" property="groupNo"/>
+    <result column="gname" property="groupName"/>
+    <result column="mno" property="memberNo"/>
+    <result column="uname" property="userName"/>
+    <result column="gbcontent" property="content"/>
+    <result column="reg_date" property="regDate"/>
+  </resultMap>
+
+  <select id="selectComments" parameterType="int" 
+      resultMap="boardCommentMap">
+		select c.gbcno gbcno, c.gbno gbno, c.grouping_no grouping_no, g.gno gno, g.gname gname, 
+		  gm.mno mno, m.uname uname, c.content content, c.reg_date reg_date
+		from members m, ggroup g, gmembers gm, gcomment c 
+		where g.gno=gm.gno and c.grouping_no=gm.grouping_no and m.mno=gm.mno and gm.gno=#{value}
+  </select>
+  
+  <select id="selectGroupMemberNo" parameterType="map" resultType="int">
+    select grouping_no from gmembers where gno=#{groupNo} and mno=#{memberNo}
+  </select>
+  
+  <insert id="insertGroupBoard" parameterType="GroupBoard">
+    insert into gboard
+    values (gbno.nextval, #{groupMemberNo},#{content},sysdate);
+  </insert>
+  
+  <!-- 
+  <insert id="insertComment" parameterType="BoardComment">
+    INSERT INTO bcomment 
+    VALUES (bcno.nextval, #{boardNo},#{memberNo},#{comment},sysdate)
+  </insert>
+  
+  <update id="update" parameterType="Board">
+    update iboard set bintro=#{content} where bno=#{no}
+  </update> 
+  
+  <delete id="delete" parameterType="int">
+    delete from iboard where bno=#{no}
+  </delete>
+  
+  <delete id="deleteComments" parameterType="int">
+    delete from bcomment where bno=#{no}
+  </delete>
+  
+  <delete id="deleteRequests" parameterType="int">
+    delete from request where bno=#{no}
+  </delete>
+  
+  <delete id="deleteRecommends" parameterType="int">
+    delete from recommend where bno=#{no}
+  </delete>
+  
+  <select id="totalSize" parameterType="int" resultType="int">
+    select count(bno) from iboard where bmno=#{value}
+  </select>
+   update board set readcount = nvl(readcount,0) + 1 where seq = ?
+  <insert id="recommend" parameterType="map">
+    insert into recommend
+    values (#{boardNo},#{memberNo},sysdate)
+  </insert>
+  
+  <select id="selectMessageCount" parameterType="int" resultType="int">
+    select count(r.mno) 
+    from iboard b, request r, members m 
+    where r.bno=b.bno and r.mno=m.mno and (b.mno=#{value} or r.mno=#{value})
+  </select>
+  
+  
+  <resultMap type="map" id="messageMap">
+    <result column="bno" property="boardNo"/>
+    <result column="mno" property="memberNo"/>
+    <result column="message" property="message"/>
+    <result column="state" property="statusNo"/>
+  </resultMap>
+  
+  <select id="selectMessage" parameterType="int" resultMap="messageMap">
+    select x.bno bno, x.mno mno, 
+      ('[' || x.bname || '] 에 ' || x.uname || '님이 ' || y.explanation) message, x.state state 
+    from 
+					(select r.bno bno, r.mno mno, b.bname bname, m.uname uname, r.state state 
+					   from iboard b, request r, members m 
+					   where r.bno=b.bno and r.mno=m.mno and (b.mno=#{value} or r.mno=#{value}) order by r.call) x, 
+					(select 0 state ,'참여 요청 하였습니다.' explanation FROM dual
+					  union
+					  select 1, '참여 확정 되었습니다.' FROM dual
+					  union
+					  select 2, '참여 거부 되었습니다.' FROM dual
+					  union
+				    select 3, '참여 되었습니다.' FROM dual) y
+		where x.state=y.state
+  </select>
+  
+  <insert id="request" parameterType="map">
+    insert into request
+    values (#{boardNo},#{memberNo},0,sysdate)
+  </insert>
+  
+  <update id="requestAccept" parameterType="map">
+    update request set state=1 where bno=#{boardNo} and mno=#{memberNo}
+  </update>
+  
+  <update id="requestReject" parameterType="map">
+    update request set state=2 where bno=#{boardNo} and mno=#{memberNo}
+  </update>
+  
+  <update id="updateClick" parameterType="int">
+    update iboard set click_count=click_count+1 where bno=#{boardNo}
+  </update> 
+  -->
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

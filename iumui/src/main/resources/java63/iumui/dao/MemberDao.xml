@@ -17,6 +17,7 @@
     <result column="myphoto" property="myPhoto"/>
     <result column="intro" property="introWord"/>
     <result column="lcode" property="selectLocal"/>
+    <result column="lname" property="localName"/>
   </resultMap>
   
   <sql id="memberSelect">
@@ -45,29 +46,30 @@
   
   <!--회원정보 수정  -->
   <select id="userInfo" parameterType="int" resultMap="memberMap">
-   SELECT T1.mno,T1.email,T1.pwd,T1.uname,T1.birth,T1.nick,T1.phone,T1.sex,T1.myphoto,T1.intro,T2.lcode,T2.lname
+   SELECT T1.mno, T1.email, T1.pwd, T1.uname, T1.birth, T1.nick, T1.phone, T1.sex, T1.myphoto, T1.intro, T1.lcode, T2.lname
    FROM MEMBERS T1, SLOCAL T2
-   WHERE mno = #{memberNo} AND T1.lcode=T2.lcode;  
-  </select> 
+   WHERE T1.mno = #{memberNo} AND T1.lcode = T2.lcode  
+  </select>
   
+  <select id="userInfo1" parameterType="int" resultType="string">
+   SELECT lname 
+   FROM slocal 
+   WHERE lcode = 
+   (SELECT substr(lcode, 1, 2)
+    FROM MEMBERS
+    WHERE mno = #{value}) 
+  </select>  
   
+  <update id="edit" parameterType="Member">
+    UPDATE MEMBERS 
+    SET email = #{email},
+        uname = #{userName},
+        birth = #{birthDate},
+        nick = #{nickName}, 
+        phone = #{phone}, 
+        sex = #{sex}, 
+        intro = #{introWord}, 
+        lcode = #{selectLocal}
+    WHERE mno = #{memberNo}
+  </update>
 </mapper>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -31,7 +31,12 @@ public interface BoardDao {
   void update(Board board);
   void delete(int no);
   void deleteComments(int no);
+  void deleteRequests(int no);
+  void deleteRecommends(int no);
   int totalSize(int no);
+  int selectMessageCount(int no);
+  List<?> selectMessage(int no);
+  
   void recommend(Map<String,Object>paramMap);
   void request(Map<String,Object>paramMap);
   void requestAccept(Map<String,Object>paramMap);

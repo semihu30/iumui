@@ -37,17 +37,22 @@
     <result column="cschedule" property="schedule"/>
   </resultMap>
   
-  
   <select id="totalSize" parameterType="int" resultType="int">
   	SELECT count(T2.GNO)
 			FROM MEMBERS T1, GMEMBERS T2, GGROUP T3
 			WHERE #{mno}=T1.MNO AND T1.MNO=T2.MNO AND T2.GNO= T3.GNO
   </select>
   
-  <select id="selectGroup" parameterType="int" resultMap="groupMap">
+  <!-- <select id="selectGroup" parameterType="int" resultMap="groupMap">
     SELECT gno,gname,gintro,gend_date
     FROM GGROUP
     WHERE gno=#{no}
+  </select> -->
+  
+  <select id="selectMyGroup" parameterType="int" resultMap="groupMap">
+  SELECT T3.GNO gno,T3.GNAME gname, T3.GINTRO gintro, T3.GEND_DATE gend_date
+    FROM MEMBERS T1, GMEMBERS T2, GGROUP T3
+    WHERE T1.MNO = #{mno} AND T1.MNO = T2.MNO AND T2.GNO = #{gno} AND T2.GNO = T3.GNO
   </select>
   
   <select id="selectAllGroups" parameterType="int" resultMap="allGroups">
@@ -57,7 +62,7 @@
   				 T2.GNO gno, 
   				 T2.MANAGER_STATUS manager_status, 
   				 T2.COLOR color
-  	FROM MEMBERS T1, GMEMBERS T2, GGROUP T3 
+  	FROM MEMBERS T1, GMEMBERS T2, GGROUP T3 `
   	WHERE #{mno}=T1.MNO AND T2.MNO=T1.MNO AND T2.GNO=T3.GNO 
   </select>
   
@@ -83,5 +88,25 @@
   			 WHERE ROWNUM ^= #{dataSize}+1
   </select>
   
+  <update id="updateColor" parameterType="map">
+  	UPDATE gmembers
+  	SET color=#{color}
+		WHERE gno=#{gno} AND mno=#{mno}  	
+  </update>
+  
+  <insert id="insertGroup" parameterType="Group">
+    INSERT INTO ggroup 
+    VALUES (#{gno}, #{name},#{intro},#{expireDay})
+  </insert>
+  
+  <select id="selectNextVal" resultType="int">
+    SELECT gno.nextval FROM dual
+  </select>
+  
+  <insert id="insertGroupMember" parameterType="GroupMember">
+    INSERT INTO gmembers 
+    VALUES (grouping_no.nextval, #{groupNo},#{memberNo},#{managerStatus}, null)
+  </insert>
+
 </mapper>
 

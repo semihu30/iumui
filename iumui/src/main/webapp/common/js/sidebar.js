@@ -72,16 +72,6 @@ function showCalendar (day, month, year) {
     }
 
 /** 달력 출력 end */
-
-/** 헤더 연결 테스트 */
-function chkLogout() {
-	
-	console.log("로그아웃 절차 실행 체크");
-	
-	$('#sidebar_table2_content').html("로그인 후 이용하여 주십시오");
-}
-/** 헤더 연결 테스트 */
-
 function parseDate4t(date) {
   if (date) {
     var date = new Date(date);

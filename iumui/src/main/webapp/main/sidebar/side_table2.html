@@ -1,5 +1,7 @@
 {{#each groups}}
 <tr>
-	<td id='groupNo{{@index}}{{@key}}' class='sidebar_title'><a href="#">{{gname}}</a></td>
+	<td id='groupNo{{@index}}{{@key}}' class='sidebar_title' style="color:{{formColor}}">
+		<a href="/iumui/group/group_board.html?gno={{gno}}">{{gname}}</a>
+		</td>
 </tr>
 {{/each}}

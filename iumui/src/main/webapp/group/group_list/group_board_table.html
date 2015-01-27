@@ -1,0 +1,37 @@
+{{#each groupBoards}}
+<div class='board_uploaded'>
+
+<div id='no{{no}}' class='user'>
+  <table>
+    <tr id='user{{memberNo}}'>
+      <td rowspan="2"><img src="../icon/64x64/row 9/1.png"></td>
+      <td class='username'>{{userName}}</td>
+      <td class='userstc'>{{intro}}</td>
+    </tr>
+    <tr>
+      <td class='uploaded_date'>{{regDate}}</td>
+    </tr>
+  </table>
+
+</div>  
+<br>
+
+<div class='usercontent'>{{content}}</div>
+
+<div><a id='btnComment{{no}}' class='btn btn-danger btn-xs btnComment' data-no='{{no}}'>댓글</a></div>
+  
+<div id='commentInput{{no}}' class='board_comment commentInput' style='display:none;'>
+
+	<div style='text-align:center; padding:10px;'>
+		 <div id='c{{no}}' ><textarea id='ccontent{{no}}' class="form-control form-group-sm ccontent" placeholder="댓글을 남겨주세요~"></textarea></div>
+			 <div>
+			  <button id='btnCreg{{no}}' type="button" class="btn btn-default btn-xs btnCReg" data-no='{{no}}'>등록</button>
+			  <button id='btncCancel{{no}}' type="button" class="btn btn-default btn-xs btncCancel" data-no='{{no}}'>취소</button>
+		   </div>
+		 </div>
+	</div>
+ 
+<div id='commentSet{{no}}' class='commentSet' data-no='{{no}}'></div>
+</div>
+
+{{/each}}

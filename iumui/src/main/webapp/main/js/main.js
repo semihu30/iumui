@@ -39,7 +39,7 @@ function loadMyGroups(pageNo) {
 	
 	
 
-	$.getJSON('../json/group/mygroups.do?pageNo='+ pageNo, 
+	$.getJSON('../group/mygroups.do?pageNo='+ pageNo, 
 			function(data){
 
 		/** 확인용 로그*/

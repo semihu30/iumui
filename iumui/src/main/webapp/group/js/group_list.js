@@ -19,7 +19,7 @@ $(function(){
 
 /** 가까운 일정 start*/
 function loadMySchedule() {
-	$.getJSON('../json/group/myschedules.do?dataSize=6' , 
+	$.getJSON('../group/myschedules.do?dataSize=6' , 
 			function(data){
 
 		/** 확인용 로그*/
@@ -35,8 +35,7 @@ function loadMySchedule() {
 		var mySchedules = data.schedules
 
 		/**사이드 2번 테이블 제목 삽입 start*/
-		$('#sidebar_contents2 a').attr('href','#')
-		.html("가까운 일정");
+		$('#sidebar_contents2 a').attr('href','#').html("가까운 일정");
 		/**사이드 2번 테이블 제목 삽입 end*/
 
 		if((data.status) == "success") {
@@ -72,30 +71,67 @@ function loadMySchedule() {
 
 /** 내가 가입한 모임 start*/
 function loadMyGroups(pageNo) {
-
-	$.getJSON('../json/group/mygroups.do?pageNo='+ pageNo, 
+	
+	$.getJSON('../group/mygroups.do?pageNo='+ pageNo, 
 			function(data){
 
 		/** 확인용 로그*/
 		console.log("나의 모임 페이지 로드 : " + data.status);
-		console.log(data.groups);
+		console.log(data.groups)
 		/** 확인용 로그*/
 
 		var myGroups = data.groups
-
+		var today = new Date();
+		var Dday = [];
+		
 		if((data.status) == "success"){
-			console.log('로딩이 성공하였습니다.');
 			if(myGroups.length > 0){
-				require(['text!sidebar/mygroup_table.html'], function(html){
+				
+				for (var i in myGroups) {
+					Dday[i] = myGroups[i].expireDay - today;
+					Dday[i] = Math.floor(Dday[i] / (1000 * 60 * 60 * 24)) * -1;
+					myGroups[i].expireDay = [yyyyMMdd(myGroups[i].expireDay) , "D"+ Dday[i]];
+				}
+				
+				console.log(Dday);
+				console.log(data.groups)
+				require(['text!group_list/mygroup_table.html'], function(html){
 					var template = Handlebars.compile(html);
 					$('#my_group_list').append(template(data));
-					console.log("사이드바 2번 테이블 데이터 : " + $('#sidebar_table2_content').find('tr').length);
+					
+					$(".my_groups th").append("<span class=\"setting-btn\"></span>");
+					
+					$(".setting-btn").load("set_div.html");
+					console.log("설정박스 생성 완료");
+					
+					});
 				
-				});
 			} else {
 				$('#my_group_list').append("가입한 그룹이 없습니다");
+				
 			}
 		}
 	});
+	
 };
 /** 내가 가입한 모임 start*/
+
+/** 날짜 데이터 전환 start */
+function yyyyMMdd(date) {
+  if (date) {
+    var date = new Date(date);
+    var str = date.getFullYear() + '-';
+    
+    if (date.getMonth() < 9) str += '0';
+    str += (date.getMonth() + 1) + '-';
+    
+    if (date.getDate() < 10) str += '0';
+    str += date.getDate();
+    
+    return str;
+    
+  } else {
+    return '';
+  }
+}
+/** 날짜 데이터 전환 end */

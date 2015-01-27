@@ -1,23 +1,55 @@
 @CHARSET "UTF-8";
+/* 
+div{
+	border:1px solid green;
+}
+ */
 
-.grp_contents { margin:25px 45px; width:701px; float:left; }
- 
-#show_reply { margin:15px 15px 0 0; float:right; font-size:5px; }
- 
-#board_uploaded { margin:20px auto; }
+.grp_contents { margin:25px 45px; width:69%;height:70ex; float:left;}
+.board_uploaded { margin:10px auto; }
+.board_uploaded, #board_upload { border:1px solid rgba(68, 97, 157, 0.15); background-color:white; border-radius:5px; }
+#upload_content { /* margin-top:12px; width:665px; margin-left:12px; */ display:inline; resize:none; }
 
-#board_uploaded, #board_upload { border:3px solid black; border-radius:5px; }
+#uploadbtn { margin-left:450px; vertical-align: top;}
 
-#upload_content { margin-top:12px;	width:665px; }
- 
-#upload_content { margin-left:12px; border:0px; resize:none; }
- 
-#uploadbtn { margin-left:450px; }
+.user table {float:left;}
+.userstc, .uploaded_date { font-size:x-small; }
+.username {	padding-right:5px; font-size:medium; font-weight:bold; }
+.usercontent { width:655px; padding:5px; margin:50px; font-size:small; margin-left: 50px; margin-bottom: 0;}
+#main_contents { float:left; width: 100%; margin:1.365% auto; }
+.uploadtools { padding-left: 5px; padding-top: 9px; border-top: 1px solid rgba(68, 97, 157, 0.15);}
+.uploadtools > img { margin : 0 15px; }
 
-#user table { float:left; }
- 
-#userstc, #uploaded_date { font-size:x-small; }
 
-#username {	padding-right:5px; font-size:medium; font-weight:bold; }
- 
-#usercontent { width:655px; padding:5px; margin:70px 20px 15px 20px; font-size:small; }
+.board_comment { padding: 5px; background-color: white; border-top: 1px solid rgba(68, 97, 157, 0.15); border-radius:5px;}
+
+.btnComment {padding-left: 20px;}
+
+.btnBModDel {float: right;}
+
+.board_content { padding: 10px; background-color: white; border-top: 1px solid rgba(68, 97, 157, 0.15);border-left: 1px solid rgba(68, 97, 157, 0.15);border-right: 1px solid rgba(68, 97, 157, 0.15);}
+
+.board_button{text-align:center;}
+
+.comment_content, .request_button { padding: 6px 6px 6px 70px; font-size: 12px;}
+
+.top_style{padding: 5px; height:34px}
+
+.title, .commenter, .requester { float:left;}
+.regDate { float:right; font-size:12px;}
+
+.ccontent { display:inline; resize:none;}
+
+
+.writer_photo { float: left; font-size: small; width: 80px; height: 67px; } 
+
+.photo { border: 1px solid red; width: 60px; height: 60px;} 
+
+.board_info { padding-left:10px;}
+
+.top_style{padding: 5px; height:34px}
+
+.title, .commenter, .requester { float:left;}
+.regDate { float:right; font-size:12px;}
+
+#ccontent { display:inline; resize:none;}

@@ -160,6 +160,28 @@ public class BoardControl {
     return resultMap;
   }
   
+  @RequestMapping("/message_count")
+  public Object message_count(
+      HttpSession session) throws Exception {
+    HashMap<String,Object> resultMap = new HashMap<>();
+    resultMap.put("status", "success");
+    resultMap.put("messageCount", boardService.getMessageCount(
+        ((Member)session.getAttribute("loginUser")).getMemberNo()));
+    
+    return resultMap;
+  }
+  
+  @RequestMapping("/message")
+  public Object message(
+      HttpSession session) throws Exception {
+    HashMap<String,Object> resultMap = new HashMap<>();
+    resultMap.put("status", "success");
+    resultMap.put("messages", boardService.getMessage(
+        ((Member)session.getAttribute("loginUser")).getMemberNo()));
+    
+    return resultMap;
+  }
+  
   @RequestMapping("/request")
   public Object request(int no, 
       HttpSession session) throws Exception {
@@ -187,6 +209,7 @@ public class BoardControl {
     
     return resultMap;
   }
+
 }
 
 

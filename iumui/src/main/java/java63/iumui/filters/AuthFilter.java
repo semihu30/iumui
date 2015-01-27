@@ -39,13 +39,10 @@ public class AuthFilter implements Filter {
     } else {
       nextFilter.doFilter(request, response);
     }
-    
   }
 
   @Override
   public void destroy() {}
-
- 
 
 }
 

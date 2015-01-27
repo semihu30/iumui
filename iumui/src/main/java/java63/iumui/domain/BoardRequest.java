@@ -11,6 +11,7 @@ public class BoardRequest implements Serializable{
   protected String userName;
   protected int statusNo;
   protected String statusContent;
+  protected String message;
   protected Date requestDate;
   
   @Override

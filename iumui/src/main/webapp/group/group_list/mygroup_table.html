@@ -1,0 +1,20 @@
+{{#each groups}}
+<div class="groups" data-value="{{gno}}">
+	<table class="my_groups">
+		<thead>
+			<tr>
+				<th colspan="2" class="g_name" userstate="{{userState}}"><a href="group_board.html?gno={{gno}}" style="color:{{formColor}}">{{gname}}</a></th>
+			</tr>
+			<tr>
+				<td class="group_intro g_td" colspan="2" class="g_intro">{{intro}}</td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td class="head_count g_td">현재 인원</td>
+				<td class="expire_day g_td">종료일 : {{expireDay}} </td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+{{/each}}

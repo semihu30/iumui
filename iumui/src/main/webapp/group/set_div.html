@@ -1,0 +1,137 @@
+<img class="asBtn" src="../icon/32x32/row 3/14.png">
+<div class="set_div">
+	<table>
+		<tr>
+			<td>배경색</td>
+			<td>
+				<div>
+					<table class="color-table">
+						<tr>
+							<td><div style="background-color : rgb(172, 114, 94);"></div></td>
+							<td><div style="background-color : rgb(208, 107, 100);"></div></td>
+							<td><div style="background-color : rgb(248, 58, 34);"></div></td>
+							<td><div style="background-color : rgb(250, 87, 60);"></div></td>
+							<td><div style="background-color : rgb(255, 117, 55);"></div></td>
+							<td><div style="background-color : rgb(255, 173, 70);"></div></td>
+						</tr>
+						<tr>
+							<td><div style="background-color : rgb(66, 214, 146);"></div></td>
+							<td><div style="background-color : rgb(208, 107, 100);"></div></td>
+							<td><div style="background-color : rgb(22, 167, 101);"></div></td>
+							<td><div style="background-color : rgb(123, 209, 72);"></div></td>
+							<td><div style="background-color : rgb(255, 233, 131);"></div></td>
+							<td><div style="background-color : rgb(250, 209, 101);"></div></td>
+						</tr>
+						<tr>
+							<td><div style="background-color : rgb(146, 225, 192);"></div></td>
+							<td><div style="background-color : rgb(159, 225, 231);"></div></td>
+							<td><div style="background-color : rgb(159, 198, 231);"></div></td>
+							<td><div style="background-color : rgb(73, 134, 231);"></div></td>
+							<td><div style="background-color : rgb(154, 156, 255);"></div></td>
+							<td><div style="background-color : rgb(185, 154, 255);"></div></td>
+						</tr>
+						<tr>
+							<td><div style="border:1px solid black; background-color : #f3f3f3;"></div></td>
+							<td><div style="background-color : rgb(202, 189, 191);"></div></td>
+							<td><div style="background-color : rgb(204, 166, 172);"></div></td>
+							<td><div style="background-color : rgb(246, 145, 178);"></div></td>
+							<td><div style="background-color : rgb(205, 116, 230);"></div></td>
+							<td><div style="background-color : rgb(164, 122, 226);"></div></td>
+						</tr>
+					</table>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2"><button class="confirm_set">수정</button>  <button class="cancel_set" >취소</button></td>
+		</tr>
+	</table>
+	<script src='js/set_div.js'></script>
+	<script>
+		var color = '';
+		var bcCode;
+		
+		$('.color-table div').click(function() {
+			$('.color-table div').html('');
+			$(this).html("<image class=\"color-chk\" src=\"../icon/64x64/row 8/13.png\"/>");
+			var x = $(this).css('backgroundColor');
+			hexc(x);
+			bcCode = color;
+		});
+		
+		function hexc(colorval) {
+	    var parts = colorval.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+	    delete (parts[0]);
+	    for (var i = 1; i <= 3; ++i) {
+		    parts[i] = parseInt(parts[i]).toString(16);
+		    if (parts[i].length == 1)
+			    parts[i] = '0' + parts[i];
+	    }
+	    color = '#' + parts.join('');
+    };
+    
+    $(".confirm_set").click(
+        function(event) {
+					
+	        var thisTitle = $(this).closest('table').closest('th').children();
+	        var groupNo = thisTitle.closest('div').attr('data-value');
+	        thisTitle.css("color", bcCode);
+	        
+	        /* 폼 색깔 변경 start */
+	        $.post('../group/updateColor.do'
+	        		,{
+	        			color : bcCode,
+	        			gno : groupNo,
+	        		}, function(result) {
+	        			if(result.status == "success") {
+	        				
+	        			} else {
+	        				alert("변경에 실패하였습니다");
+	        			}
+	        		}
+	        		,'json')
+	        .fail(function(jqXHR, textStatus, errorThrown){
+	        	alert(textStatus + ":" + errorThrown);
+	        });
+	        /* 폼 색깔 변경 end */
+
+	        $('.set_div').css('display', 'none');
+	     
+	        /* 확인용 */ 
+	        console.log(groupNo);
+	        console.log(thisTitle);    
+	        console.log("font-color" + bcCode);
+	        /* 확인용 */
+	        
+        });
+	</script>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

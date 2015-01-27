@@ -2,6 +2,7 @@ package java63.iumui.control.json;
 
 import java.io.File;
 import java.util.HashMap;
+
 import java63.iumui.dao.MemberDao;
 import java63.iumui.domain.Member;
 import java63.iumui.service.MemberService;
@@ -20,9 +21,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class MemberControl {
 	static Logger log = Logger.getLogger(MemberControl.class);
 	
-	@Autowired MemberDao memberdao; 
-  @Autowired MemberService memberService;
-  @Autowired ServletContext servletContext;
+	@Autowired MemberDao       memberdao; 
+  @Autowired MemberService   memberService;
+  @Autowired ServletContext  servletContext;
   
   @RequestMapping(value="/add", method=RequestMethod.POST)
   public Object updataPhoto(Member member) throws Exception {
@@ -46,7 +47,6 @@ public class MemberControl {
   	
   	return resultMap;
   }
-  
   
   public Object update (Member member) throws Exception {
   	memberService.update(member);
@@ -76,7 +76,6 @@ public class MemberControl {
     Member loginUser =  (Member)session.getAttribute("loginUser");
     
     int mno = loginUser.getMemberNo();
-    System.out.println(mno);
     Member member = memberService.getUserInfo(mno);
     
     HashMap<String,Object> resultMap = new HashMap<>();
@@ -86,18 +85,33 @@ public class MemberControl {
     return resultMap;
   }
   
+  @RequestMapping("/user_info1")
+  public Object userInfo1(HttpSession session) throws Exception {
+    
+    Member loginUser =  (Member)session.getAttribute("loginUser");
+    
+    int mno = loginUser.getMemberNo();
+    String localName = memberService.getUserInfo1(mno);
+    
+    HashMap<String,Object> resultMap = new HashMap<>();
+    resultMap.put("status", "success");    
+    resultMap.put("localName", localName);
+    
+    return resultMap;
+  }
+  
+  @RequestMapping(value="/update", method=RequestMethod.POST)
+  public Object edit(Member member) throws Exception {
+    System.out.println(member);
+    memberService.edit(member);
+    
+    HashMap<String,Object> resultMap = new HashMap<>();
+    resultMap.put("status", "success");
+    
+    return resultMap;
+  }
+  
   
   
 }
-
-
-
-
-
-
-
-
-
-
-
 

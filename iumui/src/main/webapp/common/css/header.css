@@ -20,6 +20,8 @@
 .myinfo { padding: 0.77em 0; float: left; width: 4.3em; text-decoration:none; font-size: 0.4em; color: darkblue; }
 .myMenu { padding-top: 0.4em; padding-left: 0.8em; float: left; text-decoration:none; font-size: 0.1em; color: #f3f4f5; }
 .informCount { color: red; }
-.alertWindow { position: fixed; left: 960px; top: 80px; padding-right: 22px; }
-.msgBox { padding-top: 20px; width: 200px; height: 220px; border: 1px gray solid; background-color: #eee8aa; font-size: 90%; } 
+.alertWindow { position: fixed; left: 760px; top: 60px; padding-right: 22px; }
+.msgBox { padding: 30px; width: 360px; border: 1px solid #CECEF6; background-color: #F2EFFB; font-size: small; } 
 .pbutton { text-align:right; }
+
+#btnMsgClose { position: absolute; top: 0px; right: 0px; }

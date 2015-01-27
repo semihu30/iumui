@@ -1,4 +1,4 @@
-/**
+	/**
  * Header JS
  * 
  * /iumui/common/js/header.js
@@ -11,6 +11,7 @@
 
 $(function(){
 	$('#my_loginBox').css('display', 'none');
+	$('#msg1').css('display', 'none'); 
 
 	$('#loginSubmit').click(function(event){
     $.post('../json/auth/login.do'
@@ -31,7 +32,6 @@ $(function(){
         }
         , 'json');
   });
-
 });
 
 $('#logoutSubmit').click(function(event){
@@ -55,11 +55,41 @@ $.getJSON('../json/auth/loginUser.do', function(data){
 			  $('#myphoto').attr('src', data.loginUser.photo);
 		}
 		console.log("로그인 유저 이름 (logintester): " + data.loginUser.userName);
-		//logintester=data.loginUser.memberNo;
-		//console.log("memberNo = " + logintester);
+		
 	  $('.myName').html(data.loginUser.userName + " 님.");
+
 		$('.myName').click(function(){
 			alert('사용자 정보 조회 창으로 보낼 예정');
 		});
+		
+		$.getJSON('../json/board/message_count.do', 
+		    function(result){
+			//console.log(result);
+			$('.informCount').html('&nbsp; ' + result.messageCount);
+		});
+		
+		$.getJSON('../json/board/message.do', 
+		    function(mes){
+			//console.log(mes.messages);			
+			for (var i in mes.messages) {
+				$('#msg1').append($('<br>'))
+										.append($('<p>').html(mes.messages[i].message));
+								
+				if ( mes.messages[i].state == 3) {
+					$('#msg1').append("<button type='button' " +
+							"class='btn btn-default btn-xs btnRAccept' reqDel='bno=" + 
+							mes.messages[i].bno + "&mno=" + mes.messages[i].mno +  
+							">확인</button>");
+				}
+			}
+		});
 	}
+});
+
+$('.link_inform').click(function(){
+	$('#msg1').css('display', ''); 
+});
+
+$('#btnMsgClose').click(function(event) {
+  $('#msg1').css('display', 'none'); 
 });

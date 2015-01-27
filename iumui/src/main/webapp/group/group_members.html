@@ -1,40 +1,87 @@
 <!doctype html>
 <html>
 <head>
-<link rel='stylesheet' href='../css/bootstrap.css'>
 <link rel='stylesheet' href='../common/css/common.css'>
-<link rel='stylesheet' href='../css/bootstrap-theme.min.css'>
 <link rel='stylesheet' href='css/group_members.css'>
 <script src="/iumui/js/jquery-1.11.1.js"></script>
-<script src='/iumui/js/bootstrap.js'></script>
- <meta charset="utf-8">
- 	<title>'찬양대회 준비팀'_구성원</title>
- 	<style>
- 	div {border:1px solid red;}
- 	</style>
+<script type="text/javascript" src='/iumui/js/handlebars-v2.0.0.js'></script>
+<script type="text/javascript" src='/iumui/js/require.js'></script>
+<meta charset="utf-8">
+<title></title>
+<style>
+#content div {border: 1px solid red; }
+#main_contents>.side_bar {margin-top: 15px;}
+.side_menu {border: none;}
+
+#m_container_grid { padding : 0 30px 0 45px;}
+#m_container_list { padding : 0 30px 0 45px;} /* 리스트 화면 대비 css */ 
+
+#grp_member_title {padding:0 4px; margin:0 1.84% 10px 1.84%;}
+#grp_member_title h3 {margin-top: 0.9091em; margin-bottom: 0.9091em; font-size: 22px; font-family: inherit; font-weight: 500; line-height: 1.1; color: inherit; }
+#grp_member_title hr {margin-top: 13px; margin-bottom: 13px; border: 0; border-top: 1px solid #dddddd; }
+#grp_members {float:left; margin-top: 15px; width:75.91%; height: 75.303ex; color: #4e5665; }
+.m_table { display: inline-table; margin : 0 10px 20px 10px;}
+.m_table > tbody {}
+.m_table > tbody > tr > .m_pic { border:2px solid blue; width: 160px; height:148px;}
+.m_table > tbody > tr > .m_name,
+.m_table > tbody > tr > .m_intro {border:2px solid blue; width: inherit; height:30px;}
+
+.m_alpha { position: absolute; margin-left: 105px; margin-top: 44px; background-color: teal; color:white;}
+</style>
 </head>
 <body>
-  
-  <div id="content_container">
+
+	<div id="content_container">
 
 		<!-- 헤더 start -->
 		<div class='header'></div>
 		<!-- 헤더 end -->
-		
-		<!--  grp_menu start -->
-    <div class="group_sidebar"></div>
-    <!--  grp_menu end -->
-    
-    <!--  contents start -->
-			<div class='group_members'>
-				<h1>그룹 멤버 화면 출력</h1>
+
+		<!-- 컨텐츠 시작 -->
+		<div id="content">
+			<div id="main_contents">
+				<!-- 구성원 화면 시작 -->
+				<div id="grp_members">
+					<div id="grp_member_title">
+						<h3>구성원</h3>
+						<hr>
+					</div>
+					<div id="m_container_grid">
+					
+						<!-- 멤버 정보 최소단위 test start -->
+						<table class="m_table">
+							<tbody class="m_box">
+							<tr class="m_row">
+								<td class="m_pic">
+									<span style="display:none;" "class="m_alpha">
+										<b>모임장</b>
+									</span>
+								</td>
+							</tr>	
+							<tr class="m_row">
+								<td class="m_name"></td>
+						  </tr>	
+						  <tr class="m_row">
+								<td class="m_intro"></td>
+							</tr>	
+							</tbody>
+						</table>
+						<!-- 멤버 정보 최소단위 test end -->
+						
+					</div>
+				</div>
+				<!-- 구성원 화면 끝 -->
+				<!-- 사이드바 시작 -->
+				<div class='side_bar'></div>
+				<!-- 사이드바 끝 -->
 			</div>
-		<!--  contents end -->
-    
+		</div>
+		<!-- 컨텐츠 끝 -->
+
 		<!-- footer start -->
-		<div class='footer'> </div>
+		<div class='footer'></div>
 		<!-- footer end -->
-		
+
 	</div>
 
 </body>

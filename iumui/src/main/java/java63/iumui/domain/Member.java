@@ -2,7 +2,6 @@ package java63.iumui.domain;
 
 import java.io.Serializable;
 import java.util.List;
-
 import org.springframework.web.multipart.MultipartFile;
 
 /*
@@ -32,21 +31,29 @@ public class Member implements Serializable{
   protected String 				 nickName;
   protected String 			   phone;
   protected int 					 sex;
-  protected String introWord;
-  protected String selectLocal;
-  
+  protected String		     introWord;
+  protected String         selectLocal;
+  protected String         localName;
   
 	@Override
-	public String toString() {
-		return "Member [memberNo=" + memberNo + ", email=" + email + ", password="
-				+ password + ", userName=" + userName + ", userPhoto=" + userPhoto
-				+ ", userPhotofile=" + userPhotofile + ", userPhotoList="
-				+ userPhotoList + ", birthDate=" + birthDate + ", nickName=" + nickName
-				+ ", phone=" + phone + ", sex=" + sex + ", selectLocal=" + selectLocal
-				+ "]";
-	}
+  public String toString() {
+    return "Member [memberNo=" + memberNo + ", email=" + email + ", password="
+        + password + ", userName=" + userName + ", userPhoto=" + userPhoto
+        + ", userPhotofile=" + userPhotofile + ", userPhotoList="
+        + userPhotoList + ", birthDate=" + birthDate + ", nickName=" + nickName
+        + ", phone=" + phone + ", sex=" + sex + ", introWord=" + introWord
+        + ", selectLocal=" + selectLocal + ", localName=" + localName + "]";
+  }
 
-	public List<?> getUserPhotoList() {
+  public String getLocalName() {
+    return localName;
+  }
+
+  public void setLocalName(String localName) {
+    this.localName = localName;
+  }
+
+  public List<?> getUserPhotoList() {
 		return userPhotoList;
 	}
 

@@ -5,6 +5,8 @@
 var board;
 var member;
 var boardComment;
+var boardRequests;
+var state;
 
 $(function(){
 	$('.header').load('/iumui/common/header.html');
@@ -29,44 +31,47 @@ function loadBoard(boardNo) {
     function(data){
   		board = data.board;
   		loginUser = data.loginUser;
-  		console.log(data.board);
-  		console.log(data.loginUser);
-  		console.log(data.boardComments);
-  		console.log(data.boardRequests);
-  		data.board.reqCount++;
-  		$('#title').html(data.board.title);
-  		$('#regDate').html(yyyyMMdd(data.board.regDate));
-  		$('#writer').html('작 성 자 : ' + data.board.writer);
-  		$('#targetNumber').html('모집인원 : ' + data.board.reqCount + '/' + data.board.targetNumber);
-  		$('#startDate').html('모 집 일 : ' + yyyyMMdd(data.board.startDate));
-  		$('#endDate').html('종 료 일 : ' + yyyyMMdd(data.board.endDate));
+  		boardRequests = data.boardRequests;
+  		//console.log(data.board);
+  		//console.log(data.loginUser);
+  		//console.log(data.boardComments);
+  		//console.log(data.boardRequests);
+  		board.reqCount++;
+  		$('#title').html(board.title);
+  		$('#regDate').html(yyyyMMdd(board.regDate));
+  		$('#writer').html('작 성 자 : ' + board.writer);
+  		$('#targetNumber').html('모집인원 : ' + board.reqCount + '/' + board.targetNumber);
+  		$('#startDate').html('모 집 일 : ' + yyyyMMdd(board.startDate));
+  		$('#endDate').html('종 료 일 : ' + yyyyMMdd(board.endDate));
   		
-  		$('#board_content').html(data.board.content);
+  		$('#board_content').html(board.content);
   		
-  		$('#btnRecommend').html('추천 : ' + data.board.goodCount);
-  		$('#btnRequest').html('참여 : ' + data.board.reqCount);
+  		$('#btnRecommend').html('추천 : ' + board.goodCount);
+  		$('#btnRequest').html('참여 : ' + board.reqCount);
   		
   		for (var i in data.boardComments) {
       	data.boardComments[i].commentRegDate = yyyyMMdd(data.boardComments[i].commentRegDate);
       }
   		
-  		for (var i in data.boardRequests) {
-      	data.boardRequests[i].requestDate = yyyyMMdd(data.boardRequests[i].requestDate);
+  		for (var i in boardRequests) {
+      	boardRequests[i].requestDate = yyyyMMdd(boardRequests[i].requestDate);
       	
-      	if (data.boardRequests[i].statusNo == 0) {
-      		data.boardRequests[i].statusContent = "님이 참여 요청 하였습니다."; 
-      	} else if (data.boardRequests[i].statusNo == 1) {
-      		data.boardRequests[i].statusContent = "님이 참여 확정 되었습니다.";
-      	} else if (data.boardRequests[i].statusNo == 2) {
-      		data.boardRequests[i].statusContent = "님이 참여 거부 되었습니다.";
+      	if (boardRequests[i].statusNo == 0) {
+      		boardRequests[i].statusContent = "님이 참여 요청 하였습니다."; 
+      	} else if (boardRequests[i].statusNo == 1) {
+      		boardRequests[i].statusContent = "님이 참여 확정 되었습니다.";
+      	} else if (boardRequests[i].statusNo == 2) {
+      		boardRequests[i].statusContent = "님이 참여 거부 되었습니다.";
+      	} else if (boardRequests[i].statusNo == 3) {
+      		boardRequests[i].statusContent = "님이 참여 되었습니다.";
       	}
-      	
       }
   		
-  		if ( loginUser && loginUser.memberNo==board.writerNo) 
+  		if ( loginUser && loginUser.memberNo==board.writerNo){
   			$('.btnBModDel').css('display', '');
-  		else
+  		} else {
   			$('.btnBModDel').css('display', 'none');
+  		}
   		
   		require(['text!templates/request-table.html'], function(html){
         var template = Handlebars.compile(html);
@@ -86,7 +91,98 @@ function loadBoard(boardNo) {
         var template = Handlebars.compile(html);
         $('#commentSet').html( template(data) );
       });
+  		
+  		if (board.targetNumber == board.reqCount) {
+  			alert("목표 인원이 모집되어 모임을 생성하고 게시판을 삭제하겠습니다.");
+  			
+  			createGroup();
+  			
+  		}
+  		
     });
+}
+
+function createGroup() {
+	console.log(board.title + " and " + board.endDate);
+	
+	$.post('../group/add_group.do'
+      , {
+			  	name : board.title,
+			  	intro : "",
+			  	expireDay : yyyyMMdd(board.endDate)
+      } 
+      , function(result){  
+        if (result.status == "success") {
+        	
+          createMember(result.no);
+        } else {
+          alert("등록 실패!");
+        } 
+      } 
+      , 'json'  )
+   
+   .fail(function(jqXHR, textStatus, errorThrown){ 
+     alert(textStatus + ":" + errorThrown);
+     
+   });
+}
+
+function createMember(no) {
+	
+	for (var i in boardRequests) {
+		
+		if ( boardRequests[i].statusNo==1) {
+			$.post('../group/add_group_member.do'
+					, {
+						groupNo : no,
+						memberNo : boardRequests[i].memberNo,
+						managerStatus : 0
+					} 
+					, function(result){  
+						if (result.status == "success") {
+							
+						} else {
+							alert("등록 실패!");
+						}
+					} 
+					, 'json'  )
+					
+					.fail(function(jqXHR, textStatus, errorThrown){ 
+						alert(textStatus + ":" + errorThrown);
+					});			
+		}
+	}
+	
+	$.post('../group/add_group_member.do'
+			, {
+				groupNo : no,
+				memberNo : board.writerNo,
+				managerStatus : 1
+			} 
+			, function(result){  
+				if (result.status == "success") {
+					changeDelete();
+				} else {
+					alert("등록 실패!");
+				}
+			} 
+			, 'json'  )
+			
+			.fail(function(jqXHR, textStatus, errorThrown){ 
+				alert(textStatus + ":" + errorThrown);
+			});
+}
+
+function changeDelete() {
+	alert( "모임이 생성되어 게시판을 삭제합니다.");
+	$.getJSON('../json/board/delete.do?no=' + board.no, 
+	    function(result){
+		if (result.status == 'success') {
+      
+      location.href = "invitations.html?no=" + board.categoryNo;
+    }
+	});
+
 }
 
 $('#btncomment').click(function(){
@@ -248,21 +344,21 @@ $('#btnCReg').click(function(){
 	if (!validateComment()) return;
   
   $.post('../json/board/comment_add.do'
-      , {  /*서버에 보낼 데이터를 객체에 담아 넘긴다 */
+      , {  
 			  	boardNo : board.no,
 			  	comment : $('#ccontent').val()
       } 
-      , function(result){  /*서버로부터 응답을 받았을 때 호출될 메서드*/
+      , function(result){  
         if (result.status == "success") {
         		loadBoard(board.no);
           
-          $('#btncCancel').click(); // click 이벤트 발생시킴.
+          $('#btncCancel').click(); 
         } else {
           alert("등록 실패!");
         }
       } 
-      , 'json'  /*서버가 보낸 데이터를 JSON 형식으로 처리*/)
-    /*서버 요청이 실패했을 때 호출될 함수 등록*/   
+      , 'json'  )
+    
    .fail(function(jqXHR, textStatus, errorThrown){ 
      alert(textStatus + ":" + errorThrown);
    });

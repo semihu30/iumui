@@ -2,7 +2,11 @@ package java63.iumui.control.json;
 
 import java.util.HashMap;
 
+import java63.iumui.domain.Group;
+import java63.iumui.domain.GroupBoard;
+import java63.iumui.domain.GroupMember;
 import java63.iumui.domain.Member;
+import java63.iumui.service.GroupBoardService;
 import java63.iumui.service.GroupService;
 
 import javax.servlet.ServletContext;
@@ -11,15 +15,18 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller("json.groupControl")
-@RequestMapping("/json/group")
+@RequestMapping("/group")
 public class GroupControl {
 	static Logger log = Logger.getLogger(GroupControl.class);
 
 	@Autowired GroupService   	   groupService;
+	@Autowired GroupBoardService       groupBoardService;
 	@Autowired ServletContext 		 servletContext;
 
 	@RequestMapping("/mygroups")
@@ -50,8 +57,6 @@ public class GroupControl {
 			System.out.println("로긴 안되어있음");
 			return resultMap;
 		}
-		
-		
 		
 		return resultMap;
 	}
@@ -85,4 +90,94 @@ public class GroupControl {
 		
 		return resultMap;
 	}
+	
+	@RequestMapping("/updateColor")
+	public Object updateFormColor ( 
+			HttpSession session,
+			int gno,
+			String color) throws Exception {
+		
+		Member loginUser = (Member) session.getAttribute("loginUser");
+		int mno = loginUser.getMemberNo();
+	
+		groupService.updateColor(color, gno, mno);
+		
+		HashMap<String,Object> resultMap = new HashMap<>();
+		resultMap.put("status", "success");
+		
+		return resultMap;
+	}
+	
+	@RequestMapping("/group")
+	public Object loadGroupPage ( 
+			HttpSession session,
+			int gno ) throws Exception {
+		
+		Member loginUser = (Member) session.getAttribute("loginUser");
+		int mno = loginUser.getMemberNo();
+		
+		HashMap<String,Object> resultMap = new HashMap<>();
+		resultMap.put("status", "success");
+		resultMap.put("group", groupService.getMyGroup(gno, mno));
+		
+		return resultMap;
+	}
+	
+	@RequestMapping(value="/add_group", method=RequestMethod.POST)
+  public Object add_group(
+      Group group) throws Exception {  
+	 System.out.println(group);
+	 group.setGno(groupService.getNextVal());
+	  groupService.addGroup(group);
+	  
+    HashMap<String,Object> resultMap = new HashMap<>();
+    resultMap.put("status", "success");
+    resultMap.put("no", group.getGno());
+    
+    return resultMap;
+  }
+	
+	@RequestMapping(value="/add_group_member", method=RequestMethod.POST)
+  public Object add_group_member(
+      GroupMember groupMember) throws Exception {  
+   
+    groupService.addGroupMember(groupMember);
+    
+    HashMap<String,Object> resultMap = new HashMap<>();
+    resultMap.put("status", "success");
+    
+    return resultMap;
+  }
+	@RequestMapping("/group_board")
+  public Object group_board(int no, 
+      Model model, 
+      HttpSession session) throws Exception {
+	  
+    HashMap<String,Object> resultMap = new HashMap<>();
+    resultMap.put("status", "success");
+    resultMap.put("groupBoards", groupBoardService.getList(no));
+    resultMap.put("loginUser", (Member)session.getAttribute("loginUser"));
+    resultMap.put("groupBoardComments", groupBoardService.getComments(no));
+    return resultMap;
+  }
+
+	@RequestMapping(value="/add_board", method=RequestMethod.POST)
+  public Object add_board(
+      GroupBoard groupBoard,
+      HttpSession session) throws Exception {  
+   
+	  groupBoard.setGroupMemberNo(
+	      groupBoardService.getGroupMemberNo(
+	      groupBoard.getGroupNo(), 
+	      ((Member)session.getAttribute("loginUser")).getMemberNo()));
+	  
+	  groupBoardService.addGroupBoard(groupBoard);
+    
+    HashMap<String,Object> resultMap = new HashMap<>();
+    resultMap.put("status", "success");
+    resultMap.put("no", groupBoard.getNo());
+    
+    return resultMap;
+  }
+
 }

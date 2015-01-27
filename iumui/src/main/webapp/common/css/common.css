@@ -39,10 +39,6 @@ textarea {
   line-height: inherit;
 }
 
-table {
-	border-collapse: collapse;	
-}
-
 .btn:hover,
 .btn:focus,
 .btn.focus {
@@ -53,7 +49,7 @@ table {
 
 .btn {
   display: inline-block;
-  padding: 6px 12px;
+ /*  padding: 6px 12px; */
   margin-bottom: 0;
   font-size: 14px;
   font-weight: normal;
@@ -97,9 +93,15 @@ table {
   border: 1px solid #ccc;
   border-radius: 4px;
 }
+
+table {
+	border-collapse: collapse;	
+}
+
 .table-bordered {
   border: 1px solid #ddd;
 }
+
 .table > thead > tr > th,
 .table > tbody > tr > th,
 .table > tfoot > tr > th,
@@ -117,9 +119,34 @@ table {
 .table-bordered > tfoot > tr > td {
   border: 1px solid #ddd;
 }
+
+.table > caption + thead > tr:first-child > th,
+.table > colgroup + thead > tr:first-child > th,
+.table > thead:first-child > tr:first-child > th,
+.table > caption + thead > tr:first-child > td,
+.table > colgroup + thead > tr:first-child > td,
+.table > thead:first-child > tr:first-child > td {
+  border-top: 0;
+}
+
+.table-bordered > thead > tr > th,
+.table-bordered > thead > tr > td {
+  border-bottom-width: 2px;
+}
+
+.table > thead > tr > th {
+  vertical-align: bottom;
+  border-bottom: 2px solid #ddd;
+}
+
+th {
+  text-align: left;
+}
+
 a:link,
 a:visited,
 a:hover,
 a:active {
     text-decoration: none;
 }
+

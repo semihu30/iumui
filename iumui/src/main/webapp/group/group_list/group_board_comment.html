@@ -1,0 +1,14 @@
+{{#each groupBoardComments}}
+<div id='commentNo' class='board_comment' gb-no='{{no}}' comment-no='{{no}}'>
+     <div class='writer_photo'><img src="../icon/64x64/row 9/1.png"></div>
+       
+    <div class='board_info'>
+      <div class='top_style'>
+        <div id='commenterNo' class='commenter'>{{userName}}</div>
+        <div id='cregDateNo' class='regDate cregDate'>{{commentRegDate}}</div>
+      </div>
+      <div id='cNo' class='comment_content'>{{comment}}</div>
+   </div>
+</div>
+{{/each}}
+
