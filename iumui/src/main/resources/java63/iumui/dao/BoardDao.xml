@@ -37,16 +37,30 @@
   
   <select id="selectList" parameterType="map" 
       resultMap="boardListMap">
-    select bno, bname, btarget_num, req_count, start_date, end_date,uname, good_count, click_count
+    select bno, bname, bintro, btarget_num, req_count, start_date, end_date,uname, good_count, click_count
       from (
-			  select rownum rnum, x.bno bno, x.bname bname, 
+			  select rownum rnum, x.bno bno, x.bname bname, x.bintro bintro,
 			          x.btarget_num btarget_num, z.req_count req_count, 
 			          x.start_date start_date, x.end_date end_date, x.uname uname, 
 			          y.good_count good_count, x.click_count click_count
-			      from (select b.bno bno, b.bname bname, b.btarget_num btarget_num, 
+			      from (select b.bno bno, b.bname bname, b.bintro bintro, b.btarget_num btarget_num, 
 			                 b.start_date start_date, b.end_date end_date, m.uname uname, b.click_count click_count
 			          from iboard b, members m
-			          where b.mno=m.mno and b.bmno=#{categoryNo}
+			          
+									<where> 
+								    <if test="categoryNo != null">
+								         b.mno=m.mno and b.bmno=#{categoryNo}
+								    </if>
+                  <if test='boardSelectLocal != ""'>
+                       and b.lcode=#{boardSelectLocal}
+                  </if> 
+								    <if test='boardSearchText != ""'>
+								        and (b.bname like #{boardSearchText}
+								        or b.bintro like #{boardSearchText}
+								        or m.uname like #{boardSearchText})
+								    </if>
+								  </where>
+		          
 			          order by bno desc) x, 
 			          (select b.bno bno, count(r.bno) good_count from iboard b, recommend r 
 			          where b.bno=r.bno(+) group by b.bno order by b.bno desc) y, 
@@ -56,7 +70,7 @@
         )
     where rnum >= (#{pageNo}-1)*#{pageSize}+1
   </select>
-  
+  <!-- where b.mno=m.mno and b.bmno=#{categoryNo} -->
   <resultMap type="Board" id="boardMap">
     <id column="bno" property="no"/>
     <result column="bmno" property="categoryNo"/>
@@ -151,9 +165,23 @@
     delete from recommend where bno=#{no}
   </delete>
   
-  <select id="totalSize" parameterType="int" resultType="int">
-    select count(bno) from iboard where bmno=#{value}
+  <select id="totalSize" parameterType="map" resultType="int">
+    select count(b.bno) from iboard b, members m 
+    <where> 
+      <if test="categoryNo != null">
+           b.mno = m.mno and b.bmno=#{categoryNo}
+      </if>
+      <if test='boardSelectLocal != ""'>
+           and b.lcode=#{boardSelectLocal}
+      </if> 
+      <if test='boardSearchText != ""'>
+          and (b.bname like #{boardSearchText}
+          or b.bintro like #{boardSearchText}
+          or m.uname like #{boardSearchText})
+      </if>
+    </where>
   </select>
+  
    <!-- update board set readcount = nvl(readcount,0) + 1 where seq = ? -->
   <insert id="recommend" parameterType="map">
     insert into recommend

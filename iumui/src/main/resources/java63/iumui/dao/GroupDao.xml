@@ -33,8 +33,10 @@
   </resultMap>
   
   <resultMap type="map" id="userSchedules">
-    <id column="cdate" property="dday"/>
+    <id column="startday" property="startday"/>
+    <result column="endday" property="endday"/>
     <result column="cschedule" property="schedule"/>
+    <result column="color" property="formColor"/>
   </resultMap>
   
   <resultMap type="map" id="groupSchedules">
@@ -95,12 +97,12 @@
   			 WHERE ROWNUM ^= #{dataSize}+1
   </select>
   
-  <select id="selectGroupSchedules" parameterType="int" resultMap="groupSchedules">
+  <select id="selectThisGroupSchedules" parameterType="map" resultMap="groupSchedules">
 		 SELECT *
   			FROM 
-  				(SELECT STARTDAY ,ENDDAY, CSCHEDULE
-    				FROM GSCHEDULE
-	  				WHERE GNO=#{gno})
+  				(SELECT T1.startday startday, T1.endday endday, T1.cschedule cschedule, T2.color color
+    				FROM GSCHEDULE T1, GMEMBERS T2, GGROUP T3
+	  				WHERE T1.GNO=#{gno} AND T1.GNO = T2.GNO AND T2.GNO = T3.GNO AND T2.MNO = #{mno})
 		  	ORDER BY startday ASC
   </select>
   

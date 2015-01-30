@@ -1,5 +1,5 @@
 @CHARSET "UTF-8";
-
+/* table, td, div{border:1px solid black;} */
 #grp_intro { resize: none; }
 #uploadbtn { margin: 30px auto 0 auto; width: 210px; }
 .upload-btn { margin: 0 10px; }
@@ -15,3 +15,8 @@
 .btn-submit { color: #fff; background-color: #5cb85c; border-color: #4cae4c; }
 .btn-submit:hover, .btn-submit:focus, .btn-submit.focus, .btn-submit:active, .btn-submit.active, .open > .dropdown-toggle.btn-submit { color: #fff; background-color: #449d44; border-color: #398439; }
 .btn-submit:active, .btn-submit.active, .open > .dropdown-toggle.btn-success { background-image: none; }
+
+.selectLocal { margin: 0 8px 0 0;}
+#grp_state{ width:150px; float:left; }
+
+#selectLocal { width:150px; float:right; }

@@ -30,7 +30,6 @@ function loadMySchedule() {
 			data.schedules[i].startday = parseDate4t(data.schedules[i].startday);
 		}
 		
-		
 		/** 가까운 일정 출력*/
 		var mySchedules = data.schedules
 

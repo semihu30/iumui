@@ -5,15 +5,19 @@
 var category_number;
 var currPageNo;
 var maxPageNo;
+var boardSearchText;
 
 $(function(){
 	$('.header').load('/iumui/common/header.html');
 	$('.footer').load('/iumui/common/footer.html');
-	$('.search_bar').load('/iumui/common/search_bar.html');
+/*	$('.search_bar').load('/iumui/common/search_bar.html');*/
+	
+	boardSelectLocal = "";
+	boardSearchText = "";
 	
 	$(document).on('click', '.table-hover a', function(){
 		category_number = $(this).attr('cat-no');
-		loadBoardList(1);
+		loadBoardList(1, boardSearchText, boardSelectLocal);
   });
 	
 	var address = unescape(location.href);
@@ -28,31 +32,84 @@ $(function(){
 	console.log(address.substring(address.indexOf("no", 0) + 3));
 	category_number = param;
 
-	loadBoardList(1);
+	loadBoardList(1, boardSearchText, boardSelectLocal);
 	
+	loadLocalList();
+	
+	$('#searchBtn').click(function(){
+		if ($('#selectCity option:selected').val().length != 5 ) {
+			alert("지역을 선택하여 검색하세요.");
+			return;
+		} else if ($('#keyword').val().length == 0 ) {
+			alert("지역으로 검색합니다.");
+		}
+		loadBoardList(1, $('#keyword').val(), $('#selectCity option:selected').val());
+	});
+});
+
+function loadLocalList() {
+  $.getJSON('../json/board/mylocal_big.do', 
+    function(data){
+  		//console.log(data);
+  	
+	  	require(['text!templates/local-big.html'], function(html){
+	      var template = Handlebars.compile(html);
+	      $('#selectState').html( template(data) );
+	      $("#selectState > option[value=" + data.mylocal_big + "]").attr("selected", "ture");
+	      loadSmallLocalList();
+	    });
+    });
+}
+
+function loadSmallLocalList() {
+	//console.log($('#selectState option:selected').val());
+	$.getJSON('../json/board/mylocal_small.do?no=' + $('#selectState option:selected').val(), 
+	    function(data){
+	  		//console.log(data);
+		
+		  	require(['text!templates/local-small.html'], function(html){
+		      var template = Handlebars.compile(html);
+		      $('#selectCity').html( template(data) );
+		      $("#selectCity > option[value=" + data.mylocal_small + "]").attr("selected", "ture");
+		    });
+		  	
+	    });
+}
+
+$('#selectState').change(function(){
+	
+	$.getJSON('../json/board/local_small.do?no=' + $('#selectState option:selected').val(), 
+	    function(data){
+	  		//console.log(data);
+	  	
+		  	require(['text!templates/local-small.html'], function(html){
+		      var template = Handlebars.compile(html);
+		      $('#selectCity').html( template(data) );
+		    });
+	    });
 });
 
 $(document).on('click', '#firstBtn', function(event){
 	if (currPageNo > 1) {
-	  loadBoardList(1);
+	  loadBoardList(1, boardSearchText, boardSelectLocal);
 	}
 });
 
 $(document).on('click', '#prevBtn', function(event){
 	if (currPageNo > 10) {
-	  loadBoardList(parseInt((currPageNo-1)/10)*10);
+	  loadBoardList(parseInt((currPageNo-1)/10)*10, boardSearchText, boardSelectLocal);
 	}
 });
 
 $(document).on('click', '#nextBtn', function(event){
 	if (currPageNo/10 < maxPageNo/10) {
-	  loadBoardList(parseInt((currPageNo+9)/10)*10 + 1);
+	  loadBoardList(parseInt((currPageNo+9)/10)*10 + 1, boardSearchText, boardSelectLocal);
 	}
 });
 
 $(document).on('click', '#lastBtn', function(event){
 	if (currPageNo < maxPageNo) {
-	  loadBoardList(maxPageNo);
+	  loadBoardList(maxPageNo, boardSearchText, boardSelectLocal);
 	}
 });
 
@@ -75,7 +132,7 @@ function setPageNo(currPageNo, maxPageNo) {
   		$('.mw_basic_page').append("&nbsp;<a id='p" + i + "'><span>" + i + "</span></a>");
 
   			$('#p' + i).click(function(){
-  				loadBoardList($(this).children("span").html());
+  				loadBoardList($(this).children("span").html(), boardSearchText, boardSelectLocal);
   			});
   	}
 	}
@@ -96,10 +153,11 @@ function setPageNo(currPageNo, maxPageNo) {
   else $('#lastBtn').css('display', '');
 }
 
-function loadBoardList(pageNo) {
+function loadBoardList(pageNo, boardSearchText, boardSelectLocal) {
 	if (pageNo <= 0) pageNo = currPageNo;
 	
-	$.getJSON('../json/board/list.do?no=' + category_number + '&pageNo=' + pageNo, 
+	$.getJSON('../json/board/list.do?no=' + category_number + '&pageNo=' + pageNo + 
+			'&boardSearchText=' + boardSearchText + '&boardSelectLocal=' + boardSelectLocal, 
     function(data){
 			setPageNo(data.currPageNo, data.maxPageNo);
       
@@ -108,7 +166,6 @@ function loadBoardList(pageNo) {
       	data.board[i].endDate = yyyyMMdd(data.board[i].endDate);
       	data.board[i].reqCount++;
       }
-      
      
       require(['text!templates/category-button.html'], function(html){
         var template = Handlebars.compile(html);

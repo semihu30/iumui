@@ -70,30 +70,30 @@ $('#grp_state').change(function(){
    //패스워드 가능여부
    $('#passwd').keyup(function(){
      if (re_pw.test($('#passwd').val()) != true){
-       $('.passwd1').html("NO!"); //해당 내용을 보여준다
+       $('.passwd1').html("사용 불가!"); //해당 내용을 보여준다
       $('#passwd').focus();      
      }else{
-       $('.passwd1').html("Yes!");       
+       $('.passwd1').html("사용 가능!");       
      }
    });
    
    //패스워드 확인여부
    $('#passwdChk').keyup(function(){
      if( $('#passwd').val() != $('#passwdChk').val() ){
-       $('.passwd2').html("NO!"); //해당 내용을 보여준다
+       $('.passwd2').html("실패!"); //해당 내용을 보여준다
       $('#passwdChk').focus();       
      } else{
-       $('.passwd2').html("Yes!");       
+       $('.passwd2').html("성공!");       
      }
    });
    
    //이름 가능 여부
    $('#name').keyup(function(){
      if(re_name.test($('#name').val() ) != true ){
-       $('.name1').html("NO!"); //해당 내용을 보여준다
+       $('.name1').html("불가능!"); //해당 내용을 보여준다
       $('#name').focus();      
      }else{
-       $('.name1').html("Yes!");             
+       $('.name1').html("가능!");             
      }
    });
    
@@ -139,7 +139,7 @@ $('#grp_state').change(function(){
          } 
          , function(result){ // 서버로부터 응답을 받았을 때 호출될 메서드
            if (result.status == "success") {
-             alert("성공!! ");
+             alert("가입 축하드립니다!!로그인하여 서비를 이용하시기 바랍니다. ");
              location.href="/iumui/index.html";
              
            } else {

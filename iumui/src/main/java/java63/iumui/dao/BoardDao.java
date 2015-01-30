@@ -33,7 +33,7 @@ public interface BoardDao {
   void deleteComments(int no);
   void deleteRequests(int no);
   void deleteRecommends(int no);
-  int totalSize(int no);
+  int totalSize(Map<String,Object>paramMap);
   int selectMessageCount(int no);
   List<?> selectMessage(int no);
   

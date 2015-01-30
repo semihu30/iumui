@@ -6,6 +6,7 @@
 var groupBoards;
 var groupBoardComments;
 var gno;
+var loginUser;
 
 $(function(){
 	$('.header').load('/iumui/common/header.html');
@@ -37,13 +38,44 @@ $(function(){
 		/**사이드 1번 테이블 제목 삽입 end*/
 		
 	});
+	
+	$(document).on('click', '.btnCReg', function(){
+
+		if ($('#ccontent' + $(this).attr('gb-no')).val().length == 0 ){
+			alert('글을 입력 하세요.');
+			return;
+		}
+	  $.post('../group_board/add_comment.do'
+	      , {
+	      		groupBoardNo : $(this).attr('gb-no'),
+	      		groupNo : gno,
+				  	content : $('#ccontent' + $(this).attr('gb-no')).val()
+	      } 
+	      , function(result){  
+	        if (result.status == "success") {
+	        	
+	        	loadGroupBoard();
+	        	
+	        } else {
+	          alert("등록 실패!");
+	        }
+	      } 
+	      , 'json'  )
+	    
+	   .fail(function(jqXHR, textStatus, errorThrown){ 
+	     alert(textStatus + ":" + errorThrown);
+	   });
+
+	});
+	
 });
 
 function loadGroupBoard() {
-	$.getJSON('../group/group_board.do?no='+ gno, 
+	$.getJSON('../group_board/board_list.do?no='+ gno, 
 			function(data){
 		
 		console.log(data);
+		loginUser = data.loginUser;
 		groupBoards = data.groupBoards;
 		groupBoardComments = data.groupBoardComments;
 		
@@ -60,6 +92,18 @@ function loadGroupBoard() {
       var template = Handlebars.compile(html);
       $('#group_board').html( template(data));
       loadGroupBoardComment();
+      
+      for (var i in groupBoards) {
+      	
+      	if ( loginUser && loginUser.memberNo == groupBoards[i].memberNo){
+      		
+    			$('#btnBModDel'+groupBoards[i].no).css('display', '');
+    			
+    		} else {
+    			$('#btnBModDel'+groupBoards[i].no).css('display', 'none');
+    			
+    		}
+      }
     });
 	});
 	
@@ -135,6 +179,71 @@ $('.btncCancel').click(function(){
 	$('.commentInput').css('display', 'none');
 });
 */
+$(document).on('click', '.btnBoardMod', function(){
+	var sNo = $(this).attr('gb-no');
+	$('#modify_content' + sNo).css('display', '');
+	$('#bcontent' + sNo).val($('#usercontent' + sNo).html());
+	$('#usercontent' + sNo).css('display', 'none');
+});
+
+$(document).on('click', '.btnbCancel', function(){
+	var sNo = $(this).attr('gb-no');
+	$('#usercontent' + sNo).css('display', '');
+	$('#bcontent' + sNo).val('');
+	$('#modify_content' + sNo).css('display', 'none');
+});
+
+$(document).on('click', '.btnBmod', function(){
+	if ( !loginUser ) {
+		alert("로그인 하세요.");
+		return;
+	}
+	
+	var sNo = $(this).attr('gb-no');
+	for (var i in groupBoards) {
+		if (groupBoards[i].no == sNo) {
+			if (groupBoards[i].content == $('#bcontent' + sNo).val()) {
+		    alert('변경한 것이 없습니다!');
+		    return;
+		  }
+		}
+	}
+   
+	 if ( $('#bcontent' + sNo).val().length == 0) {
+	    alert('내용을 입력하세요.');
+	    return;
+	  }
+  
+  updateGroupBoard(sNo);
+});
+
+function updateGroupBoard(sNo) {
+	
+	$.post('../group_board/update.do'
+      , {  
+      		no : sNo,
+      		content : $('#bcontent' + sNo).val()
+      } 
+      , function(result){  
+        if (result.status == "success") {
+        	loadGroupBoard();
+        	
+        	$('#usercontent' + sNo).css('display', '');
+        	$('#bcontent' + sNo).val('');
+        	$('#modify_content' + sNo).css('display', 'none');
+        	
+        	alert("수정 성공");
+        
+        } else {
+          alert("등록 실패!");
+        }
+      } 
+      , 'json'  )
+    
+   .fail(function(jqXHR, textStatus, errorThrown){ 
+     alert(textStatus + ":" + errorThrown);
+   });
+}
 /*
 if ( loginUser && loginUser.memberNo==board.writerNo){
 	$('.btnBModDel').css('display', '');
@@ -201,16 +310,16 @@ $('#uploadbtn').click(function(){
 	
 	if (!validateReg()) return;
   
-  $.post('../group/add_board.do'
+  $.post('../group_board/add_board.do'
       , {  
       		groupNo : gno,
       		content : $('#upload_content').val()
       } 
       , function(result){  
         if (result.status == "success") {
-        	alert("등록 성공");
         	
         	loadGroupBoard();
+        	alert("등록 성공");
         	$('#upload_content').val('');
         } else {
           alert("등록 실패!");
@@ -229,6 +338,26 @@ function validateReg() {
     return false;
   }
   return true;
+}
+
+$(document).on('click', '.btnBoardDel', function(){
+	if ( !loginUser ) {
+		alert("로그인 하세요.");
+		return;
+	}
+	
+	if (confirm("정말로 삭제 하시겠습니까?")) {
+		deleteBoard($(this).attr('gb-no'));		
+	} else return;
+});
+
+function deleteBoard(no) {
+  $.getJSON('../group_board/delete.do?no=' + no, 
+    function(data){
+      if (data.status == 'success') {
+      	loadGroupBoard();
+      }
+    });
 }
 
 function yyyyMMdd(date) {
@@ -250,193 +379,4 @@ function yyyyMMdd(date) {
 }
 
 /** 그룹 메뉴 end */
-/*
 
-
-$('#btnBoardMod').click(function(){
-	$('#modify_content').css('display', '');
-	$('#bcontent').val($('#board_content').html());
-	$('#board_content').css('display', 'none');
-});
-
-$('#btnbCancel').click(function(){
-	$('#board_content').css('display', '');
-	$('#bcontent').val('');
-	$('#modify_content').css('display', 'none');
-});
-
-$('#btnBmod').click(function(){
-  if (board.content == $('#bcontent').val()) {
-    alert('변경한 것이 없습니다!');
-    return;
-  } 
-  if (!validateModBoard()) return;
-  
-  updateBoard();
-});
-
-$('#btnBoard').click(function(){
-	console.log(board.no);
-	location.href = "invitations.html?no=" + board.categoryNo;
-});
-
-function updateBoard() {
-  $.post('../json/board/update.do'
-      , {
-        no : board.no,
-        content : $('#bcontent').val()
-      } 
-      , function(result){
-        if (result.status == "success") {
-        	 loadBoard(board.no);
-          $('#btnbCancel').click(); 
-        } else {
-          alert("변경 실패!");
-        }
-      } 
-      , 'json')
-   .fail(function(jqXHR, textStatus, errorThrown){ 
-     alert(textStatus + ":" + errorThrown);
-   });
-}
-
-$('#btnBoardDel').click(function(){
-	if (confirm("정말로 삭제 하시겠습니까?")) {
-		deleteBoard();		
-	} else return;
-});
-
-$('#btnRecommend').click(function(){
-	
-	if ( !loginUser ) {
-		alert("로그인 하세요.");
-		return;
-	}
-	if ( loginUser.memberNo==board.writerNo) {
-		alert("본인의 글에는 추천할수 없습니다.");
-		return;
-	}
-	if (confirm("추천 하시겠습니까?")) {
-		recommendBoard();		
-	} else return;
-});
-
-$('#btnRequest').click(function(){
-	
-	if ( !loginUser ) {
-		alert("로그인 하세요.");
-		return;
-	}
-	if ( loginUser.memberNo==board.writerNo) {
-		alert("본인은 자동 참여됩니다.");
-		return;
-	}
-	
-	if (confirm("정말로 참여 요청 하시겠습니까?")) {
-		requestBoard();		
-	} else return;
-});
-
-$(document).on('click', '.btnRAccept' ,function(){
-	if (confirm("참여 요청을 수락 하시겠습니까?")) {
-		requestAccept($(this).attr("reqVal"));
-	} else return;
-});
-
-$(document).on('click', '.btnRReject',function(){
-	if (confirm("참여 요청을 거부 하시겠습니까?")) {
-		requestReject($(this).attr("reqVal"));	
-	} else return;
-});
-
-function recommendBoard() {
-	$.getJSON('../json/board/recommend.do?no=' + board.no, 
-	    function(data){
-	      if (data.status == 'success') {
-	      	loadBoard(board.no);
-	      }
-	    });
-}
-
-function requestBoard() {
-	$.getJSON('../json/board/request.do?no=' + board.no, 
-	    function(data){
-	      if (data.status == 'success') {
-	      	loadBoard(board.no);
-	      }
-	    });
-}
-
-function requestAccept(reqVal) {
-	$.getJSON('../json/board/req_accept.do?' + reqVal, 
-	    function(data){
-	      if (data.status == 'success') {
-	      	loadBoard(board.no);
-	      }
-	    });
-}
-
-function requestReject(reqVal) {
-	$.getJSON('../json/board/req_reject.do?' + reqVal, 
-	    function(data){
-	      if (data.status == 'success') {
-	      	loadBoard(board.no);
-	      }
-	    });
-}
-
-function deleteBoard() {
-  $.getJSON('../json/board/delete.do?no=' + board.no, 
-    function(data){
-      if (data.status == 'success') {
-        //loadBoardList(0);
-        
-        //$('#btnbCancel').click();
-        
-        location.href = "invitations.html?no=" + board.categoryNo;
-      }
-    });
-}
-
-$('#btnCReg').click(function(){
-	
-	if (!validateComment()) return;
-  
-  $.post('../json/board/comment_add.do'
-      , {  
-			  	boardNo : board.no,
-			  	comment : $('#ccontent').val()
-      } 
-      , function(result){  
-        if (result.status == "success") {
-        		loadBoard(board.no);
-          
-          $('#btncCancel').click(); 
-        } else {
-          alert("등록 실패!");
-        }
-      } 
-      , 'json'  )
-    
-   .fail(function(jqXHR, textStatus, errorThrown){ 
-     alert(textStatus + ":" + errorThrown);
-   });
- 
-});
-
-function validateComment() {
-  if ( $('#ccontent').val().length == 0) {
-    alert('댓글을 입력하세요.');
-    return false;
-  }
-  return true;
-}
-function validateModBoard() {
-  if ( $('#bcontent').val().length == 0) {
-    alert('내용을 입력하세요.');
-    return false;
-  }
-  return true;
-}
-
-*/

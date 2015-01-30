@@ -51,6 +51,7 @@
    WHERE T1.mno = #{memberNo} AND T1.lcode = T2.lcode  
   </select>
   
+  <!--주소 파싱  -->
   <select id="userInfo1" parameterType="int" resultType="string">
    SELECT lname 
    FROM slocal 
@@ -72,4 +73,32 @@
         lcode = #{selectLocal}
     WHERE mno = #{memberNo}
   </update>
+  
+  <!--프로필 업로드  -->
+  <update id="insertPhoto" parameterType="Member">
+    UPDATE MEMBERS
+    SET
+     myphoto = #{userPhoto} 
+    WHERE mno= #{memberNo}
+  </update> 
+  
+  <!--아이디 찾기  -->
+  <select id="getId" parameterType="map" resultType="String">
+  SELECT email
+  FROM MEMBERS
+  WHERE uname = #{name} AND birth = #{birthDate}
+         AND phone = #{phone}
+   
+  </select>
+  
+  <!--비밀번호 찾기  -->
+  <select id="getPw" parameterType="map" resultType="String">
+  SELECT pwd
+  FROM MEMBERS
+  WHERE uname = #{name} AND birth = #{birthDate}
+         AND email = #{email}
+   
+  </select>
+  
+  
 </mapper>

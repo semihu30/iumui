@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class MemberService {
@@ -83,7 +84,47 @@ public class MemberService {
       propagation=Propagation.REQUIRED)
   public void edit(Member member) {
     memberDao.edit(member);
+    
+    if(member.getUserPhoto() != null){
+      memberDao.insertPhoto(member);      
+    }
+  }//edit()
+  
+  
+  //아이디찾기
+  public String FindId(String name, String birthDate, String phone) {
+    HashMap<String, Object> params = new HashMap<>();
+    
+    params.put("name", name);
+    params.put("birthDate", birthDate);
+    params.put("phone", phone);
+    
+    return memberDao.getId(params);
+    
   }
+  
+  //비밀번호 찾기
+  public String FindPw(String name, String birthDate, String email) {
+    HashMap<String, Object> params = new HashMap<>();
+    
+    params.put("name", name);
+    params.put("birthDate", birthDate);
+    params.put("email", email);
+    
+    return memberDao.getPw(params);
+    
+  }
+  
+  public void photoadd(Member member) {
+    memberDao.insertPhoto(member);
+ }
+  
+  public void insertPhoto(int mno, MultipartFile userPhotofile) {
+    memberDao.photoadd1(mno,userPhotofile);
+    
+  }
+  
+  
 }
 
 

@@ -26,6 +26,16 @@ public class LocalService {
     return localDao.selectSmallList(bigNo);
   }
   
+  public String getMyBigZone(int memberNo) {
+    
+    return localDao.selectMyBigZone(memberNo);
+  }
+  
+  public String getMySmallZone(int memberNo) {
+    
+    return localDao.selectMySmallZone(memberNo);
+  }
+  
   /*
   public int getMaxPageNo(int pageSize) {
     int totalSize = boardDao.totalSize();

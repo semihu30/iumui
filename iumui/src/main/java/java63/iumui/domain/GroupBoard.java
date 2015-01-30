@@ -16,7 +16,7 @@ public class GroupBoard implements Serializable{
   protected String intro;
   protected String content;
   protected Date regDate;
-  
+   
   @Override
   public String toString() {
     return "GroupBoard [no=" + no + ", groupMemberNo=" + groupMemberNo

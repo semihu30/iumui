@@ -13,9 +13,9 @@ var no;
 var afterBirth;
 
 $(function(){
+  
   loadLocalList();
   loadUserList();
-  
   
 });//ready()
 
@@ -62,12 +62,10 @@ function loadUserList() {
     $('#sex').val(sex); //성별 출력
     $('#zone').val(bigLocalName +"  "+member.localName); //지역 출력
     $('#myphoto').val(member.userPhoto); //내사진 출력
+    $('#blah').attr('src','/iumui/fileupload/' + member.userPhoto);
+    console.log(member.userPhoto);
     
-    
-    
-      console.log(data);
-     // console.log(member.memberNo);
-     // console.log(member.nickName);
+    console.log(data);
       
     });
 }
@@ -78,7 +76,6 @@ function loadLocalList() {
   $.getJSON('../json/member/user_info1.do',
       
     function(data){
-    //$('#zone').val( data.localName); //지역 출력
     bigLocalName = data.localName;
       
     });
@@ -112,12 +109,14 @@ $('input[name=gender]:radio').click(function(event){
      if(confirm("수정하시겠습니까?")){
      updateMember(no);
      }else{
+       console.log("ㅇㅇ");
        
      }
      
    });
        
    function updateMember() {
+     console.log($('#userfile').val());
     /* console.log(no);
      console.log(birthdate);
      console.log(member.sex);
@@ -140,11 +139,12 @@ $('input[name=gender]:radio').click(function(event){
            birthDate : $('#birth').val(), //생년월일
            sex : member.sex,        //성별
            selectLocal : member.selectLocal //소지역
+           
          } 
          , function(result){
            if (result.status == "success") {
              alert("변경 성공! 메인페이지로 이동합니다.");
-             location.href="/iumui/index.html";
+             //location.href="/iumui/index.html";
              
            } else {
              alert("변경 실패!");
@@ -156,6 +156,41 @@ $('input[name=gender]:radio').click(function(event){
       });
    }
    
+// 이미지 미리보기
+   function readURL(input) {
+     if (input.files && input.files[0]) {
+         var reader = new FileReader();
+         reader.onload = function (e) {
+             $('#blah').attr('src', e.target.result);
+         }
+         reader.readAsDataURL(input.files[0]);
+     }
+   }
+   
+// 파일 업로드
+   $('#uploadbutton').click(function(){
+     
+     $('#ajaxform1').ajaxForm({
+         dataType:'json',
+
+             beforeSubmit: function (data, frm, opt) {
+                             alert("전송전!!");
+                             
+                             return true;
+                           },
+             success: function(responseText, statusText){
+               alert("전송 성공");
+               location.href="/iumui/common/mypage_modify.html";
+               
+                 console.log(responseText);
+             } ,
+             error: function(){
+                 alert("에러발생!!");
+             }        
+           });
+     
+   });
+
    
   
      

@@ -51,9 +51,10 @@ $.getJSON('../json/auth/loginUser.do', function(data){
 		$('#login').css('display', 'none');
 		$('#my_loginBox').css('display', '');
 		console.log("로그인 유저 사진 경로 : " + data.photo);
-		if (data.photo) {
-			  $('#myphoto').attr('src', data.loginUser.photo);
-		}
+		console.log("사진 파일 : " + data.loginUser.userPhoto);
+		if (data.loginUser.userPhoto) {
+      $('#myphoto').attr('src', '/iumui/fileupload/' + data.loginUser.userPhoto);
+  }
 		console.log("로그인 유저 이름 (logintester): " + data.loginUser.userName);
 		
 	  $('.myName').html(data.loginUser.userName + " 님.");

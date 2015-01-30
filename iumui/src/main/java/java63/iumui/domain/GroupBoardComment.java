@@ -15,7 +15,7 @@ public class GroupBoardComment implements Serializable{
   protected String userName;
   protected String content;
   protected Date regDate;
-  
+   
   @Override
   public String toString() {
     return "GroupBoardComment [no=" + no + ", groupBoardNo=" + groupBoardNo

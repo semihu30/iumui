@@ -28,8 +28,16 @@
     from slocal 
     where length(LCODE)>2 and substr(lcode, 1, 2)=#{value}
   </select>
+  
+  <select id="selectMyBigZone" parameterType="int" resultType="string">
+    select substr(lcode, 1, 2) from members where mno = #{no}
+  </select>
+  
+  <select id="selectMySmallZone" parameterType="int" resultType="string">
+    select lcode from members where mno = #{no}
+  </select>
 
-<!-- 
+<!-- String selectMyBigList(int memberNo)
   
   <resultMap type="Local" id="localMap">
     

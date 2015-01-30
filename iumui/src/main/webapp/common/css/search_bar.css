@@ -3,6 +3,7 @@
 /* 검색바 start */
 .searchDiv {
 	margin: 0 8px 0 0;
+	text-align: center;
 }
 
 #datePicker {

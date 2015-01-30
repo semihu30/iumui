@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class GroupService {
 	
-  @Autowired GroupDao groupDao;
+  @Autowired GroupDao groupDao; 
   
   public List<?> getUserGroups(int pageNo, int mno) {
   	HashMap<String,Object> paramMap = new HashMap<>();
@@ -46,12 +46,13 @@ public class GroupService {
   	return groupDao.selectUserSchedules(paramMap);
   }
   
-  public List<?> getGroupSchedules (int gno) {
+  public List<?> getThisGroupSchedules (int gno,int mno) {
   	
   	HashMap<String,Object> paramMap = new HashMap<>();
   	paramMap.put("gno", gno);
+  	paramMap.put("mno", mno);
   	
-  	return groupDao.selectGroupSchedules(gno);
+  	return groupDao.selectThisGroupSchedules(paramMap);
   }
   
   public List<?> getMyGroup (int gno, int mno) {

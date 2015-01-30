@@ -6,4 +6,6 @@ public interface LocalDao {
   
   List<?> selectBigList();
   List<?> selectSmallList(int bigNo);
+  String selectMyBigZone(int memberNo);
+  String selectMySmallZone(int memberNo);
 }

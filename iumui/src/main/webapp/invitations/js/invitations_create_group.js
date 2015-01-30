@@ -26,7 +26,7 @@ function loadLocalList() {
   $.getJSON('../json/board/local_big.do', 
     function(data){
   	
-  		console.log(data);
+  		//console.log(data);
   	
 	  	require(['text!templates/local-big.html'], function(html){
 	      var template = Handlebars.compile(html);

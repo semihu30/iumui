@@ -10,13 +10,30 @@
     </tr>
     <tr>
       <td class='uploaded_date'>{{regDate}}</td>
+      
     </tr>
   </table>
+        <div id='btnBModDel{{no}}' class='btnBModDel'>
+          <button type="button" id="btnBoardMod{{no}}" gb-no='{{no}}' class="btn btn-default btn-xs btnBoardMod">
+            수정
+          </button> &nbsp; 
+          <button type="button" id="btnBoardDel{{no}}" gb-no='{{no}}' class="btn btn-default btn-xs btnBoardDel">
+             삭제
+           </button> &nbsp; 
+         </div>
 
 </div>  
 <br>
 
-<div class='usercontent'>{{content}}</div>
+<div id='usercontent{{no}}' class='usercontent'>{{content}}</div>
+
+<div id='modify_content{{no}}' style='text-align:center;display:none;'>
+          <textarea id='bcontent{{no}}' class="form-control form-group-sm"></textarea>
+          <div style='padding:10px;'>
+              <button type="button" gb-no='{{no}}' class="btn btn-default btn-xs btnBmod">수정</button> &nbsp; 
+              <button type="button" gb-no='{{no}}' class="btn btn-default btn-xs btnbCancel">취소</button>
+          </div>
+</div>
 
 <div><a id='btnComment{{no}}' class='btn btn-danger btn-xs btnComment' data-no='{{no}}'>댓글</a></div>
   
@@ -25,7 +42,7 @@
 	<div style='text-align:center; padding:10px;'>
 		 <div id='c{{no}}' ><textarea id='ccontent{{no}}' class="form-control form-group-sm ccontent" placeholder="댓글을 남겨주세요~"></textarea></div>
 			 <div>
-			  <button id='btnCreg{{no}}' type="button" class="btn btn-default btn-xs btnCReg" data-no='{{no}}'>등록</button>
+			  <button id='btnCReg{{no}}' type="button" class="btn btn-default btn-xs btnCReg" gb-no='{{no}}'>등록</button>
 			  <button id='btncCancel{{no}}' type="button" class="btn btn-default btn-xs btncCancel" data-no='{{no}}'>취소</button>
 		   </div>
 		 </div>

@@ -1,0 +1,49 @@
+@CHARSET "UTF-8";
+
+div.fc-view-container { background-color: white;}
+th.fc-day-header.fc-widget-header.fc-sun{background-color: #f9525d;}
+th.fc-day-header.fc-widget-header.fc-sat{background-color: #64b3df;}
+
+input#optionChk{width:15px;}
+
+#btnDiv { margin-top: 15px; }
+#btnDiv button { border:2px solid #44619D; border-radius: 5px; background-color: #fff; }
+
+#grp_calendar { width: 776px; height: 790px; margin : 12px 12px 0 12px; float:left; }
+#grp_calendar a:link, a:active, a:visited  {text-decoration:none; color: inherit;}
+#grp_calendar a:hover {text-decoration:none;}
+#grp_calendar font { text-decoration:none; }
+#grp_calendar th {text-align:center; } 
+#grp_calendar #day {border:1px solid black; text-align:left; vertical-align:top; height: 100px; } 
+
+#main_contents { color:#4e5665; }
+
+#popup { padding: 15px 25px; width: 440px; height: 250px; background-color: white; border-radius: 3px; box-shadow: 2px 2px 10px #888888; z-index: 15; }
+#popup .tail { content: ''; position: absolute; border-style: solid; border-width: 0 15px 14px; border-color: #44619D transparent; display: block; width: 0; z-index: 70; top: -14px; left: 110px; }
+#popup table td { font-size:small; }
+#popup input {width: 140px;}
+
+#popuptitle { text-align: left; margin: 0; font-size: large; font-weight: bold; margin-bottom: 7px; }
+#popuptitle table tr { height: 44px; }
+
+
+#groupBubble { padding: 15px 25px; width: 380px; height: 250px; background-color: white; border-radius: 3px; box-shadow: 2px 2px 10px #888888; z-index: 15; }
+#groupBubble .tail { content: ''; position: absolute; border-style: solid; border-width: 0 15px 14px; border-color: #44619D transparent; display: block; width: 0; z-index: 70; top: -14px; left: 110px; }
+
+#bubbletitle { text-align: left; margin: 0; font-size: large; font-weight: bold; margin-bottom: 7px; }
+#bubbletitle table tr { height: 44px; }
+
+#tschedule { width: 100%; resize:none; cursor:auto; border: 1px solid #4e5665; }
+#eschedule { width: 100%; resize:none; cursor:auto; border: 1px solid #4e5665; }
+#updateBtn { width: 75px;}
+
+.empty_day { background-color:#efefef; border: 1px solid black; }
+
+.fc-content{ cursor : pointer; }
+.fc-title { font-size: x-small; }
+
+.popupcontent { z-index: 300; overflow: hidden; visibility: visible; }
+.popupcontent input { width: 100%; }
+.popupcontent table {	width: 100%; }
+.popupcontent td { width: 79.6%; }
+.popupcontent td, .popupcontent th { padding: 5px 7px; }

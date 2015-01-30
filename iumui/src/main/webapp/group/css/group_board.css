@@ -25,9 +25,7 @@ div{
 
 .btnComment {padding-left: 20px;}
 
-.btnBModDel {float: right;}
-
-.board_content { padding: 10px; background-color: white; border-top: 1px solid rgba(68, 97, 157, 0.15);border-left: 1px solid rgba(68, 97, 157, 0.15);border-right: 1px solid rgba(68, 97, 157, 0.15);}
+.btnBModDel {float: right; padding-top: 40px;}
 
 .board_button{text-align:center;}
 
@@ -39,7 +37,6 @@ div{
 .regDate { float:right; font-size:12px;}
 
 .ccontent { display:inline; resize:none;}
-
 
 .writer_photo { float: left; font-size: small; width: 80px; height: 67px; } 
 

@@ -1,0 +1,220 @@
+<!doctype html>
+<html>
+<head>
+<link rel='stylesheet' href='../common/css/common.css'>
+<link rel='stylesheet' href='css/group_schedule.css'>
+<link rel='stylesheet' href='/iumui/common/css/sidebar.css'>
+<link rel='stylesheet' href='../fullcalendar/fullcalendar.css' />
+<script type="text/javascript" src="../js/jquery-1.11.1.js"></script>
+<script type="text/javascript" src="js/group_schedule.js"></script>
+<script src='/iumui/common/js/sidebar.js'></script>
+<script type="text/javascript" src='/iumui/js/handlebars-v2.0.0.js'></script>
+<script type="text/javascript" src='../js/lib/moment.min.js'></script>
+<script type="text/javascript" src='/iumui/fullcalendar/fullcalendar.js'></script>
+<script type="text/javascript" src='/iumui/fullcalendar/ko.js'></script>
+<script>
+var groupSchedules;
+
+	$(document).ready(function() {
+		
+	  var gno = getUrlParameter("gno");
+
+	  $.getJSON('../group/thisgroupschedule.do?gno=' + gno, function(data) {
+		  var schedules = data.schedules;
+		  var events = parseSchedules(schedules);
+		  var groupColor = schedules[0].formColor;
+
+		  /** 확인용 로그*/
+		  console.log("나의 스케쥴 로딩 : ");
+		  console.log(schedules[0].formColor);
+		  /** 확인용 로그*/
+
+		  $('#calendar').fullCalendar({
+		    langs : 'ko', //언어설정
+		    header : {
+		      right : 'prev,next today',
+		      center : 'title',
+		      left : 'month,basicWeek,basicDay'
+		    },//달력 헤더 옵션 설정
+
+		    dayClick : function(date, jsEvent, view) {
+			    $('#tdate').text(date.format());
+			    popup(date, jsEvent, view);
+		    },//날짜 클릭 콜백함수
+		    
+		    eventClick: function(calEvent, jsEvent, view) {
+
+	        alert('Event: ' + calEvent.title);
+	        alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
+	        
+	   		},
+	   		
+		    eventSources : [
+		        {
+					    events : schedules
+					  ,
+					  				 color : groupColor,
+					  				 textColor: 'yellow'
+		        }
+		  				 ]
+		  });
+	  });//getJSON
+  });//ready
+
+  function parseSchedules(schedules) {
+
+	  for ( var i in schedules) {
+		  schedules[i].start = yyyyMMdd(schedules[i].start);
+
+		  if (schedules[i].end) {
+			  schedules[i].end = yyyyMMdd(schedules[i].end);
+		  }
+	  }//스케쥴을 받아 fullcalendar가 읽을 수 있는 배열로 변경합니다.
+	  return schedules;
+  }
+
+  function popup(date, jsEvent, view) {
+
+	  if ($('#popup').css('display') == 'none') {
+
+		  $('#tschedule').focus();
+		  $('#popup').css('left', jsEvent.pageX - 125); // <<< use pageX and pageY
+		  $('#popup').css('top', jsEvent.pageY + 15);
+		  $('#popup').css('display', 'inline');
+		  $("#popup").css("position", "absolute"); // <<< also make it absolute!
+
+	  } else {
+
+		  closeBtn();
+
+	  }
+  };
+
+  function closeBtn() {
+	  $('#popup').css('display', 'none');
+	  $('#scheduleT').trigger("reset");
+  }
+
+  /** 날짜 데이터 전환 start */
+  function yyyyMMdd(date) {
+	  if (date) {
+		  var date = new Date(date);
+		  var str = date.getFullYear() + '-';
+
+		  if (date.getMonth() < 9)
+			  str += '0';
+		  str += (date.getMonth() + 1) + '-';
+
+		  if (date.getDate() < 10)
+			  str += '0';
+		  str += date.getDate();
+
+		  return str;
+
+	  } else {
+		  return '';
+	  }
+  }
+  /** 날짜 데이터 전환 end */
+  
+</script>
+ <meta charset="utf-8">
+ 	<title>'찬양대회 준비팀'_달력</title>
+</head>
+<body>
+  
+  <div id="content_container">
+
+		<!-- 헤더 start -->
+		<div class='header'></div>
+		<!-- 헤더 end -->
+		
+    <!-- 컨텐츠 시작 -->
+    <div id="content">
+    	<div id="main_contents">
+		    <!--  calendar start -->
+					<div id='grp_calendar' class='grp_calendar'>
+						<div id='calendar' style="position: relative;">
+						
+						</div>
+					</div>
+				<!--  calendar end -->
+				
+				<!-- 사이드바 start -->
+				<div class='side_bar'>
+					
+
+					<!-- 사이드바 1번 테이블 start -->
+					<table id='sidebar_table1' class='sidebar_table table table-bordered'>
+						<thead>
+							<tr id='sidebar_contents1' class='sidebar_contents'>
+								<th id='rcat1Text' class='tableHead'><a href="#"></a></th>
+							</tr>
+						</thead>
+						<tbody id="sidebar_table1_content"></tbody>
+					</table>
+					<!-- 사이드바 1번 테이블 end -->
+					
+					<!-- 사이드바 2번 테이블 start -->
+					<table id='sidebar_table2' class='sidebar_table table table-bordered'>
+						<thead>
+							<tr id='sidebar_contents2' class='sidebar_contents'>
+								<th id='rcat2Text' class='tableHead'><a href="#"></a></th>
+							</tr>
+						</thead>
+						<tbody id="sidebar_table2_content"></tbody>
+					</table>
+					<!-- 사이드바 2번 테이블 end -->
+					
+					<!-- 사이드바 3번 테이블 start -->
+					<!-- <div id='sidebar_table3' class='sidebar_table'>
+						<span id=calendar style="position: relative;"></span>
+						<script>
+							console.log("사이드바 등록 완료");
+						</script>
+					</div> -->
+					<!-- 사이드바 3번 테이블 end -->
+				</div>
+				<!-- 사이드바 end -->
+				
+			</div>
+    </div>
+    <!-- 컨텐츠 끝 -->
+    
+		<!-- footer start -->
+		<div class='footer'> </div>
+		<!-- footer end -->
+		
+	</div>
+	<!-- 팝업 테스트 start -->
+	<div id="popup" style="display:none;">
+		<div class="popupcontent">
+		<div id="popuptitle">
+			일정 등록
+		</div>
+			<form autocomplete="off" id="scheduleT">
+				<table>
+					<thead>
+						<tr>
+							<th>일시 : 	</th>
+							<td id="tdate"></td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+						 <th>내용 : </th>
+						 <td><textarea id="tschedule" rows="4" placeholder="예) 오후3시 용산역 정문 독서모임"></textarea></td>
+						</tr>
+					</tbody>
+				</table>
+				<div id='btnDiv'>
+						<button id="updateBtn" type="button">등록</button>
+						<button type="reset" onclick='closeBtn()'>취소</button>
+				</div>
+			</form>
+		</div>
+		<div class="tail"></div>
+	</div>
+	<!-- 팝업 테스트 start -->
+</body>
+</html>

@@ -54,6 +54,23 @@
     values (gbno.nextval, #{groupMemberNo},#{content},sysdate)
   </insert>
   
+  <insert id="insertGroupBoardComment" parameterType="GroupBoardComment">
+    insert into gcomment
+    values (gbcno.nextval, #{groupBoardNo}, #{groupMemberNo}, #{content}, sysdate)
+  </insert>
+  
+  <insert id="updateGroupBoard" parameterType="GroupBoard">
+    update gboard set gbcontent=#{content} where gbno=#{no}
+  </insert>
+  
+  <delete id="delete" parameterType="int">
+    delete from gboard where gbno=#{no}
+  </delete>
+  
+  <delete id="deleteComments" parameterType="int">
+    delete from gcomment where gbno=#{no}
+  </delete>
+  
   <!-- 
   <insert id="insertComment" parameterType="BoardComment">
     INSERT INTO bcomment 
