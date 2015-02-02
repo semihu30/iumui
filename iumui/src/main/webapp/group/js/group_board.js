@@ -23,21 +23,10 @@ $(function(){
 		$('#commentInput' + $(this).attr('data-no')).css('display', 'none');
 	});
 	
+	parseGno();
+	loadGroupBoard();
 	loadMyGroups(1);
 	loadSideMenu(); 
-	
-	gno = getUrlParameter("gno");
-	
-	loadGroupBoard();
-	
-	$.getJSON('../group/group.do?gno=' + gno , 
-			function(data){
-		
-		/**사이드 1번 테이블 제목 삽입 start*/
-		$('#sidebar_contents1 a').attr('href','#').html(data.group[0].name);
-		/**사이드 1번 테이블 제목 삽입 end*/
-		
-	});
 	
 	$(document).on('click', '.btnCReg', function(){
 
@@ -65,10 +54,20 @@ $(function(){
 	   .fail(function(jqXHR, textStatus, errorThrown){ 
 	     alert(textStatus + ":" + errorThrown);
 	   });
-
 	});
-	
 });
+
+function parseGno(){
+	gno = getUrlParameter("gno");
+	if (!gno) {
+		gno = 0;
+		console.log("===================" + gno)
+		console.log("[" + gno + "]");
+		$('#board_upload').css('display', 'none');
+	} else {
+		$('#board_upload').css('display', '');
+	}
+}
 
 function loadGroupBoard() {
 	$.getJSON('../group_board/board_list.do?no='+ gno, 
@@ -261,9 +260,9 @@ function loadMyGroups(pageNo) {
 		console.log("나의 모임 페이지 로드 : " + data.status);
 		/** 확인용 로그*/
 
-		var myGroups = data.groups
+		var myGroups = data.groups;
 		
-		console.log();
+		console.log(myGroups);
 		
 		/**사이드 2번 테이블 제목 삽입 start*/
 		$('#sidebar_contents2 a').attr('href','#').html("나의 모임");
@@ -287,12 +286,55 @@ function loadMyGroups(pageNo) {
 						
 					}
 				});
+				// expireDay - nowDate < 0 : Delete groupBoard and Group etc...
+				var nowDate = new Date();
+				for (var i in myGroups ) {
+					console.log("expireDay: " + myGroups[i].expireDay);
+					console.log("nowDate: " + nowDate);
+					console.log("종료 기간 (음수 삭제): " + (myGroups[i].expireDay - nowDate));
+					if ((myGroups[i].expireDay - nowDate) < 0 ) {
+						alert("[" + myGroups[i].gname + "] 모임 기간이 종료되어 모임과 게시판들을 삭제 합니다.")
+						deleteGroupBoard(myGroups[i].gno);
+						
+					}
+				}
+				
 			} else {
 				$('#sidebar_table2_content').append("다른 그룹이 없습니다");
 			}
 		}
 	});
 };
+
+function deleteGroupBoard(gno) {
+	//alert("deleteGroupBoard(gno)" + gno);
+	
+	$.getJSON('../group_board/delete_group_board.do?no=' + gno, 
+			function(data){
+		if (data.status == 'success') {
+			//alert("group board delete 성공");
+			deleteGroup(gno);
+		}
+	});	
+	
+}
+
+function deleteGroup(gno) {
+	//alert("deleteGroup(gno)" + gno);
+	
+	$.getJSON('../group/delete_group.do?no=' + gno, 
+			function(data){
+		if (data.status == 'success') {
+			
+			alert("모임과 게시판이 삭제되었습니다.");
+			gno = 0;
+			loadGroupBoard();
+		
+		}
+	});	
+	
+}
+
 /** 나의 모임 end */
 
 /** 그룹메뉴 start*/

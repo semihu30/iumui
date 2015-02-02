@@ -56,12 +56,15 @@ $('#grp_state').change(function(){
        console.log(data.check);
        
        if(data.check != null){
+         $('.email_confirm').css("color", "red");
          $('.email_confirm').html("사용 불가!"); //해당 내용을 보여준다
          $('#email').focus();
        }else if(re_mail.test( $('#email').val() ) != true){
          $('.email_confirm').html("사용 불가!"); //해당 내용을 보여준다
+         $('.email_confirm').css("color", "red");
          $('#email').focus();
        }else if(re_mail.test( $('#email').val() ) == true ){
+         $('.email_confirm').css("color", "green");
          $('.email_confirm').html("사용 가능!"); //해당 내용을 보여준다
        }            
           });
@@ -70,9 +73,11 @@ $('#grp_state').change(function(){
    //패스워드 가능여부
    $('#passwd').keyup(function(){
      if (re_pw.test($('#passwd').val()) != true){
-       $('.passwd1').html("사용 불가!"); //해당 내용을 보여준다
+       $('.passwd1').css("color", "red"); //해당 내용을 보여준다
+       $('.passwd1').html("사용 불가!");
       $('#passwd').focus();      
      }else{
+       $('.passwd1').css("color", "green");
        $('.passwd1').html("사용 가능!");       
      }
    });
@@ -80,19 +85,23 @@ $('#grp_state').change(function(){
    //패스워드 확인여부
    $('#passwdChk').keyup(function(){
      if( $('#passwd').val() != $('#passwdChk').val() ){
-       $('.passwd2').html("실패!"); //해당 내용을 보여준다
+       $('.passwd2').css("color", "red"); //해당 내용을 보여준다
+       $('.passwd2').html("불일치!"); //해당 내용을 보여준다
       $('#passwdChk').focus();       
      } else{
-       $('.passwd2').html("성공!");       
+       $('.passwd2').css("color", "green");
+       $('.passwd2').html("일치!");       
      }
    });
    
    //이름 가능 여부
    $('#name').keyup(function(){
      if(re_name.test($('#name').val() ) != true ){
+       $('.name1').css("color", "red"); //해당 내용을 보여준다
        $('.name1').html("불가능!"); //해당 내용을 보여준다
       $('#name').focus();      
      }else{
+       $('.name1').css("color", "green");
        $('.name1').html("가능!");             
      }
    });
@@ -101,9 +110,11 @@ $('#grp_state').change(function(){
    $('input[name=sex]:radio').click(function(event){
      //console.log($(this).val());
      if($(this).val() == "1"){
-       $('.row_title').html("남자");
+       $('.row_title1').css("color", "blue");
+       $('.row_title1').html("남자");
      } else {
-       $('.row_title').html("여자");
+       $('.row_title1').css("color", "purple");
+       $('.row_title1').html("여자");
      }
    });
    
@@ -139,7 +150,7 @@ $('#grp_state').change(function(){
          } 
          , function(result){ // 서버로부터 응답을 받았을 때 호출될 메서드
            if (result.status == "success") {
-             alert("가입 축하드립니다!!로그인하여 서비를 이용하시기 바랍니다. ");
+             alert("가입 축하드립니다!!로그인하여 페이지 를 이용하시기 바랍니다. ");
              location.href="/iumui/index.html";
              
            } else {
@@ -184,18 +195,30 @@ $('#grp_state').change(function(){
     
     return true;
    }
+   
+   function phoneCheck() {
+     alert('인증번호를 발송하였습니다.');
+     $('#confirmNo').focus();
+    
+   }
+   
+   function phoneCheck1() {
+     if($('#confirmNo').val() == "1212"){
+       alert('인증 성공');       
+     }else if($('#confirmNo').val() == ""){
+       
+       alert("인증 실패.");
+     }
+     
+     $('#confirmNo').focus();
+    
+   }
+   
+   
+  
+   
+ 
      
      
-       /* var email = $('#email').val();
-        $.ajax({
-        type: "POST",
-        url: "../json/auth/check.do?email="+email, //이페이지에서 중복체크를 한다
-        data: "email="+ email ,//컨트롤러 에 email 값을 보낸다
-        cache: false,
-        success: function(data){
-          console.log(data.status);
-            $("#emailMsg").html(data.check + "이미 있습니다."); //해당 내용을 보여준다
-             $('#emailMsg').show();
-        }
-        });*/
+       
   

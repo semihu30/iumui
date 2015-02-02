@@ -1,6 +1,7 @@
 package java63.iumui.control.json;
 
 import java.util.HashMap;
+
 import java63.iumui.domain.Board;
 import java63.iumui.domain.BoardComment;
 import java63.iumui.domain.Member;
@@ -23,7 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/json/board")
 public class BoardControl {
   static Logger log = Logger.getLogger(BoardControl.class);
-  static final int PAGE_DEFAULT_SIZE = 5;
+  static final int PAGE_DEFAULT_SIZE = 10;
   
   @Autowired BoardService     boardService;
   @Autowired CategoryService     categoryService;
@@ -46,7 +47,7 @@ public class BoardControl {
   public Object list(
       @RequestParam(defaultValue="1") int no,
       @RequestParam(defaultValue="1") int pageNo,
-      @RequestParam(defaultValue="5") int pageSize,
+      @RequestParam(defaultValue="10") int pageSize,
       String boardSearchText,
       String boardSelectLocal,
       HttpSession session) throws Exception {
@@ -74,6 +75,22 @@ public class BoardControl {
     
     return resultMap;
   }
+  
+	@RequestMapping("/recommendgroups")
+	public Object getRecommendGroups ( 
+			HttpSession session,
+			@RequestParam(defaultValue="1") int startIndex) throws Exception {
+		
+		Member loginUser = (Member) session.getAttribute("loginUser");
+		
+		int mno = loginUser.getMemberNo();
+		
+		HashMap<String,Object> resultMap = new HashMap<>();
+		resultMap.put("status", "success");
+		resultMap.put("recgroups", boardService.getRcommendGroups(mno , startIndex));
+		
+		return resultMap;
+	}
   
   @RequestMapping(value="/add", method=RequestMethod.POST)
   public Object add(

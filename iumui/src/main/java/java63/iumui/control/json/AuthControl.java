@@ -40,6 +40,8 @@ public class AuthControl {
       String requestUrl,
       HttpServletResponse response,
       HttpSession session) throws Exception {
+    
+    System.out.println("쿠키:"  +  save);
 
     if (save) {
       Cookie cookie = new Cookie("email", email);

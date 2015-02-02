@@ -27,12 +27,13 @@ $(function(){
 });
 
 function loadBoard(boardNo) {
-  $.getJSON('../json/board/view.do?no=' + boardNo, 
+	var nowDate = new Date();
+  $.getJSON('../json/board/view.do?no=' + boardNo,
     function(data){
   		board = data.board;
   		loginUser = data.loginUser;
   		boardRequests = data.boardRequests;
-  		//console.log(data.board);
+  		console.log(data.board);
   		//console.log(data.loginUser);
   		//console.log(data.boardComments);
   		//console.log(data.boardRequests);
@@ -41,6 +42,11 @@ function loadBoard(boardNo) {
   		$('#regDate').html(yyyyMMdd(board.regDate));
   		$('#writer').html('작 성 자 : ' + board.writer);
   		$('#targetNumber').html('모집인원 : ' + board.reqCount + '/' + board.targetNumber);
+  		
+  		console.log("nowDate : " + nowDate + " : " + yyyyMMdd(nowDate));
+  		console.log("startDate : " + board.startDate + " : " + yyyyMMdd(board.startDate));
+  		console.log("startDate - nowDate = " + (board.startDate - nowDate));
+  		
   		$('#startDate').html('모 집 일 : ' + yyyyMMdd(board.startDate));
   		$('#endDate').html('종 료 일 : ' + yyyyMMdd(board.endDate));
   		
@@ -97,6 +103,12 @@ function loadBoard(boardNo) {
   			
   			createGroup();
   			
+  		}
+  		
+  		if ((board.startDate - nowDate) < 0) {
+  			alert("기한 내에 목표 인원이 모집되지 않아 게시판을 삭제하겠습니다.");
+  			
+  			failDelete();
   		}
   		
     });
@@ -175,14 +187,14 @@ function createMember(no) {
 
 function changeDelete() {
 	alert( "모임이 생성되어 게시판을 삭제합니다.");
-	$.getJSON('../json/board/delete.do?no=' + board.no, 
-	    function(result){
-		if (result.status == 'success') {
-      
-      location.href = "invitations.html?no=" + board.categoryNo;
-    }
-	});
+	
+	deleteBoard();
+}
 
+function failDelete() {
+	alert( "모임 생성을 실패하 게시판을 삭제합니다.");
+	
+	deleteBoard();
 }
 
 $('#btncomment').click(function(){

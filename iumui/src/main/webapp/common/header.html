@@ -7,9 +7,22 @@
    <a href="/iumui/main/main.html">IUMUI</a>
   </div>
   
+  <table id='menu'>
+	 
+	  
+	   <tr>
+	     <td><a href="/iumui/main/main.html">MAIN</a></td>
+	     <td><a href="/iumui/invitations/invitations.html?no=1">BOARD</a></td>
+	     <td><a href="/iumui/group/group_board.html?gno=">NEWS FEED</a></td>
+	   </tr>
+	 
+	  
+  </table>
+  
   <!-- 로그인 start -->
    <div id='login'>
      <div class='loginContent'>
+     
        <div class='input_login'>
          <input type="text" id="inputId" name="id" class="header-control" maxlength="32" placeholder='아이디 or 이메일'>
          <input type="password" id="inputPwd" name="pw" class="header-control" maxlength="32" placeholder='비밀번호'>
@@ -20,8 +33,9 @@
      </div>
      <div id='loginDown' class='loginDown'>
        <strong><a href="/iumui/common/signin_test.html" class="link_join ">회원가입</a> &nbsp;&nbsp;|&nbsp;&nbsp;</strong>
-       <strong><a href="#" class="link_find_id">아이디 찾기</a></strong>&nbsp;&nbsp;|&nbsp;&nbsp;
-       <strong><a href="#" class="link_find_pw">비밀번호 찾기</a></strong>
+       <strong><a href="/iumui/common/search_id.html" class="link_find_id">아이디 찾기</a></strong>&nbsp;&nbsp;|&nbsp;&nbsp;
+       <strong><a href="/iumui/common/search_pw.html" class="link_find_pw">비밀번호 찾기</a></strong>&nbsp;&nbsp;&nbsp;&nbsp;
+     <input type="checkbox" id="save" />ID 저장<br/>
      </div>
    </div>
    <!-- 로그인 end -->
@@ -54,11 +68,12 @@
 	<!-- 로그인 성공 화면 end -->
 	
 		<div id='msg1' class='msgBox alertWindow'>
-			<button id='btnMsgClose' class='pbutton'>X</button>
+			<button id='btnMsgClose' class='pbutton'>확인</button>
 			
 		</div>
 		
   </div>
 
   <script src='/iumui/common/js/header.js'></script>
+  <script type="text/javascript" src='../js/jquery-1.11.1.js'></script>
 <!-- 헤더 end -->

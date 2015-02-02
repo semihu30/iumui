@@ -10,6 +10,8 @@
     <result column="gname" property="name"/>
     <result column="gintro" property="intro"/>
     <result column="gend_date" property="expireDay"/>
+    <result column="manager_status" property="state"/>
+    <result column="color" property="color"/>
   </resultMap>
   
   <resultMap type="map" id="userGroups">
@@ -41,9 +43,18 @@
   
   <resultMap type="map" id="groupSchedules">
   	<id column="gno" property="gno"/>
-  	<result column="startday" property="startday"/>
-  	<result column="endday" property="endday"/>
-  	<result column="schedule" property="schedule"/>
+  	<result column="startday" property="start"/>
+  	<result column="endday" property="end"/>
+  	<result column="cschedule" property="title"/>
+  	<result column="color" property="formColor"/>
+  </resultMap>
+  
+  <resultMap type="map" id="groupAllSchedules">
+  	<id column="gno" property="gno"/>
+  	<result column="startday" property="start"/>
+  	<result column="endday" property="end"/>
+  	<result column="cschedule" property="title"/>
+  	<result column="color" property="color"/>
   </resultMap>
   
   <select id="totalSize" parameterType="int" resultType="int">
@@ -51,12 +62,6 @@
 			FROM MEMBERS T1, GMEMBERS T2, GGROUP T3
 			WHERE #{mno}=T1.MNO AND T1.MNO=T2.MNO AND T2.GNO= T3.GNO
   </select>
-  
-  <!-- <select id="selectGroup" parameterType="int" resultMap="groupMap">
-    SELECT gno,gname,gintro,gend_date
-    FROM GGROUP
-    WHERE gno=#{no}
-  </select> -->
   
   <select id="selectMyGroup" parameterType="int" resultMap="groupMap">
   SELECT T3.GNO gno,T3.GNAME gname, T3.GINTRO gintro, T3.GEND_DATE gend_date
@@ -85,12 +90,18 @@
  		  ORDER BY RNUM ASC
   </select>
   
+  <select id="selectRecommendedGroup" parameterType="int">
+  	SELECT T1.bmno, T1.bno, T1.bname, T1.lcode FROM iboard T1, members T2
+		WHERE T2.mno = #{mno} AND T1.lcode = T2.lcode
+		ORDER BY DBMS_RANDOM.RANDOM
+  </select>
+  
   <select id="selectUserSchedules" parameterType="map" resultMap="userSchedules">
-		 SELECT ROWNUM rnum, startday, endday, cschedule
+		 SELECT ROWNUM rnum, startday, endday, cschedule, color
   			FROM   
     			(SELECT *
   						FROM 
-  							(SELECT T2.STARTDAY startday,T2.ENDDAY endday, T2.CSCHEDULE cschedule
+  							(SELECT T2.STARTDAY startday,T2.ENDDAY endday, T2.CSCHEDULE cschedule, T1.COLOR color
 					  				FROM GMEMBERS T1, GSCHEDULE T2 
 					  				WHERE T1.MNO=#{mno} AND T1.GNO=T2.GNO)
 			 		  	ORDER BY startday ASC)
@@ -103,6 +114,15 @@
   				(SELECT T1.startday startday, T1.endday endday, T1.cschedule cschedule, T2.color color
     				FROM GSCHEDULE T1, GMEMBERS T2, GGROUP T3
 	  				WHERE T1.GNO=#{gno} AND T1.GNO = T2.GNO AND T2.GNO = T3.GNO AND T2.MNO = #{mno})
+		  	ORDER BY startday ASC
+  </select>
+  
+  <select id="selectAllGroupSchedules" parameterType="int" resultMap="groupAllSchedules">
+		 SELECT *
+  			FROM 
+  				(SELECT T1.startday startday, T1.endday endday, T1.cschedule cschedule, T2.color color
+    				FROM GSCHEDULE T1, GMEMBERS T2, GGROUP T3
+	  				WHERE T2.MNO = #{mno} AND T2.GNO = T3.GNO AND T3.GNO = T1.GNO)
 		  	ORDER BY startday ASC
   </select>
   
@@ -125,6 +145,18 @@
     INSERT INTO gmembers 
     VALUES (grouping_no.nextval, #{groupNo},#{memberNo},#{managerStatus}, null)
   </insert>
-
+  
+  <delete id="deleteGroup" parameterType="int">
+    delete from ggroup where gno=#{no}
+  </delete>
+  
+  <delete id="deleteGroupMembers" parameterType="int">
+    delete from gmembers where gno=#{no}
+  </delete>
+  
+  <delete id="deleteSchedules" parameterType="int">
+    delete from gschedule where gno=#{no}
+  </delete>
+  
 </mapper>
 

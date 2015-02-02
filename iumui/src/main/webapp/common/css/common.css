@@ -14,7 +14,7 @@ body {
 							 
 	line-height: 1.42857143;
 	font-size: 1em;
-	color: #333;
+	color: #4e5665;
   background-color: #F3F3F3;
   margin:0;
 }
@@ -49,7 +49,7 @@ textarea {
 
 .btn {
   display: inline-block;
- /*  padding: 6px 12px; */
+  padding: 6px 12px;
   margin-bottom: 0;
   font-size: 14px;
   font-weight: normal;
@@ -80,45 +80,25 @@ textarea {
           box-sizing: border-box;
 }
 
-.form-control { 
-  display: block;
-  width: 100%;
-  height: 34px;
-  padding: 6px 12px;
-  font-size: 14px;
-  line-height: 1.42857143;
-  color: #555;
-  background-color: #fff;
-  background-image: none;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
+.form-control { display: block; width: 100%; height: 34px; padding: 6px 12px; font-size: 14px; line-height: 1.42857143; color: #555; background-color: #fff; background-image: none; border: 1px solid #ccc; border-radius: 4px; }
 
-table {
-	border-collapse: collapse;	
-}
+table { border-collapse: collapse; }
 
-.table-bordered {
-  border: 1px solid #ddd;
-}
+.table-bordered { border: 1px solid #ddd; }
 
 .table > thead > tr > th,
 .table > tbody > tr > th,
 .table > tfoot > tr > th,
 .table > thead > tr > td,
 .table > tbody > tr > td,
-.table > tfoot > tr > td {
-  padding: 0.3em 0.8em;
-}
+.table > tfoot > tr > td { padding: 0 0.8em; }
 
 .table-bordered > thead > tr > th,
 .table-bordered > tbody > tr > th,
 .table-bordered > tfoot > tr > th,
 .table-bordered > thead > tr > td,
 .table-bordered > tbody > tr > td,
-.table-bordered > tfoot > tr > td {
-  border: 1px solid #ddd;
-}
+.table-bordered > tfoot > tr > td { /* border: 1px solid #ddd; */ }
 
 .table > caption + thead > tr:first-child > th,
 .table > colgroup + thead > tr:first-child > th,
@@ -150,3 +130,4 @@ a:active {
     text-decoration: none;
 }
 
+#main_contents > .side_bar { margin-top:15px; }

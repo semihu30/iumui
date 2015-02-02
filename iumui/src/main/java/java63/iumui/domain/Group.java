@@ -11,16 +11,18 @@ public class Group implements Serializable{
 	protected String            intro;
 	protected Date 			        expireDay;
 	protected int               state;
-	protected Date              startday;
-	protected Date              endday;
+	protected Date              start;
+	protected Date              end;
+	protected String            title;
 	protected String            schedule;
 	protected String 					  color;
+	
 	
 	@Override
 	public String toString() {
 		return "Group [gno=" + gno + ", name=" + name + ", intro=" + intro
-				+ ", expireDay=" + expireDay + ", state=" + state + ", startday="
-				+ startday + ", endday=" + endday + ", schedule=" + schedule
+				+ ", expireDay=" + expireDay + ", state=" + state + ", start="
+				+ start + ", end=" + end + ", schedule=" + schedule
 				+ ", color=" + color + "]";
 	}
 	public int getGno() {
@@ -53,11 +55,11 @@ public class Group implements Serializable{
 	public void setState(int state) {
 		this.state = state;
 	}
-	public String getSchedule() {
-		return schedule;
+	public String getTitle() {
+		return title;
 	}
-	public void setSchedule(String schedule) {
-		this.schedule = schedule;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 	public String getColor() {
 		return color;
@@ -71,16 +73,23 @@ public class Group implements Serializable{
 	public void setExpireDay(Date expireDay) {
 		this.expireDay = expireDay;
 	}
-	public Date getStartday() {
-		return startday;
+	public Date getStart() {
+		return start;
 	}
-	public void setStartday(Date startday) {
-		this.startday = startday;
+	public void setStart(Date startday) {
+		this.start = startday;
+	}
+	public String getSchedule() {
+		return schedule;
+	}
+	public void setSchedule(String schedule) {
+		this.schedule = schedule;
 	}
 	public Date getEndday() {
-		return endday;
+		return end;
 	}
 	public void setEndday(Date endday) {
-		this.endday = endday;
+		this.end = endday;
 	}
+	
 }

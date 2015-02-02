@@ -9,7 +9,6 @@
 <meta charset="utf-8">
 <title></title>
 <style>
-#content div {border: 1px solid red; }
 #main_contents>.side_bar {margin-top: 15px;}
 .side_menu {border: none;}
 
@@ -19,14 +18,16 @@
 #grp_member_title {padding:0 4px; margin:0 1.84% 10px 1.84%;}
 #grp_member_title h3 {margin-top: 0.9091em; margin-bottom: 0.9091em; font-size: 22px; font-family: inherit; font-weight: 500; line-height: 1.1; color: inherit; }
 #grp_member_title hr {margin-top: 13px; margin-bottom: 13px; border: 0; border-top: 1px solid #dddddd; }
+
 #grp_members {float:left; margin-top: 15px; width:75.91%; height: 75.303ex; color: #4e5665; }
 .m_table { display: inline-table; margin : 0 10px 20px 10px;}
-.m_table > tbody {}
-.m_table > tbody > tr > .m_pic { border:2px solid blue; width: 160px; height:148px;}
+.m_table > tbody > tr > .m_pic { border:2px solid blue; width: 160px; height:148px; padding:0;}
 .m_table > tbody > tr > .m_name,
 .m_table > tbody > tr > .m_intro {border:2px solid blue; width: inherit; height:30px;}
 
 .m_alpha { position: absolute; margin-left: 105px; margin-top: 44px; background-color: teal; color:white;}
+
+.m_pic img { width: 160px; height: 100%;}
 </style>
 </head>
 <body>
@@ -46,29 +47,7 @@
 						<h3>구성원</h3>
 						<hr>
 					</div>
-					<div id="m_container_grid">
-					
-						<!-- 멤버 정보 최소단위 test start -->
-						<table class="m_table">
-							<tbody class="m_box">
-							<tr class="m_row">
-								<td class="m_pic">
-									<span style="display:none;" "class="m_alpha">
-										<b>모임장</b>
-									</span>
-								</td>
-							</tr>	
-							<tr class="m_row">
-								<td class="m_name"></td>
-						  </tr>	
-						  <tr class="m_row">
-								<td class="m_intro"></td>
-							</tr>	
-							</tbody>
-						</table>
-						<!-- 멤버 정보 최소단위 test end -->
-						
-					</div>
+					<div id="m_container_grid"></div>
 				</div>
 				<!-- 구성원 화면 끝 -->
 				<!-- 사이드바 시작 -->

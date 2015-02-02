@@ -1,7 +1,6 @@
 package java63.iumui.control.json;
 
 import java.util.HashMap;
-
 import java63.iumui.domain.GroupBoard;
 import java63.iumui.domain.GroupBoardComment;
 import java63.iumui.domain.Member;
@@ -26,16 +25,19 @@ public class GroupBoardControl {
 	@Autowired ServletContext 		 servletContext;
 
 	@RequestMapping("/board_list")
-  public Object group_board(int no, 
+  public Object board_list(
+      int no, 
       Model model, 
       HttpSession session) throws Exception {
-	  
+	  Member member = (Member)session.getAttribute("loginUser");
     HashMap<String,Object> resultMap = new HashMap<>();
+    System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" + member.getMemberNo());
+    System.out.println("############################################" + no);
     resultMap.put("status", "success");
-    resultMap.put("groupBoards", groupBoardService.getList(no));
-    resultMap.put("loginUser", (Member)session.getAttribute("loginUser"));
+    resultMap.put("groupBoards", groupBoardService.getList(no, member.getMemberNo()));
+    resultMap.put("loginUser", member);
     
-    resultMap.put("groupBoardComments", groupBoardService.getComments(no));
+    resultMap.put("groupBoardComments", groupBoardService.getComments(no, member.getMemberNo()));
     return resultMap;
   }
 
@@ -94,6 +96,15 @@ public class GroupBoardControl {
 	@RequestMapping("/delete")
   public Object delete(int no) throws Exception {
 	  groupBoardService.delete(no);
+    HashMap<String,Object> resultMap = new HashMap<>();
+    resultMap.put("status", "success");
+    
+    return resultMap;
+  }
+	
+	@RequestMapping("/delete_group_board")
+  public Object delete_group_board(int no) throws Exception {
+    groupBoardService.deleteGroupBoard(no);
     HashMap<String,Object> resultMap = new HashMap<>();
     resultMap.put("status", "success");
     

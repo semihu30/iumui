@@ -2,6 +2,12 @@
 
 #logo_div a { font-size: 35px; color : white; }
 #logo_div { float: left; margin : 0.413em 2.75em; text-decoration: none; }
+
+#menu a { font-size: 20px; font-weight:bold; color : #DDE1EA; }
+#menu { float: left; margin : 0.413em 2.75em; text-decoration: none; }
+#menu td {padding:14px;}
+#menu a:hover {font-size: 20px; color : white;}
+
 #header { border-radius: 0 0 8px 8px; height: 8.787ex; background-color: #44619D }
 #login { float:right; width: 398px; }
 #loginSubmit { width: 60px; height: 24px; font-size: small; }
@@ -21,7 +27,7 @@
 .myMenu { padding-top: 0.4em; padding-left: 0.8em; float: left; text-decoration:none; font-size: 0.1em; color: #f3f4f5; }
 .informCount { color: red; }
 .alertWindow { position: fixed; left: 760px; top: 60px; padding-right: 22px; }
-.msgBox { padding: 30px; width: 360px; border: 1px solid #CECEF6; background-color: #F2EFFB; font-size: small; } 
+.msgBox { padding: 30px; border: 1px solid #CECEF6; background-color: #F2EFFB; font-size: small; z-index:50; } 
 .pbutton { text-align:right; }
 
 #btnMsgClose { position: absolute; top: 0px; right: 0px; }

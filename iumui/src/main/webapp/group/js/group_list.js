@@ -12,26 +12,27 @@ $(function(){
 	
 	loadMySchedule();
 	
-	console.log("loadMySchedule() 로딩 완료");  
-	
 });
 /** 화면출력 end */
 
 /** 가까운 일정 start*/
 function loadMySchedule() {
-	$.getJSON('../group/myschedules.do?dataSize=6' , 
+	$.getJSON('../groupschedule/myschedules.do?dataSize=6' , 
 			function(data){
-
+		console.log(data);
 		/** 확인용 로그*/
-		console.log("나의 스케쥴 로딩" + data.status);
+		console.log("gschedule data loading : " + data.status);
 		/** 확인용 로그*/
 
 		for (var i in data.schedules) {
-			data.schedules[i].startday = parseDate4t(data.schedules[i].startday);
+			data.schedules[i].startday = yyyyMMdd(data.schedules[i].startday);
+			data.schedules[i].endday = yyyyMMdd(data.schedules[i].endday);
 		}
 		
 		/** 가까운 일정 출력*/
 		var mySchedules = data.schedules
+		
+		console.log(mySchedules);
 
 		/**사이드 2번 테이블 제목 삽입 start*/
 		$('#sidebar_contents2 a').attr('href','#').html("가까운 일정");
@@ -40,7 +41,7 @@ function loadMySchedule() {
 		if((data.status) == "success") {
 			if(mySchedules.length > 0) {
 				
-				require(['text!sidebar/side_table2.html'], function(html){
+				require(['text!sidebar/myschedule.html'], function(html){
 					var template = Handlebars.compile(html);
 					$('#sidebar_table2_content').html( template(data) );
 					
@@ -62,7 +63,6 @@ function loadMySchedule() {
 				$('#sidebar_title2').html("일정이 없습니다.").css("padding","5px 15px").css("color","red");
 			}
 		}
-
 	});
 };
 
@@ -75,8 +75,8 @@ function loadMyGroups(pageNo) {
 			function(data){
 
 		/** 확인용 로그*/
-		console.log("나의 모임 페이지 로드 : " + data.status);
-		console.log(data.groups)
+//		console.log("나의 모임 페이지 로드 : " + data.status);
+//		console.log(data.groups)
 		/** 확인용 로그*/
 
 		var myGroups = data.groups
@@ -92,8 +92,8 @@ function loadMyGroups(pageNo) {
 					myGroups[i].expireDay = [yyyyMMdd(myGroups[i].expireDay) , "D"+ Dday[i]];
 				}
 				
-				console.log(Dday);
-				console.log(data.groups)
+//				console.log(Dday);
+//				console.log(data.groups);
 				require(['text!group_list/mygroup_table.html'], function(html){
 					var template = Handlebars.compile(html);
 					$('#my_group_list').append(template(data));

@@ -10,6 +10,17 @@
 //var logintester;
 
 $(function(){
+  
+//최초 쿠키에 login_id라는 쿠키값이 존재하면
+/*  var inputId = $.cookie('inputId');
+  if(inputId != undefined) {
+      //아이디에 쿠키값을 담는다
+      $("#inputId").val(inputId);
+      //아이디저장 체크박스 체크를 해놓는다
+      $("#rememberid").prop("checked",true);
+  }*/
+  
+  
 	$('#my_loginBox').css('display', 'none');
 	$('#msg1').css('display', 'none'); 
 
@@ -55,14 +66,10 @@ $.getJSON('../json/auth/loginUser.do', function(data){
 		if (data.loginUser.userPhoto) {
       $('#myphoto').attr('src', '/iumui/fileupload/' + data.loginUser.userPhoto);
   }
-		console.log("로그인 유저 이름 (logintester): " + data.loginUser.userName);
+		//console.log("로그인 유저 이름 (logintester): " + data.loginUser.userName);
 		
 	  $('.myName').html(data.loginUser.userName + " 님.");
 
-		$('.myName').click(function(){
-			alert('사용자 정보 조회 창으로 보낼 예정');
-		});
-		
 		$.getJSON('../json/board/message_count.do', 
 		    function(result){
 			//console.log(result);
@@ -71,17 +78,25 @@ $.getJSON('../json/auth/loginUser.do', function(data){
 		
 		$.getJSON('../json/board/message.do', 
 		    function(mes){
-			//console.log(mes.messages);			
+		
+			$('#msg1').append($('<p>').html("게시판 바로 가기"));
+			
 			for (var i in mes.messages) {
+				
 				$('#msg1').append($('<br>'))
-										.append($('<p>').html(mes.messages[i].message));
-								
+										.append($('<p>').html("<a href='../invitations/invitations_detail.html?no=" 
+												+ mes.messages[i].boardNo + "' class='title' data-no='" 
+												+ mes.messages[i].boardNo + "'>" + (parseInt(i)+1) + ". " 
+												+ mes.messages[i].message + "</a>"));
+				/*
 				if ( mes.messages[i].state == 3) {
 					$('#msg1').append("<button type='button' " +
 							"class='btn btn-default btn-xs btnRAccept' reqDel='bno=" + 
-							mes.messages[i].bno + "&mno=" + mes.messages[i].mno +  
+							mes.messages[i].boardNo + "&mno=" + mes.messages[i].memberNo +  
 							">확인</button>");
+					
 				}
+				*/
 			}
 		});
 	}

@@ -1,6 +1,7 @@
 package java63.iumui.service;
 
 import java.util.HashMap;
+import java.util.List;
 
 import java63.iumui.dao.MemberDao;
 import java63.iumui.domain.Member;
@@ -79,6 +80,13 @@ public class MemberService {
     return localName;
   }
 
+  public List<?> getGroupMembers(int gno) {
+  	List<?> groupMembers = memberDao.selectGroupMembers(gno);
+  	System.out.println("GetGroupMembers : " + groupMembers);
+  	
+  	return groupMembers;
+  }
+  
   @Transactional(
       rollbackFor=Exception.class, 
       propagation=Propagation.REQUIRED)
@@ -90,7 +98,6 @@ public class MemberService {
     }
   }//edit()
   
-  
   //아이디찾기
   public String FindId(String name, String birthDate, String phone) {
     HashMap<String, Object> params = new HashMap<>();
@@ -100,7 +107,6 @@ public class MemberService {
     params.put("phone", phone);
     
     return memberDao.getId(params);
-    
   }
   
   //비밀번호 찾기
@@ -112,7 +118,6 @@ public class MemberService {
     params.put("email", email);
     
     return memberDao.getPw(params);
-    
   }
   
   public void photoadd(Member member) {
@@ -123,8 +128,6 @@ public class MemberService {
     memberDao.photoadd1(mno,userPhotofile);
     
   }
-  
-  
 }
 
 

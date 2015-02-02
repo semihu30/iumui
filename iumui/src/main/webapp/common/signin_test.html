@@ -3,11 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <title>IUMUI_회원가입</title>
-<link rel='stylesheet' href='../css/bootstrap.css'>
-<link rel='stylesheet' href='../css/bootstrap-theme.min.css'>
 <link rel='stylesheet' href='../common/css/common.css'>
 </head>
 <style>
+
+.sex{
+width: 200px;
+height: 200px;
+}
 
 label {
   position:absolute;
@@ -83,10 +86,23 @@ label {
   font-size: x-large;
 }
 
+.row_title1 {
+  margin-left: 40px;
+  font-size: x-large;
+}
+
+#name:-webkit-autofill,
+#email:-webkit-autofill {
+background-color: white;
+
+}
+
+
 .sign_row {
-  width : 500px;
+  width : 493px;
   height: 51px;
   margin : 0 auto;
+  background-color: white;
 }
 
 .sign_form {
@@ -105,8 +121,18 @@ label {
   width: 498px;
   height: 50px;
   font-size: x-large;
-  background-color: #999;
+  background-color: #44619D;
+  color: black;
 }
+
+#confirmPhoneNo{
+ margin-left: 25px;
+}
+
+#confirm{
+ margin-left: 25px;
+}
+
 
 </style>
 <body>
@@ -117,9 +143,8 @@ label {
         <div id='conTitle'>
           <h2>회원가입</h2>
         </div>
-        <hr>
         <div class='sign_form'>
-          <form id='sign_form' action="">
+          <form id='sign_form' action="" autocomplete="off">
           
             <div class='row_group'>
               <div id='emailDiv' class="sign_row">
@@ -159,15 +184,24 @@ label {
               <div id='sexDiv' class="sign_row">
                 <span class="insert_box">
                   <span class="row_title">성별</span>
+                   <span class="row_title1"></span>
                   <span class="sex">
-                   <span class='jender'>
+                  
+                  <span style="margin-left: 6.5em;">
+                  <input type="radio" style="width:25px;height:25px;border:1px;" name="sex" value="1">남자
+                  <input type="radio" style="width:25px;height:25px;border:1px;" name="sex" value="2">여자
+                  </span>
+                  
+                   <!-- <span class='jender'>
+                   
+                   
                     <input class="radiobtn" type="radio" id="man" name="sex" value="1">
                     <label id="manLb" for="man" > 남자 </label>
-                   </span>
-                   <span class='jender'>
+                   </span> -->
+                   <!-- <span class='jender'>
                     <input class="radiobtn" type="radio" id="woman" name="sex" value="2">
                     <label id="womanLb" for="woman"> 여자 </label>
-                   </span>
+                   </span> -->
                   </span>
                 </span>
               </div>
@@ -183,8 +217,8 @@ label {
             <div class='row_group certPhone'>
               <div id='phoneNoDiv' class="sign_row">
                 <span class="insert_box">
-                  <input type="text" id="phoneNo" placeholder="휴대전화번호(-없이 입력)">
-                  <a href='#' id='confirmPhoneNo'>인 증</a>
+                  <input type="text" id="phoneNo" placeholder="휴대전화번호(-없이 입력)" >
+                  <a href='#' onclick="phoneCheck();" id='confirmPhoneNo'>인 증</a>
                 </span>
                 <div id='phoneNoMsg' class='error'></div>
               </div>
@@ -192,7 +226,7 @@ label {
               <div id='confirmNoDiv' class="sign_row">
                 <span class="insert_box">
                   <input type="text" id="confirmNo" placeholder="인증번호">
-                  <a href='#' id='confirm'>확 인</a>
+                  <a href='#' onclick="phoneCheck1();" id='confirm'>확 인</a>
                 </span>
                 <div id='confirmNoMsg' class='error'></div>
               </div>
@@ -205,7 +239,7 @@ label {
             <div id='sexDiv' class="sign_row">
                 <span class="insert_box">
                   <span class="local">지역선택</span>
-                  <span class="sex">
+                  <span class="sex" style="margin-left: 70px;">
                    <span class='local1'>
                    <select id='grp_state' name="state">
                    <option value=''>상위 지역</option></select>&nbsp;&nbsp;
@@ -233,10 +267,9 @@ label {
   </div>
 </body>
 <script src='/iumui/js/jquery-1.11.1.js'></script>
-<script src='/iumui/js/bootstrap.js'></script>
 <script type="text/javascript" src='/iumui/js/handlebars-v2.0.0.js'></script>
 <script type="text/javascript" src='/iumui/js/require.js'></script>
-<script src='/iumui/common/js/signin.js'></script>
+<script src='/iumui/common/js/signin.js'></script> 
 <script src='/iumui/common/js/checkfield.js'></script>
 <script>
  $('.jender label').click(function(event){

@@ -1,13 +1,17 @@
 /**
- *  나의 그룹 스케쥴 리스트 화면에 들어갈 달력 화면 스크립트 
+ *  구성원 화면 자바스크립트 
  */
 
 /** 화면출력 start */
+
+var gno = getUrlParameter("gno");
+
 $(function(){
 	$('.header').load('/iumui/common/header.html');
-	$('.footer').load('/iumui/common/footer.html');
 	$('.side_bar').load('../common/sidebar.html');
+	$('.footer').load('/iumui/common/footer.html');
 	
+	loadGroupMembers();
 	loadMyGroups(1);
 	loadSideMenu();
 });
@@ -26,9 +30,28 @@ function getUrlParameter(sParam)
     }
 }
 
+function loadGroupMembers() {
+	$.getJSON('../json/member/thisgroupmembers.do?gno=' + gno, 
+			function(data) {
+				console.log(data);
+				
+				for (var i in data.groupMembers) {
+						if(!data.groupMembers[i].MYPHOTO){
+							console.log(data.groupMembers[i].MYPHOTO);
+							console.log(i + " 빔");
+							data.groupMembers[i].MYPHOTO = "nopic.gif";
+						}
+				}
+				
+				require(['text!membertable.html'], function(html){
+					var members = Handlebars.compile(html);
+					$('#m_container_grid').html( members(data) );
+				});
+	});	
+};/**그룹멤버를 로딩합니다.*/
+
 /** 나의 모임 start */
 function loadMyGroups(pageNo) {
-
 	$.getJSON('../group/mygroups.do?pageNo='+ pageNo, 
 			function(data){
 
@@ -45,7 +68,6 @@ function loadMyGroups(pageNo) {
 		/**사이드 2번 테이블 제목 삽입 end*/
 		
 		if((data.status) == "success"){
-			
 			if(myGroups.length > 0){
 				require(['text!sidebar/mygroup_list.html'], function(html){
 					var template = Handlebars.compile(html);
@@ -77,8 +99,6 @@ function loadSideMenu() {
 	require(['text!sidebar/mygroup_menu.html'], function(html){
 		var template = Handlebars.compile(html);
 		$('#sidebar_table1_content').html( template() );
-		
 	});
-	
 };
 /** 그룹 메뉴 end */

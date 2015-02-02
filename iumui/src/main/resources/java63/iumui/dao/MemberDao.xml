@@ -59,8 +59,16 @@
    (SELECT substr(lcode, 1, 2)
     FROM MEMBERS
     WHERE mno = #{value}) 
-  </select>  
-  
+  </select>
+
+	<select id="selectGroupMembers" parameterType="int" resultType="map">
+		SELECT uname, birth, nick, phone, sex, myphoto, intro,
+		T2.manager_status
+		FROM members T1, gmembers T2
+		WHERE T2.gno = #{gno} and
+		T1.MNO = T2.MNO
+	</select>
+	
   <update id="edit" parameterType="Member">
     UPDATE MEMBERS 
     SET email = #{email},
@@ -97,8 +105,5 @@
   FROM MEMBERS
   WHERE uname = #{name} AND birth = #{birthDate}
          AND email = #{email}
-   
   </select>
-  
-  
 </mapper>

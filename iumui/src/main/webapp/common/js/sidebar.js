@@ -45,7 +45,7 @@ function showCalendar (day, month, year) {
 						 calStr+="<td align=center><font size='2'>"  // 오늘 날짜가 아닐때 배경색 지정
 					 	}
 			 
-				 	calStr+="<a href='http://amen.maru.net'>" // 링크설정
+				 	calStr+="<a href='#'>" // 링크설정
 				 	calStr+=dayCount++   // 날짜
 				 	calStr+="</a>"
 			 		

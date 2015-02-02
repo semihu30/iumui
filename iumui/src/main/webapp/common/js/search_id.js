@@ -1,10 +1,7 @@
+/** 화면출력 start */
 $(function(){
   
-  
-});//ready()
-
-
-
+});
 
 
 
@@ -30,6 +27,7 @@ function go(){
               if(result.check != null){
                 console.log(result);
                 alert("회원님의 아이디는"+result.check+"입니다.");
+                window.location.href = "/iumui/index.html";
               }else{
                 alert("회원님의 정보와 일치하는 아이디는 없습니다.");
               }

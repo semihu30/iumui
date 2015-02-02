@@ -1,6 +1,7 @@
 package java63.iumui.control.json;
 
 import java.util.HashMap;
+
 import java63.iumui.domain.Group;
 import java63.iumui.domain.GroupMember;
 import java63.iumui.domain.Member;
@@ -70,6 +71,21 @@ public class GroupControl {
 		return resultMap;
 	}
 	
+	@RequestMapping("/recommendgroups")
+	public Object getRecommendGroups ( 
+			HttpSession session ) throws Exception {
+		
+		Member loginUser = (Member) session.getAttribute("loginUser");
+		
+		int mno = loginUser.getMemberNo();
+		
+		HashMap<String,Object> resultMap = new HashMap<>();
+		resultMap.put("status", "success");
+		resultMap.put("recgroups", groupService.getRcommendGroups(mno));
+		
+		return resultMap;
+	}
+	
 	@RequestMapping("/myschedules")
 	public Object getUserSchedules ( 
 			HttpSession session, 
@@ -106,7 +122,7 @@ public class GroupControl {
 	@RequestMapping("/group")
 	public Object loadGroupPage ( 
 			HttpSession session,
-			int gno ) throws Exception {
+			@RequestParam(defaultValue="0") int gno ) throws Exception {
 		
 		Member loginUser = (Member) session.getAttribute("loginUser");
 		int mno = loginUser.getMemberNo();
@@ -144,19 +160,13 @@ public class GroupControl {
     return resultMap;
   }
 	
-	@RequestMapping("/thisgroupschedule")
-	public Object getThisGroupSchedule (
-			HttpSession session,
-			int gno) throws Exception {
-		
-		Member loginUser = (Member) session.getAttribute("loginUser");
-		
-		int mno = loginUser.getMemberNo();
-		
-		HashMap<String,Object> resultMap = new HashMap<>();
-		resultMap.put("status", "success");
-		resultMap.put("schedules", groupService.getThisGroupSchedules(gno,mno));
-		
-		return resultMap;
-	}
+	@RequestMapping("/delete_group")
+	public Object delete_group(int no) throws Exception {
+	  groupService.deleteGroup(no);
+	  
+	  HashMap<String,Object> resultMap = new HashMap<>();
+    resultMap.put("status", "success");
+    
+    return resultMap;
+  }
 }

@@ -119,11 +119,25 @@
     <result column="reg_date" property="commentRegDate"/>
   </resultMap>
 
-  <select id="selectComments" parameterType="int" 
-      resultMap="boardCommentMap">
+  <select id="selectComments" parameterType="int" resultMap="boardCommentMap">
 	  select c.bcno bcno, b.bno bno, m.uname uname, c.content content, c.redate reg_date from iboard b, bcomment c, members m
 	  where c.bno=b.bno and c.mno=m.mno and c.bno=#{value}
 	  order by bcno desc
+  </select>
+  
+  <resultMap type="map" id="recboardMap">
+    <result column="bcategory" property="category"/>
+    <result column="bno" property="boardNo"/>
+    <result column="bname" property="boardTitle"/>
+    <result column="lcode" property="district"/>
+  </resultMap>
+  
+  <select id="selectRecommendedGroup" parameterType="map" resultMap="recboardMap">
+		SELECT * 
+ 			 FROM(SELECT T3.BCATEGORY, T1.BNO BNO, T1.BNAME, T1.LCODE, T2.RCOUNT
+      	  FROM IBOARD T1, (SELECT BNO, COUNT(BNO) RCOUNT FROM RECOMMEND GROUP BY BNO) T2, BMASTER T3 ,MEMBERS T4
+      	  WHERE T1.BNO = T2.BNO AND T3.BMNO = T1.BMNO AND T4.LCODE = T1.LCODE AND T4.MNO = #{mno})
+		WHERE ROWNUM BETWEEN #{startIndex} AND #{startIndex}+5
   </select>
   
   <resultMap type="BoardRequest" id="boardRequestMap">

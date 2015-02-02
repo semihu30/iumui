@@ -17,12 +17,23 @@
     <result column="reg_date" property="regDate"/>
   </resultMap>
   
-  <select id="selectList" parameterType="int" 
+  <select id="selectList" parameterType="map" 
       resultMap="groupBoardMap">
     select b.gbno gbno, b.grouping_no grouping_no, g.gno gno, g.gname gname, 
       gm.mno mno, m.uname uname, m.intro intro, b.gbcontent gbcontent, b.reg_date reg_date
-    from members m, ggroup g, gmembers gm, gboard b 
-    where g.gno=gm.gno and b.grouping_no=gm.grouping_no and m.mno=gm.mno and gm.gno=#{value}
+    from members m, ggroup g, gmembers gm, gboard b
+    where g.gno=gm.gno and b.grouping_no=gm.grouping_no and m.mno=gm.mno 
+      
+    <choose> 
+      <when test="groupNo > 0">
+           and gm.gno=#{groupNo}
+      </when>
+      <otherwise>
+           and gm.gno in (select gno from gmembers where mno=#{memberNo})
+      </otherwise>
+    </choose>
+    
+    order by b.gbno desc
   </select>
  
   <resultMap type="GroupBoardComment" id="boardCommentMap">
@@ -37,12 +48,21 @@
     <result column="reg_date" property="regDate"/>
   </resultMap>
 
-  <select id="selectComments" parameterType="int" 
+  <select id="selectComments" parameterType="map" 
       resultMap="boardCommentMap">
 		select c.gbcno gbcno, c.gbno gbno, c.grouping_no grouping_no, g.gno gno, g.gname gname, 
 		  gm.mno mno, m.uname uname, c.content content, c.reg_date reg_date
 		from members m, ggroup g, gmembers gm, gcomment c 
-		where g.gno=gm.gno and c.grouping_no=gm.grouping_no and m.mno=gm.mno and gm.gno=#{value}
+		where g.gno=gm.gno and c.grouping_no=gm.grouping_no and m.mno=gm.mno
+		
+		<choose> 
+      <when test="groupNo > 0">
+           and gm.gno=#{groupNo}
+      </when>
+      <otherwise>
+           and gm.gno in (select gno from gmembers where mno=#{memberNo})
+      </otherwise>
+    </choose>
   </select>
   
   <select id="selectGroupMemberNo" parameterType="map" resultType="int">
@@ -69,6 +89,31 @@
   
   <delete id="deleteComments" parameterType="int">
     delete from gcomment where gbno=#{no}
+  </delete>
+  
+  <delete id="deleteFiles" parameterType="int">
+    delete from gfile where gbno=#{no}
+  </delete>
+  
+  
+  <delete id="deleteGroupBoard" parameterType="int">
+    delete from gboard 
+    where grouping_no in 
+        (select grouping_no from gmembers where gno=#{no})
+  </delete>
+  
+  <delete id="deleteGroupComments" parameterType="int">
+    delete from gcomment 
+    where gbno in 
+        (select gbno from gboard where grouping_no in 
+            (select grouping_no from gmembers where gno=#{no}))
+  </delete>
+  
+  <delete id="deleteGroupFiles" parameterType="int">
+    delete from gfile 
+    where gbno in 
+        (select gbno from gboard where grouping_no in 
+            (select grouping_no from gmembers where gno=#{no}))
   </delete>
   
   <!-- 

@@ -6,7 +6,7 @@ import java.util.Date;
 public class Board implements Serializable{
   private static final long serialVersionUID = 1L;
   
-  protected int no;
+  protected int no; 
   protected int categoryNo;
   protected String category;
   protected int writerNo;

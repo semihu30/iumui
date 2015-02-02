@@ -13,113 +13,9 @@
 <script type="text/javascript" src='/iumui/fullcalendar/fullcalendar.js'></script>
 <script type="text/javascript" src='/iumui/fullcalendar/ko.js'></script>
 <script>
-var groupSchedules;
-
-	$(document).ready(function() {
-		
-	  var gno = getUrlParameter("gno");
-
-	  $.getJSON('../group/thisgroupschedule.do?gno=' + gno, function(data) {
-		  var schedules = data.schedules;
-		  var events = parseSchedules(schedules);
-		  var groupColor = schedules[0].formColor;
-
-		  /** 확인용 로그*/
-		  console.log("나의 스케쥴 로딩 : ");
-		  console.log(schedules[0].formColor);
-		  /** 확인용 로그*/
-
-		  $('#calendar').fullCalendar({
-		    langs : 'ko', //언어설정
-		    header : {
-		      right : 'prev,next today',
-		      center : 'title',
-		      left : 'month,basicWeek,basicDay'
-		    },//달력 헤더 옵션 설정
-
-		    dayClick : function(date, jsEvent, view) {
-			    $('#tdate').text(date.format());
-			    popup(date, jsEvent, view);
-		    },//날짜 클릭 콜백함수
-		    
-		    eventClick: function(calEvent, jsEvent, view) {
-
-	        alert('Event: ' + calEvent.title);
-	        alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
-	        
-	   		},
-	   		
-		    eventSources : [
-		        {
-					    events : schedules
-					  ,
-					  				 color : groupColor,
-					  				 textColor: 'yellow'
-		        }
-		  				 ]
-		  });
-	  });//getJSON
-  });//ready
-
-  function parseSchedules(schedules) {
-
-	  for ( var i in schedules) {
-		  schedules[i].start = yyyyMMdd(schedules[i].start);
-
-		  if (schedules[i].end) {
-			  schedules[i].end = yyyyMMdd(schedules[i].end);
-		  }
-	  }//스케쥴을 받아 fullcalendar가 읽을 수 있는 배열로 변경합니다.
-	  return schedules;
-  }
-
-  function popup(date, jsEvent, view) {
-
-	  if ($('#popup').css('display') == 'none') {
-
-		  $('#tschedule').focus();
-		  $('#popup').css('left', jsEvent.pageX - 125); // <<< use pageX and pageY
-		  $('#popup').css('top', jsEvent.pageY + 15);
-		  $('#popup').css('display', 'inline');
-		  $("#popup").css("position", "absolute"); // <<< also make it absolute!
-
-	  } else {
-
-		  closeBtn();
-
-	  }
-  };
-
-  function closeBtn() {
-	  $('#popup').css('display', 'none');
-	  $('#scheduleT').trigger("reset");
-  }
-
-  /** 날짜 데이터 전환 start */
-  function yyyyMMdd(date) {
-	  if (date) {
-		  var date = new Date(date);
-		  var str = date.getFullYear() + '-';
-
-		  if (date.getMonth() < 9)
-			  str += '0';
-		  str += (date.getMonth() + 1) + '-';
-
-		  if (date.getDate() < 10)
-			  str += '0';
-		  str += date.getDate();
-
-		  return str;
-
-	  } else {
-		  return '';
-	  }
-  }
-  /** 날짜 데이터 전환 end */
-  
 </script>
  <meta charset="utf-8">
- 	<title>'찬양대회 준비팀'_달력</title>
+ 	<title></title>
 </head>
 <body>
   
@@ -186,7 +82,7 @@ var groupSchedules;
 		<!-- footer end -->
 		
 	</div>
-	<!-- 팝업 테스트 start -->
+	<!-- 팝업 start -->
 	<div id="popup" style="display:none;">
 		<div class="popupcontent">
 		<div id="popuptitle">
@@ -197,7 +93,11 @@ var groupSchedules;
 					<thead>
 						<tr>
 							<th>일시 : 	</th>
-							<td id="tdate"></td>
+							<td>
+								<span id="tdate"></span>
+								<span id="tdateOption" class='expandable'>&nbsp; ~ &nbsp; <input id="tenddate" type="date"></span>
+								<input id='isexpanded' type="checkbox" onclick="showEndDay()"><label for="isexpanded">하루</label>
+							</td>
 						</tr>
 					</thead>
 					<tbody>
@@ -208,13 +108,44 @@ var groupSchedules;
 					</tbody>
 				</table>
 				<div id='btnDiv'>
-						<button id="updateBtn" type="button">등록</button>
+						<button id="newSchBtn" type="button">등록</button>
 						<button type="reset" onclick='closeBtn()'>취소</button>
 				</div>
 			</form>
 		</div>
 		<div class="tail"></div>
 	</div>
-	<!-- 팝업 테스트 start -->
+	<!-- 팝업 start -->
+	
+	<!-- 스케쥴 방울 start -->
+	<div id="groupBubble" style="display:none;">
+		<div class="popupcontent">
+		<div id="bubbletitle">
+			일정
+		</div>
+			<form autocomplete="off" id="scheduleT">
+				<table>
+					<thead>
+						<tr>
+							<th>일시 : 	</th>
+							<td id="schdate"></td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+						 <th>내용 : </th>
+						 <td><textarea id="eschedule" rows="4"></textarea></td>
+						</tr>
+					</tbody>
+				</table>
+				<div id='btnDiv'>
+						<button id="updateBtn" type="button">수정</button>
+						<button type="reset" onclick='closeBtn()'>취소</button>
+				</div>
+			</form>
+		</div>
+		<div class="tail"></div>
+	</div>
+	<!-- 스케쥴방울 start -->
 </body>
 </html>
