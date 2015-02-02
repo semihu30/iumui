@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel='stylesheet' href='../main/css/main.css'> 
+<meta charset="UTF-8">
+<title>IUMUI_아이디찾기</title>
+<link rel='stylesheet' href='../css/bootstrap.css'>
+<link rel='stylesheet' href='../css/bootstrap-theme.min.css'>
+<link rel='stylesheet' href='../common/css/common.css'>
+</head>
+<style>
+/*  body {
+font-size: 12px;
+line-height: 140%;
+letter-spacing: -1px;
+word-spacing: 0;
+font-family: 'NanumGothic';
+color: #333;
+}  */
+ 
+ table {
+display: table;
+border-collapse: separate;
+border-spacing: 2px;
+border-color: gray;
+} 
+ 
+/*헤드  */
+ .pop_head h1 {
+height: 19px;
+line-height: 100%;
+position: absolute;
+top: 25px;
+left: 30px;
+font-size: 22px;
+background: url(image/h1_title.gif) no-repeat 0 0;
+padding-left: 16px;
+}
+ 
+ h1, h2, h3, h4, h5, h6 {
+margin: 0;
+font-size: 1em;
+font-weight: normal;
+}
+ 
+ .pop_head {
+height: 67px;
+background: #fff;
+background-color: #F3F3F3;
+border-bottom: 3px solid #0e328a;
+position: relative;
+}
+ 
+  .pop_inbox {
+padding: 20px 30px;
+}
+ 
+ .color-16a3db {
+color: #16a3db !important;
+}
+ 
+ .mb-10 {
+margin-bottom: 10px !important;
+}
+ .h4-txt {
+font-size: 12px;
+color: #888;
+}
+ 
+ .btn-blue-small {
+width: 56px;
+background: url(image/btn_blue_small.png) no-repeat 0 0;
+padding: 10px 0;
+font-size: 14px;
+line-height: 14px;
+font-family: NanumGothicBold;
+color: #ffffff !important;
+display: inline-block;
+text-align: center;
+}
+ 
+ .btn-gray-small {
+width: 55px;
+background: url(image/btn_gray_small.png) no-repeat 0 0;
+padding: 10px 0;
+font-size: 14px;
+line-height: 14px;
+font-family: NanumGothicBold;
+color: #4b4d50 !important;
+display: inline-block;
+text-align: center;
+}
+ 
+ fieldset {
+margin: 0;
+padding: 0;
+border: 0 none;
+}
+ 
+ .table02 {
+width: 100%;
+border-top: 2px solid #8c959f;
+}
+ 
+ .table02 th {
+border-right: 1px solid #e6e6e6;
+border-bottom: 1px solid #e6e6e6;
+padding: 12px 0 11px 20px;
+background-color: #f3f5f7;
+color: #566176;
+vertical-align: middle;
+}
+ 
+ th, td {
+padding: 0;
+vertical-align: top;
+text-align: left;
+font-weight: normal;
+}
+ 
+ .table02 td {
+border-bottom: 1px solid #e6e6e6;
+padding: 5px 0 5px 10px;
+vertical-align: middle;
+}
+ 
+ input.text {
+height: 26px !important;
+line-height: 26px;
+border: 1px solid #cccccc;
+background: #fff;
+font-family: 'NanumGothic',dotum, " 뗭 ";
+border-radius: 3px;
+padding: 0 !important;
+}
+ 
+ .wd-125, wd-209{
+width: 125px;
+}
+ 
+ .ml-5 {
+margin-left: 15px !important;
+}
+ 
+ .table02 th.last, .table02 td.last {
+border-bottom: 1px solid #8c959f !important;
+}
+ 
+ td.last {
+border-bottom: 1px solid #8c959f !important;
+}
+ 
+ .wd-209 {
+width: 209px;
+}
+ 
+ .mt-10 {
+margin-top: 10px !important;
+}
+ 
+ .text-r {
+text-align: right !important;
+}
+ 
+ .mr-5 {
+margin-right: 5px !important;
+}
+ 
+ a{
+text-decoration: none;
+}
+ 
+ .wd-413 {
+width: 413px;
+margin: 0px auto;
+}
+ 
+</style>
+</head>
+<body>
+<div id='content_container'>
+
+<!-- header start -->
+<div class='header'></div>
+<!-- header end -->
+
+<form name="chkUserIdForm" id="chkUserIdForm" method="post" action="" onkeypress="if(event.keyCode==13){findId(); return false;}">
+  <div class="wd-413">
+    <div class="pop_head">
+      <h1>아이디 찾기</h1>
+    </div>
+    <div class="pop_content">
+      <div class="pop_inbox">
+        <p class="h4-txt mb-10"><span class="color-16a3db">회원 아이디</span>를 잊어버리셨나요?<br>회원등록시 입력한대로 아래 정보를 입력해 주세요.</p>
+          <fieldset>
+            <table class="table02">
+              <colgroup>
+                <col style="width:135px;*width:115px;">
+                <col width=";">
+              </colgroup>
+              <tbody>
+                <tr>
+                  <th><label for="name">이름</label></th>
+                  <td><input type="text" name="name" id="name" maxlength="15" class="text wd-209"></td>
+                </tr>
+                <tr>
+                  <th><label for="birthday">생년월일</label></th>
+                  <td>
+                    <input type="text" name="birthday" id="birthday" maxlength="10" class="text wd-125">
+                     <span class="ml-5 color-16a3db">예)1979-05-22</span>
+                  </td>
+                </tr>
+                <tr>
+                  <th class="last"><label for="email">전화번호</label></th>
+                  <td class="last">
+                  <input type="text" name="email" id="email" maxlength="11" class="text wd-209" style="width:126px; height:28px">
+                  <span class="ml-5 color-16a3db">예)01011112222</span>
+                  </td>
+                  
+                  
+                </tr>
+              </tbody>
+            </table>
+          </fieldset>
+        <div class="text-r mt-10">
+          <a href="#"  onclick="go();" class="btn-blue-small mr-5">찾기</a>
+          <a href="/iumui/index.html" class="btn-gray-small">취소</a>
+        </div>
+      </div>
+    </div>
+  </div>
+ <input type="hidden" name="__encrypted" value="pFHzn*9ahmTCYpIRwlMDE70iPXxk0SooQkkmk1QmiSrtg1JC1uRRAK9pK465SZZUPdKnPZmRgyI."></form>
+ 
+  </div>
+<script src='/iumui/js/jquery-1.11.1.js'></script>
+<script type="text/javascript" src='/iumui/js/handlebars-v2.0.0.js'></script>
+<script type="text/javascript" src='/iumui/js/require.js'></script>
+<script src='/iumui/common/js/signin.js'></script>
+<script src='/iumui/common/js/search_id.js'></script>
+</body>
+</html>

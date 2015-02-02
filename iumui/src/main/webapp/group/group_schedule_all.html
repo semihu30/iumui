@@ -1,0 +1,149 @@
+<!doctype html>
+<html>
+<head>
+<link rel='stylesheet' href='../common/css/common.css'>
+<link rel='stylesheet' href='css/group_schedule.css'>
+<link rel='stylesheet' href='/iumui/common/css/sidebar.css'>
+<link rel='stylesheet' href='../fullcalendar/fullcalendar.css' />
+<script type="text/javascript" src="../js/jquery-1.11.1.js"></script>
+<script src='/iumui/common/js/sidebar.js'></script>
+<script type="text/javascript" src='/iumui/js/handlebars-v2.0.0.js'></script>
+<script type="text/javascript" src='../js/lib/moment.min.js'></script>
+<script type="text/javascript" src='/iumui/fullcalendar/fullcalendar.js'></script>
+<script type="text/javascript" src="js/group_schedule_all.js"></script>
+<script type="text/javascript" src='/iumui/fullcalendar/ko.js'></script>
+<script>
+</script>
+ <meta charset="utf-8">
+ 	<title></title>
+</head>
+<body>
+  
+  <div id="content_container">
+
+		<!-- 헤더 start -->
+		<!-- <div class='header'></div> -->
+		<!-- 헤더 end -->
+		
+    <!-- 컨텐츠 시작 -->
+    <div id="content">
+    	<div id="main_contents">
+		    <!--  calendar start -->
+					<div id='grp_calendar' class='grp_calendar'>
+						<div id='calendar' style="position: relative;"></div>
+					</div>
+				<!--  calendar end -->
+				
+				<!-- 사이드바 start -->
+				<div class='side_bar'>
+					
+
+					<!-- 사이드바 1번 테이블 start -->
+					<table id='sidebar_table1' class='sidebar_table table table-bordered'>
+						<thead>
+							<tr id='sidebar_contents1' class='sidebar_contents'>
+								<th id='rcat1Text' class='tableHead'><a href="#"></a></th>
+							</tr>
+						</thead>
+						<tbody id="sidebar_table1_content"></tbody>
+					</table>
+					<!-- 사이드바 1번 테이블 end -->
+					
+					<!-- 사이드바 2번 테이블 start -->
+					<table id='sidebar_table2' class='sidebar_table table table-bordered'>
+						<thead>
+							<tr id='sidebar_contents2' class='sidebar_contents'>
+								<th id='rcat2Text' class='tableHead'><a href="#"></a></th>
+							</tr>
+						</thead>
+						<tbody id="sidebar_table2_content"></tbody>
+					</table>
+					<!-- 사이드바 2번 테이블 end -->
+					
+					<!-- 사이드바 3번 테이블 start -->
+					<!-- <div id='sidebar_table3' class='sidebar_table'>
+						<span id=calendar style="position: relative;"></span>
+						<script>
+							console.log("사이드바 등록 완료");
+						</script>
+					</div> -->
+					<!-- 사이드바 3번 테이블 end -->
+				</div>
+				<!-- 사이드바 end -->
+				
+			</div>
+    </div>
+    <!-- 컨텐츠 끝 -->
+    
+		<!-- footer start -->
+		<div class='footer'> </div>
+		<!-- footer end -->
+		
+	</div>
+	<!-- 팝업 start -->
+	<div id="popup" style="display:none;">
+		<div class="popupcontent">
+		<div id="popuptitle">
+			일정 등록
+		</div>
+			<form autocomplete="off" id="scheduleT">
+				<table>
+					<thead>
+						<tr>
+							<th>일시 : 	</th>
+							<td>
+								<span id="tdate"></span>
+								<span id="tdateOption" class='expandable'>&nbsp; ~ &nbsp; <input id="tenddate" type="date"></span>
+								<input id='isexpanded' type="checkbox" onclick="showEndDay()"><label for="isexpanded">하루</label>
+							</td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+						 <th>내용 : </th>
+						 <td><textarea id="tschedule" rows="4" placeholder="예) 오후3시 용산역 정문 독서모임"></textarea></td>
+						</tr>
+					</tbody>
+				</table>
+				<div id='btnDiv'>
+						<button id="newSchBtn" type="button">등록</button>
+						<button type="reset" onclick='closeBtn()'>취소</button>
+				</div>
+			</form>
+		</div>
+		<div class="tail"></div>
+	</div>
+	<!-- 팝업 start -->
+	
+	<!-- 스케쥴 방울 start -->
+	<div id="groupBubble" style="display:none;">
+		<div class="popupcontent">
+		<div id="bubbletitle">
+			일정
+		</div>
+			<form autocomplete="off" id="scheduleT">
+				<table>
+					<thead>
+						<tr>
+							<th>일시 : 	</th>
+							<td id="schdate"></td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+						 <th>내용 : </th>
+						 <td><textarea id="eschedule" rows="4"></textarea></td>
+						</tr>
+					</tbody>
+				</table>
+				<div id='btnDiv'>
+						<button id="updateBtn" type="button">수정</button>
+						<button type="reset" onclick='closeBtn()'>취소</button>
+				</div>
+			</form>
+		</div>
+		<div class="tail"></div>
+	</div>
+	<!-- 스케쥴방울 start -->
+</body>
+</html>
