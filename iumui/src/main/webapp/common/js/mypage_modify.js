@@ -144,15 +144,15 @@ $('input[name=gender]:radio').click(function(event){
          , function(result){
            if (result.status == "success") {
              alert("변경 성공! 메인페이지로 이동합니다.");
-             location.href="/iumui/index.html";
+             //location.href="/iumui/index.html";
              
            } else {
              alert("변경 실패!");
            }
          } 
          , 'json')
-      .fail(function(){ 
-        alert("전송 실패 다시 시도해 주십시오");
+      .fail(function(jqXHR, textStatus, errorThrown){ 
+        alert(textStatus + ":" + errorThrown);
       });
    }
    

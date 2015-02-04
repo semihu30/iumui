@@ -35,9 +35,15 @@ function loadBoard(boardNo) {
   		boardRequests = data.boardRequests;
   		console.log(data.board);
   		//console.log(data.loginUser);
-  		//console.log(data.boardComments);
+  		console.log(data.boardComments);
   		//console.log(data.boardRequests);
   		board.reqCount++;
+  		
+  		if (board.writerPhoto) {
+  			console.log("photo name : " + board.writerPhoto);
+	      $('#main_photo').attr('src', '/iumui/fileupload/' + board.writerPhoto);
+	    }
+  		
   		$('#title').html(board.title);
   		$('#regDate').html(yyyyMMdd(board.regDate));
   		$('#writer').html('작 성 자 : ' + board.writer);

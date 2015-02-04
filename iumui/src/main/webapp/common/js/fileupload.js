@@ -16,10 +16,10 @@ $(function(){
         // cache: false,
         processData: false,
         contentType: false,
-        success: function(data, textStatus, jqXHR) {
+        success: function(data) {
             alert(data);
         },
-        error: function(jqXHR, textStatus, errorThrown) {}
+        error: function() {}
     });
 });
   
@@ -43,10 +43,10 @@ $(function(){
                   // cache: false,
                   processData: false,
                   contentType: false,
-                  success: function(data, textStatus, jqXHR) {
+                  success: function(data) {
                       alert(data);
                   },
-                  error: function(jqXHR, textStatus, errorThrown) {}
+                  error: function() {}
               });
           });
       });*/

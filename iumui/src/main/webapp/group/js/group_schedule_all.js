@@ -8,17 +8,6 @@ var groupSchedules;
 var gno = getUrlParameter("gno");
 var startday;
 
-/** 화면출력 start */
-$(function(){
-	$('.header').load('/iumui/common/header.html');
-	$('.footer').load('/iumui/common/footer.html');
-	$('#sidebar_table1_content').load('sidebar/mygroup_menu.html');
-
-	loadMyGroups4ThisPage(1);
-	
-});
-/** 화면출력 end */
-
 $(document).ready(function() {
 	
 	loadThisGroupSchedules();

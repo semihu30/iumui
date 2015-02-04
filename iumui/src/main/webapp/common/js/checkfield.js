@@ -160,8 +160,8 @@ $('#grp_state').change(function(){
          , 'json' // 서버가 보낸 데이터를 JSON 형식으로 처리
          )
        //서버 요청이 실패했을 때 호출될 함수 등록   
-      .fail(function(jqXHR, textStatus, errorThrown){ 
-        alert(textStatus + ":" + errorThrown);
+      .fail(function(){ 
+        alert("다시 시도해주십시오");
       });
      
    }); 

@@ -8,6 +8,19 @@
 	<td id='m4' class='side_menu' ><a href="#"></a></td>
 </tr>
 <script>
+function getUrlParameter(sParam){
+  var sPageURL = window.location.search.substring(1);
+  var sURLVariables = sPageURL.split('&');
+  for (var i = 0; i < sURLVariables.length; i++) 
+  {
+      var sParameterName = sURLVariables[i].split('=');
+      if (sParameterName[0] == sParam) 
+      {
+          return sParameterName[1];
+      }
+  }
+}
+
 var gno = getUrlParameter("gno");
 
 $('#m1 a ').attr('href', 'group_board.html?gno=' + gno);
@@ -20,8 +33,16 @@ if (gno == 0) {
   $('#m3 a ').attr('href', 'group_schedule_all.html?gno=' + gno);
   $('#a_mn').remove();
   
-  $('title').html("IUMUI - 모든 그룹 보기");
-   
+  $('title').html("IUMUI - 모두 보기");
+ } else if(getUrlParameter(gno) == null) {
+	 console.log("파라미터 없음");
+  $('#sidebar_contents1 a').html("메뉴");
+  $('#m1 a ').html("&rtrif; 뉴스피드");
+  $('#m3 a ').html("&rtrif; 모든일정");
+  $('#m3 a ').attr('href', 'group_schedule_all.html?gno=' + gno);
+  $('#a_mn').remove();
+	  
+	  $('title').html("IUMUI - 모든 그룹 보기");
  } else {
   $('#sidebar_contents1 a').html("메뉴");
   $('#m1 a ').html("&rtrif; 뉴스피드");

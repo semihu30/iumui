@@ -10,14 +10,21 @@ public class BoardComment implements Serializable{
   protected int boardNo;
   protected int memberNo;
   protected String userName;
+  protected String userPhoto;
   protected String comment;
   protected Date commentRegDate;
   
   @Override
   public String toString() {
     return "BoardComment [no=" + no + ", boardNo=" + boardNo + ", memberNo="
-        + memberNo + ", userName=" + userName + ", comment=" + comment
-        + ", commentRegDate=" + commentRegDate + "]";
+        + memberNo + ", userName=" + userName + ", userPhoto=" + userPhoto
+        + ", comment=" + comment + ", commentRegDate=" + commentRegDate + "]";
+  }
+  public String getUserPhoto() {
+    return userPhoto;
+  }
+  public void setUserPhoto(String userPhoto) {
+    this.userPhoto = userPhoto;
   }
   public int getMemberNo() {
     return memberNo;

@@ -9,7 +9,7 @@ $(function(){
 	$('.sidebar').load('/iumui/common/sidebar.html');
 	
 	loadMyGroups(1);
-	
+	loadSideMenu();
 	loadMySchedule();
 	
 });
@@ -35,7 +35,7 @@ function loadMySchedule() {
 		console.log(mySchedules);
 
 		/**사이드 2번 테이블 제목 삽입 start*/
-		$('#sidebar_contents2 a').attr('href','#').html("가까운 일정");
+		$('#sidebar_contents2 a').attr('href','/iumui/group/group_schedule_all.html?gno=').html("나의 일정");
 		/**사이드 2번 테이블 제목 삽입 end*/
 
 		if((data.status) == "success") {
@@ -134,3 +134,25 @@ function yyyyMMdd(date) {
   }
 }
 /** 날짜 데이터 전환 end */
+
+function parseGno(){
+	gno = getUrlParameter("gno");
+	if (!gno) {
+		gno = 0;
+		console.log("===================" + gno)
+		console.log("[" + gno + "]");
+		$('#board_upload').css('display', 'none');
+	} else {
+		$('#board_upload').css('display', '');
+	}
+}
+
+function loadSideMenu() {
+	
+	/**메뉴 소스 불러오기*/
+	require(['text!sidebar/mygroup_menu.html'], function(html){
+		var template = Handlebars.compile(html);
+		$('#sidebar_table1_content').html( template() );
+		
+	});	
+};

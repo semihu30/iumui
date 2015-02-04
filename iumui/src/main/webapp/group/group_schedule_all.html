@@ -22,7 +22,7 @@
   <div id="content_container">
 
 		<!-- 헤더 start -->
-		<!-- <div class='header'></div> -->
+		<div class='header'></div>
 		<!-- 헤더 end -->
 		
     <!-- 컨텐츠 시작 -->
@@ -146,4 +146,11 @@
 	</div>
 	<!-- 스케쥴방울 start -->
 </body>
+<script type="text/javascript">
+$('.header').load('/iumui/common/header.html');
+$('.footer').load('/iumui/common/footer.html');
+$('#sidebar_table1_content').load('sidebar/mygroup_menu.html');
+
+loadMyGroups4ThisPage(1);
+</script>
 </html>

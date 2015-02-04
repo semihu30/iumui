@@ -1,7 +1,6 @@
 package java63.iumui.control.json;
 
 import java.util.HashMap;
-
 import java63.iumui.domain.Board;
 import java63.iumui.domain.BoardComment;
 import java63.iumui.domain.Member;
@@ -15,7 +14,6 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -157,7 +155,6 @@ public class BoardControl {
 
   @RequestMapping("/view")
   public Object view(int no, 
-      Model model, 
       HttpSession session) throws Exception {
     Board board = boardService.get(no);
     

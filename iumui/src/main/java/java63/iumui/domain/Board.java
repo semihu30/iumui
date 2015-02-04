@@ -11,6 +11,7 @@ public class Board implements Serializable{
   protected String category;
   protected int writerNo;
   protected String writer;
+  protected String writerPhoto;
   protected String title;
   protected String content;
   protected String targetNumber;
@@ -26,11 +27,19 @@ public class Board implements Serializable{
   public String toString() {
     return "Board [no=" + no + ", categoryNo=" + categoryNo + ", category="
         + category + ", writerNo=" + writerNo + ", writer=" + writer
-        + ", title=" + title + ", content=" + content + ", targetNumber="
-        + targetNumber + ", startDate=" + startDate + ", endDate=" + endDate
-        + ", regDate=" + regDate + ", clickCount=" + clickCount
-        + ", goodCount=" + goodCount + ", reqCount=" + reqCount
-        + ", selectLocal=" + selectLocal + "]";
+        + ", writerPhoto=" + writerPhoto + ", title=" + title + ", content="
+        + content + ", targetNumber=" + targetNumber + ", startDate="
+        + startDate + ", endDate=" + endDate + ", regDate=" + regDate
+        + ", clickCount=" + clickCount + ", goodCount=" + goodCount
+        + ", reqCount=" + reqCount + ", selectLocal=" + selectLocal + "]";
+  }
+
+  public String getWriterPhoto() {
+    return writerPhoto;
+  }
+
+  public void setWriterPhoto(String writerPhoto) {
+    this.writerPhoto = writerPhoto;
   }
 
   public Date getRegDate() {
